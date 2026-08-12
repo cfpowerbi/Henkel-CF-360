@@ -71,13 +71,14 @@ table 'Henkel Matric KPI Parameter'
 	partition 'Henkel Matric KPI Parameter' = calculated
 		mode: import
 		source =
-				{("IMS Val", NAMEOF('IMS Processed'[Gross IMS P Dynamic]), 1, "Val", "IMS","📊 IMS Overview","VALUE & VOLUME"),
-				    ("IMS Investment", NAMEOF('IMS Processed'[Investment P Dynamic]), 2, "Inves.", "IMS","📊 IMS Overview","P&L MEETRICS"),
-				    ("IMS NES", NAMEOF('IMS Processed'[chg NES P dynamic]), 3, "NES", "IMS","📊 IMS Overview","P&L MEETRICS"),
-				    ("IMS GP1", NAMEOF('IMS Processed'[GP1 P Dynamic]), 4, "GP1", "IMS","📊 IMS Overview","P&L MEETRICS"),
+				{(
+				    "Val IMS (M)", NAMEOF('IMS Processed'[Gross IMS P Dynamic]), 1, "Val", "IMS","📊 IMS Overview","VALUE & VOLUME"),
+				    ("L6 IMS (M)", NAMEOF('IMS Processed'[Investment P Dynamic]), 2, "Inves.", "IMS","📊 IMS Overview","P&L MEETRICS"),
+				    ("NES IMS (M)", NAMEOF('IMS Processed'[chg NES P dynamic]), 3, "NES", "IMS","📊 IMS Overview","P&L MEETRICS"),
+				    ("GP1 IMS (M)", NAMEOF('IMS Processed'[GP1 P Dynamic]), 4, "GP1", "IMS","📊 IMS Overview","P&L MEETRICS"),
 				    ("IMS Val Growth%", NAMEOF('IMS Processed'[Gross IMS P Growth dynamic]), 5, "Val Growth %", "IMS","📊 IMS Overview","VALUE & VOLUME"),
 				
-				    ("EPOS Val", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Dynamic]), 6, "Val", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("Val EPOS (M)", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Dynamic]), 6, "Val", "EPOS","🛒 EPOS Overview","OTHERS"),
 				    ("EPOS Val Share", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Share Dynamic]), 7, "Val Share", "EPOS","🛒 EPOS Overview","OTHERS"),
 				    ("EPOS Val Share Chg", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Change Dynamic]), 8, "Val Share Chg", "EPOS","🛒 EPOS Overview","OTHERS"),
 				    ("EPOS Val Growth%", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Growth Dynamic]), 9, "Val Growth%", "EPOS","🛒 EPOS Overview","OTHERS"),

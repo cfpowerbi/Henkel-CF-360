@@ -17,78 +17,55 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "HierarchyLevel": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "dates"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "monthdate"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
                     }
                   },
-                  "Property": "BU"
+                  "Level": "Year"
                 }
               },
-              "queryRef": "EPOS Processed data.BU",
-              "nativeQueryRef": "BU",
+              "queryRef": "dates.monthdate.Variation.Date Hierarchy.Year",
+              "nativeQueryRef": "monthdate Year",
               "active": true
-            }
-          ]
-        },
-        "Values": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Value YTD"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Value YTD",
-              "nativeQueryRef": "EPOS P Value YTD"
             },
             {
               "field": {
-                "Measure": {
+                "HierarchyLevel": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "dates"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "monthdate"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
                     }
                   },
-                  "Property": "EPOS P Value YTD LY"
+                  "Level": "Month"
                 }
               },
-              "queryRef": "EPOS Processed data.EPOS P Value YTD LY",
-              "nativeQueryRef": "EPOS P Value YTD LY"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Volume YTD"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Volume YTD",
-              "nativeQueryRef": "EPOS P Volume YTD"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Volume YTD LY"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Volume YTD LY",
-              "nativeQueryRef": "EPOS P Volume YTD LY"
+              "queryRef": "dates.monthdate.Variation.Date Hierarchy.Month",
+              "nativeQueryRef": "First Date Hierarchy Month",
+              "active": true
             }
           ]
         }
@@ -102,8 +79,15 @@
         "levels": [
           {
             "queryRefs": [
-              "EPOS Processed data.BU"
+              "dates.monthdate.Variation.Date Hierarchy.Year"
             ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "dates.monthdate.Variation.Date Hierarchy.Month"
+            ],
+            "isCollapsed": true,
             "isPinned": true
           }
         ],
