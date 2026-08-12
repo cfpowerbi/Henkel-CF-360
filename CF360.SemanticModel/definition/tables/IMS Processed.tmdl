@@ -1425,6 +1425,43 @@ table 'IMS Processed'
 		displayFolder: ROI P Henkel
 		lineageTag: fca91635-9a48-56c5-82c0-70708386b008
 
+	/// Placeholder — IMS is invoice/shipment data and carries no volume column, so the
+	/// Performance Matrix "Vol IMS" column renders blank by design.
+	measure 'IMS P Matrix Vol NA' = BLANK()
+		formatString: #,0.0
+		displayFolder: Matrix Placeholders (No Data)
+		lineageTag: 3c1f7a80-11d4-4e51-9a01-0b7e5a2d6101
+
+	/// Placeholder — no IMS volume data, so "Vol Share IMS" renders blank by design.
+	measure 'IMS P Matrix Vol Share NA' = BLANK()
+		formatString: 0.0%
+		displayFolder: Matrix Placeholders (No Data)
+		lineageTag: 3c1f7a80-11d4-4e51-9a01-0b7e5a2d6102
+
+	/// Placeholder — no IMS volume data, so "Vol Share Δ IMS" renders blank by design.
+	measure 'IMS P Matrix Vol Share Chg NA' = BLANK()
+		formatString: 0.0
+		displayFolder: Matrix Placeholders (No Data)
+		lineageTag: 3c1f7a80-11d4-4e51-9a01-0b7e5a2d6103
+
+	/// Placeholder — no IMS volume data, so "Vol Chg% IMS" renders blank by design.
+	measure 'IMS P Matrix Vol Chg Pct NA' = BLANK()
+		formatString: 0.0%
+		displayFolder: Matrix Placeholders (No Data)
+		lineageTag: 3c1f7a80-11d4-4e51-9a01-0b7e5a2d6104
+
+	/// Placeholder — IMS carries no unit price column, so "Price IMS" renders blank by design.
+	measure 'IMS P Matrix Price NA' = BLANK()
+		formatString: #,0.00
+		displayFolder: Matrix Placeholders (No Data)
+		lineageTag: 3c1f7a80-11d4-4e51-9a01-0b7e5a2d6105
+
+	/// Placeholder — no IMS price data, so "Price Chg IMS" renders blank by design.
+	measure 'IMS P Matrix Price Chg NA' = BLANK()
+		formatString: 0.0%
+		displayFolder: Matrix Placeholders (No Data)
+		lineageTag: 3c1f7a80-11d4-4e51-9a01-0b7e5a2d6106
+
 	column BU
 		dataType: string
 		lineageTag: 1b1e2ce8-08a2-4e23-99ab-4c5d996cda11

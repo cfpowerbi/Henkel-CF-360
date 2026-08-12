@@ -2,6 +2,7 @@ table 'Donut Parameter (Nielsen)'
 	lineageTag: b9628c47-f792-45af-a440-6b2b2777dcf4
 
 	measure 'Heading Share' =
+			
 			VAR SelCount =
 			    COUNTROWS (
 			        SUMMARIZE (
@@ -10,9 +11,22 @@ table 'Donut Parameter (Nielsen)'
 			            'Main Parameter'[Parameter Fields]
 			        )
 			    )
-			VAR SelName = IF ( SelCount = 1, MAX ( 'Main Parameter'[Parameter] ) )
+			VAR SelName =
+			    IF (
+			        SelCount = 1,
+			        MAX ( 'Main Parameter'[Parameter] )
+			    )
 			RETURN
-			    SelName & " Share"
+			    SWITCH (
+			        TRUE (),
+			        SelName = "Category",
+			            "Market Share by " & SelName,
+			        SelName = "Sub Category",
+			            SelName & " Share",
+			        SelName IN { "Manufacturer", "Brand", "Country", "Price Tier","Customer Group"},
+			            "All BUs · " & SelName,
+			        "Market Share by " & SelName
+			    )
 		lineageTag: a8a2d742-0edd-43af-8ded-0397a166958c
 
 	measure 'Heading Share 3' =

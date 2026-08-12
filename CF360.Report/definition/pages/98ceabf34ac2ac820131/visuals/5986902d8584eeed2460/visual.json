@@ -1,9 +1,9 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "5986902d8584eeed2460",
   "position": {
     "x": 31,
-    "y": 292,
+    "y": 294,
     "z": 13000,
     "height": 474,
     "width": 1390,
@@ -63,8 +63,8 @@
                 }
               },
               "queryRef": "IMS Processed.Gross IMS P Dynamic",
-              "nativeQueryRef": "IMS Val",
-              "displayName": "IMS Val"
+              "nativeQueryRef": "Gross IMS P Dynamic",
+              "displayName": "Val IMS (M)"
             },
             {
               "field": {
@@ -78,8 +78,8 @@
                 }
               },
               "queryRef": "IMS Processed.Investment P Dynamic",
-              "nativeQueryRef": "IMS Investment",
-              "displayName": "IMS Investment"
+              "nativeQueryRef": "L6 IMS (M)",
+              "displayName": "L6 IMS (M)"
             },
             {
               "field": {
@@ -93,8 +93,8 @@
                 }
               },
               "queryRef": "IMS Processed.chg NES P dynamic",
-              "nativeQueryRef": "IMS NES",
-              "displayName": "IMS NES"
+              "nativeQueryRef": "NES IMS (M)",
+              "displayName": "NES IMS (M)"
             },
             {
               "field": {
@@ -108,8 +108,8 @@
                 }
               },
               "queryRef": "IMS Processed.GP1 P Dynamic",
-              "nativeQueryRef": "IMS GP1",
-              "displayName": "IMS GP1"
+              "nativeQueryRef": "GP1 IMS (M)",
+              "displayName": "GP1 IMS (M)"
             },
             {
               "field": {
@@ -138,8 +138,8 @@
                 }
               },
               "queryRef": "EPOS Processed data.EPOS P Henkel Value Dynamic",
-              "nativeQueryRef": "EPOS Val1",
-              "displayName": "EPOS Val"
+              "nativeQueryRef": "EPOS P Henkel Value Dynamic",
+              "displayName": "Val EPOS (M)"
             },
             {
               "field": {
@@ -168,7 +168,7 @@
                 }
               },
               "queryRef": "EPOS Processed data.EPOS P Henkel Value Change Dynamic",
-              "nativeQueryRef": "EPOS Val Share Chg1",
+              "nativeQueryRef": "EPOS Val Share Chg",
               "displayName": "EPOS Val Share Chg"
             },
             {
@@ -183,7 +183,7 @@
                 }
               },
               "queryRef": "EPOS Processed data.EPOS P Henkel Value Growth Dynamic",
-              "nativeQueryRef": "EPOS Val Growth%1",
+              "nativeQueryRef": "EPOS Val Growth%",
               "displayName": "EPOS Val Growth%"
             },
             {
@@ -198,7 +198,7 @@
                 }
               },
               "queryRef": "EPOS Processed data.EPOS P Henkel Volume Dynamic",
-              "nativeQueryRef": "EPOS Vol1",
+              "nativeQueryRef": "EPOS Vol",
               "displayName": "EPOS Vol"
             },
             {
@@ -243,7 +243,7 @@
                 }
               },
               "queryRef": "EPOS Processed data.EPOS P Henkel Volume Growth Dynamic",
-              "nativeQueryRef": "EPOS Vol Growth%1",
+              "nativeQueryRef": "EPOS Vol Growth%",
               "displayName": "EPOS Vol Growth%"
             },
             {
@@ -288,7 +288,7 @@
                 }
               },
               "queryRef": "Nielsen Processed.Nielsen P Henkel Value Dynamic",
-              "nativeQueryRef": "Nielsen Val1",
+              "nativeQueryRef": "Nielsen Val",
               "displayName": "Nielsen Val"
             },
             {
@@ -425,6 +425,156 @@
               "queryRef": "Nielsen Processed.Nielsen P Henkel Price Change Dynamic",
               "nativeQueryRef": "Nielsen Price Chg",
               "displayName": "Nielsen Price Chg"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Henkel Value Share Dynamic"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Henkel Value Share Dynamic",
+              "nativeQueryRef": "EPOS Val Share",
+              "displayName": "EPOS Val Share"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "IMS Processed"
+                    }
+                  },
+                  "Property": "Gross IMS P Growth Dynamic"
+                }
+              },
+              "queryRef": "IMS Processed.Gross IMS P Growth Dynamic",
+              "nativeQueryRef": "IMS Val Growth%",
+              "displayName": "IMS Val Growth%"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Nielsen Processed"
+                    }
+                  },
+                  "Property": "Nielsen P Henkel Value Growth Dynamic"
+                }
+              },
+              "queryRef": "Nielsen Processed.Nielsen P Henkel Value Growth Dynamic",
+              "nativeQueryRef": "Nielsen Val Growth%",
+              "displayName": "Nielsen Val Growth%"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Henkel Value Growth Dynamic"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Henkel Value Growth Dynamic",
+              "nativeQueryRef": "EPOS Val Growth%",
+              "displayName": "EPOS Val Growth%"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "IMS Processed"
+                    }
+                  },
+                  "Property": "IMS P Matrix Vol Share NA"
+                }
+              },
+              "queryRef": "IMS Processed.IMS P Matrix Vol Share NA",
+              "nativeQueryRef": "IMS P Matrix Vol Share NA",
+              "displayName": "Vol Share IMS (%)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Nielsen Processed"
+                    }
+                  },
+                  "Property": "Nielsen P Henkel Volume Share Dynamic"
+                }
+              },
+              "queryRef": "Nielsen Processed.Nielsen P Henkel Volume Share Dynamic",
+              "nativeQueryRef": "Nielsen Vol Share",
+              "displayName": "Nielsen Vol Share"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Henkel Volume Share Dynamic"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Henkel Volume Share Dynamic",
+              "nativeQueryRef": "EPOS Vol Share ",
+              "displayName": "EPOS Vol Share "
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "IMS Processed"
+                    }
+                  },
+                  "Property": "IMS P Matrix Vol Chg Pct NA"
+                }
+              },
+              "queryRef": "IMS Processed.IMS P Matrix Vol Chg Pct NA",
+              "nativeQueryRef": "IMS P Matrix Vol Chg Pct NA",
+              "displayName": "Vol Chg% IMS (vs LY)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Nielsen Processed"
+                    }
+                  },
+                  "Property": "Nielsen P Henkel Volume Growth Dynamic"
+                }
+              },
+              "queryRef": "Nielsen Processed.Nielsen P Henkel Volume Growth Dynamic",
+              "nativeQueryRef": "Nielsen Vol Growth%",
+              "displayName": "Nielsen Vol Growth%"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Henkel Volume Growth Dynamic"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Henkel Volume Growth Dynamic",
+              "nativeQueryRef": "EPOS Vol Growth%",
+              "displayName": "EPOS Vol Growth%"
             }
           ],
           "fieldParameters": [
@@ -2125,14 +2275,7 @@
             "labelDisplayUnits": {
               "expr": {
                 "Literal": {
-                  "Value": "1000000D"
-                }
-              }
-            },
-            "labelPrecision": {
-              "expr": {
-                "Literal": {
-                  "Value": "1L"
+                  "Value": "1000D"
                 }
               }
             },
@@ -2152,70 +2295,7 @@
             }
           },
           "selector": {
-            "metadata": "IMS Processed.Investment P Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1000000D"
-                }
-              }
-            },
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "IMS Processed.chg NES P dynamic"
-          }
-        },
-        {
-          "properties": {
-            "labelPrecision": {
-              "expr": {
-                "Literal": {
-                  "Value": "1L"
-                }
-              }
-            },
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1000000D"
-                }
-              }
-            },
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "IMS Processed.GP1 P Dynamic"
+            "metadata": "Nielsen Processed.Nielsen P Henkel Value Dynamic"
           }
         },
         {
@@ -2255,6 +2335,48 @@
         },
         {
           "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.IMS P Matrix Vol NA"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Volume Dynamic"
+          }
+        },
+        {
+          "properties": {
             "labelDisplayUnits": {
               "expr": {
                 "Literal": {
@@ -2283,13 +2405,6 @@
         },
         {
           "properties": {
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1000D"
-                }
-              }
-            },
             "alignment": {
               "expr": {
                 "Literal": {
@@ -2306,322 +2421,7 @@
             }
           },
           "selector": {
-            "metadata": "Nielsen Processed.Nielsen P Henkel Value Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "IMS Processed.Gross IMS P Growth Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "EPOS Processed data.EPOS P Henkel Value Share Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "EPOS Processed data.EPOS P Henkel Value Change Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "EPOS Processed data.EPOS P Henkel Value Growth Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "EPOS Processed data.EPOS P Henkel Volume Share Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "EPOS Processed data.EPOS P Henkel Volume Change Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "EPOS Processed data.EPOS P Henkel Volume Growth Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "EPOS Processed data.EPOS P Henkel Price Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "EPOS Processed data.EPOS P Henkel Price Change Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Nielsen Processed.Nielsen P Henkel Value Share Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Nielsen Processed.Nielsen P Henkel Value Change Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Nielsen Processed.Nielsen P Henkel Value Growth Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Nielsen Processed.Nielsen P Henkel Volume Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Nielsen Processed.Nielsen P Henkel Volume Share Dynamic"
-          }
-        },
-        {
-          "properties": {
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Center'"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Nielsen Processed.Nielsen P Henkel Volume Growth Dynamic"
+            "metadata": "IMS Processed.IMS P Matrix Price NA"
           }
         },
         {
@@ -2663,7 +2463,238 @@
             }
           },
           "selector": {
-            "metadata": "Nielsen Processed.Nielsen P Henkel Price Change Dynamic"
+            "metadata": "EPOS Processed data.EPOS P Henkel Price Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1000000D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.Investment P Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1000000D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.Net IMS P Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1000000D"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.GP1 P Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.GP1 Pct P Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.L6 Pct P Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.Gross IMS P Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Value Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Value Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.IMS P Matrix Vol Share Chg NA"
           }
         },
         {
@@ -2685,6 +2716,342 @@
           },
           "selector": {
             "metadata": "Nielsen Processed.Nielsen P Henkel Volume Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Volume Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.IMS P Matrix Price Chg NA"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Price Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Price Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.Gross IMS P Share Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Value Share Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Value Share Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.Gross IMS P Growth Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Value Growth Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Value Growth Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.IMS P Matrix Vol Share NA"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Volume Share Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Volume Share Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.IMS P Matrix Vol Chg Pct NA"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Volume Growth Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Volume Growth Dynamic"
           }
         }
       ]
