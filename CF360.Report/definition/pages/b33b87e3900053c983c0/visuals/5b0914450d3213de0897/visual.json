@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "5b0914450d3213de0897",
   "position": {
-    "x": 470,
-    "y": 143.18367346938774,
-    "z": 5000,
-    "height": 401,
-    "width": 448,
+    "x": 475,
+    "y": 67.235294117647058,
+    "z": 7000,
+    "height": 480,
+    "width": 450,
     "tabOrder": 6000
   },
   "visual": {
@@ -39,15 +39,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "All channel"
+                      "Entity": "Hierarchy Index"
                     }
                   },
-                  "Property": "Channel"
+                  "Property": "BU"
                 }
               },
-              "queryRef": "All channel.Channel",
-              "nativeQueryRef": "Channel",
-              "displayName": "Channel"
+              "queryRef": "Hierarchy Index.BU",
+              "nativeQueryRef": "BU"
             }
           ],
           "fieldParameters": [
@@ -86,24 +85,6 @@
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Source"
-                  }
-                },
-                "Property": "VOL Selected SOURCE"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "objects": {
@@ -281,8 +262,13 @@
           "properties": {
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'VOL SHARE'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Main Parameter"
+                    }
+                  },
+                  "Property": "Deneb3 Heading 2"
                 }
               }
             },
@@ -308,14 +294,21 @@
             "fontFamily": {
               "expr": {
                 "Literal": {
-                  "Value": "'Arial'"
+                  "Value": "'''Segoe UI Bold'', wf_segoe-ui_bold, helvetica, arial, sans-serif'"
                 }
               }
             },
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
                 }
               }
             }
