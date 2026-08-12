@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "aa71e967a0085d084ed7",
   "position": {
-    "x": 6.2222222222222214,
-    "y": 143.89560762576636,
-    "z": 6000,
-    "height": 401.66666666666669,
-    "width": 448.33333333333337,
+    "x": 15,
+    "y": 67.235294117647058,
+    "z": 8000,
+    "height": 480,
+    "width": 450,
     "tabOrder": 10000
   },
   "visual": {
@@ -39,15 +39,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "All channel"
+                      "Entity": "Hierarchy Index"
                     }
                   },
-                  "Property": "Channel"
+                  "Property": "BU"
                 }
               },
-              "queryRef": "All channel.Channel",
-              "nativeQueryRef": "Channel",
-              "displayName": "Channel"
+              "queryRef": "Hierarchy Index.BU",
+              "nativeQueryRef": "BU"
             }
           ],
           "fieldParameters": [
@@ -358,15 +357,20 @@
           "properties": {
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'VALUE SHARE'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Main Parameter"
+                    }
+                  },
+                  "Property": "Deneb3 Heading"
                 }
               }
             },
             "fontFamily": {
               "expr": {
                 "Literal": {
-                  "Value": "'Arial'"
+                  "Value": "'''Segoe UI Bold'', wf_segoe-ui_bold, helvetica, arial, sans-serif'"
                 }
               }
             },
@@ -392,7 +396,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
                 }
               }
             }
