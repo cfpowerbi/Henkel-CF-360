@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "0a957fabbe03a132941b",
   "position": {
-    "x": 689,
-    "y": 172,
+    "x": 686.36363636363626,
+    "y": 115.45454545454544,
     "z": 3000,
-    "height": 312,
-    "width": 673,
+    "height": 399.99999999999994,
+    "width": 672.72727272727263,
     "tabOrder": 0
   },
   "visual": {
@@ -157,7 +157,7 @@
             "jsonSpec": {
               "expr": {
                 "Literal": {
-                  "Value": "'{\r\n  \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\",\r\n  \"usermeta\": {\r\n    \"deneb\": {\r\n      \"build\": \"1.6.2.0\",\r\n      \"metaVersion\": 1,\r\n      \"provider\": \"vegaLite\",\r\n      \"providerVersion\": \"5.16.3\"\r\n    },\r\n    \"interactivity\": {\r\n      \"tooltip\": true,\r\n      \"contextMenu\": true,\r\n      \"selection\": false,\r\n      \"highlight\": false,\r\n      \"dataPointLimit\": 50\r\n    },\r\n    \"information\": {\r\n      \"name\": \"Channel Analysis Henkel - Value & Volume v14\",\r\n      \"description\": \"Global heatmap: color scale low->high based on Channel Metric, normalised across the ENTIRE table (both RowLabel and Channel). Grey = lowest 10%, Navy = highest 10%.\",\r\n      \"author\": \"CF360\"\r\n    },\r\n    \"dataset\": [\r\n      {\r\n        \"key\": \"__0__\",\r\n        \"name\": \"Parameter Order\",\r\n        \"description\": \"Heatmap Parameter[Parameter Order] — 0=Brand Strategy, 1=PromoType\",\r\n        \"type\": \"numeric\",\r\n        \"kind\": \"column\"\r\n      },\r\n      {\r\n        \"key\": \"__1__\",\r\n        \"name\": \"Brand Strategy\",\r\n        \"description\": \"IMS Processed[Brand Strategy]\",\r\n        \"type\": \"text\",\r\n        \"kind\": \"column\"\r\n      },\r\n      {\r\n        \"key\": \"__2__\",\r\n        \"name\": \"PromoType\",\r\n        \"description\": \"IMS Processed[PromoType]\",\r\n        \"type\": \"text\",\r\n        \"kind\": \"column\"\r\n      },\r\n      {\r\n        \"key\": \"__3__\",\r\n        \"name\": \"Channel\",\r\n        \"description\": \"All Channel[Channel]\",\r\n        \"type\": \"text\",\r\n        \"kind\": \"column\"\r\n      },\r\n      {\r\n        \"key\": \"__4__\",\r\n        \"name\": \"Channel Metric\",\r\n        \"description\": \"Value or Volume — switches on Metric Slicer + Source\",\r\n        \"type\": \"numeric\",\r\n        \"kind\": \"measure\"\r\n      },\r\n      {\r\n        \"key\": \"__5__\",\r\n        \"name\": \"Channel Metric Share\",\r\n        \"description\": \"Value Share or Volume Share decimal\",\r\n        \"type\": \"numeric\",\r\n        \"kind\": \"measure\"\r\n      },\r\n      {\r\n        \"key\": \"__6__\",\r\n        \"name\": \"Channel Metric Growth\",\r\n        \"description\": \"Growth YoY decimal\",\r\n        \"type\": \"numeric\",\r\n        \"kind\": \"measure\"\r\n      },\r\n      {\r\n        \"key\": \"__7__\",\r\n        \"name\": \"Channel Metric Change\",\r\n        \"description\": \"Share Change pp decimal\",\r\n        \"type\": \"numeric\",\r\n        \"kind\": \"measure\"\r\n      }\r\n    ]\r\n  },\r\n  \"config\": {\r\n    \"background\": \"transparent\",\r\n    \"view\": {\r\n      \"stroke\": \"transparent\"\r\n    },\r\n    \"font\": \"Segoe UI, wf_standard-font, helvetica, arial, sans-serif\",\r\n    \"header\": {\r\n      \"titleFontSize\": 0,\r\n      \"labelFontSize\": 12,\r\n      \"labelFontWeight\": \"normal\",\r\n      \"labelColor\": \"#444444\",\r\n      \"labelLimit\": 200,\r\n      \"labelPadding\": 4\r\n    },\r\n    \"facet\": {\r\n      \"spacing\": {\r\n        \"row\": 3,\r\n        \"column\": 3\r\n      }\r\n    }\r\n  },\r\n  \"data\": {\r\n    \"name\": \"dataset\"\r\n  },\r\n  \"transform\": [\r\n    {\r\n      \"calculate\": \"datum[''Parameter Order''] === 0 ? datum[''Brand Strategy''] : datum[''PromoType'']\",\r\n      \"as\": \"RowLabel\"\r\n    },\r\n    {\r\n      \"filter\": \"(datum[''Parameter Order''] === 0 && datum[''Brand Strategy''] != null) || (datum[''Parameter Order''] === 1 && datum[''PromoType''] != null)\"\r\n    },\r\n    {\r\n  \"aggregate\": [\r\n    { \"op\": \"sum\",  \"field\": \"Channel Metric\",        \"as\": \"Channel Metric\" },\r\n    { \"op\": \"mean\", \"field\": \"Channel Metric Share\",  \"as\": \"Channel Metric Share\" },\r\n    { \"op\": \"mean\", \"field\": \"Channel Metric Growth\", \"as\": \"Channel Metric Growth\" },\r\n    { \"op\": \"mean\", \"field\": \"Channel Metric Change\", \"as\": \"Channel Metric Change\" },\r\n    { \"op\": \"min\",  \"field\": \"Parameter Order\",       \"as\": \"Parameter Order\" }\r\n  ],\r\n  \"groupby\": [\"RowLabel\", \"Channel\"]\r\n},\r\n{\r\n  \"filter\": \"datum[''Parameter Order''] !== null\"\r\n},\r\n    {\r\n      \"joinaggregate\": [\r\n        { \"op\": \"min\", \"field\": \"Channel Metric\", \"as\": \"row_min\" },\r\n        { \"op\": \"max\", \"field\": \"Channel Metric\", \"as\": \"row_max\" }\r\n      ]\r\n    },\r\n    {\r\n      \"calculate\": \"(datum[''row_max''] - datum[''row_min'']) > 0 ? (datum[''Channel Metric''] - datum[''row_min'']) / (datum[''row_max''] - datum[''row_min'']) : 0\",\r\n      \"as\": \"norm\"\r\n    },\r\n    {\r\n      \"calculate\": \"datum[''Channel Metric''] == null || datum[''Channel Metric''] == 0 ? -1 : datum[''norm''] < 0.1 ? 0 : datum[''norm''] < 0.25 ? 1 : datum[''norm''] < 0.5 ? 2 : datum[''norm''] < 0.75 ? 3 : 4\",\r\n      \"as\": \"colorBand\"\r\n    },\r\n    {\r\n      \"calculate\": \"datum[''Channel Metric''] != null ? (abs(datum[''Channel Metric'']) >= 1000000 ? format(datum[''Channel Metric'']/1000000, '',.2f'') + ''M'' : abs(datum[''Channel Metric'']) >= 1000 ? format(datum[''Channel Metric'']/1000, '',.2f'') + ''K'' : format(datum[''Channel Metric''], '',.2f'')) : ''''\",\r\n      \"as\": \"lbl_value\"\r\n    },\r\n    {\r\n      \"calculate\": \"datum[''Channel Metric Share''] != null ? format(datum[''Channel Metric Share''] * 100, ''.0f'') + ''%'' : ''''\",\r\n      \"as\": \"lbl_share\"\r\n    },\r\n    {\r\n      \"calculate\": \"datum[''Channel Metric Growth''] != null ? (datum[''Channel Metric Growth''] >= 0 ? ''+'' : '''') + format(datum[''Channel Metric Growth''] * 100, ''.0f'') + ''%'' : ''''\",\r\n      \"as\": \"lbl_growth\"\r\n    },\r\n    {\r\n      \"calculate\": \"datum[''Channel Metric Change''] != null ? (datum[''Channel Metric Change''] >= 0 ? ''+'' : '''') + format(datum[''Channel Metric Change''] * 100, ''.1f'') + ''pp'' : ''''\",\r\n      \"as\": \"lbl_change\"\r\n    }\r\n  ],\r\n  \"facet\": {\r\n    \"row\": {\r\n      \"field\": \"RowLabel\",\r\n      \"type\": \"nominal\",\r\n      \"header\": {\r\n        \"title\": null,\r\n        \"labelFontSize\": 12,\r\n        \"labelFontWeight\": \"600\",\r\n        \"labelAlign\": \"left\",\r\n        \"labelBaseline\": \"middle\",\r\n        \"labelAngle\": 0,\r\n        \"labelPadding\": 8,\r\n        \"labelColor\": \"#252423\",\r\n        \"labelLimit\": 150\r\n      }\r\n    },\r\n    \"column\": {\r\n      \"field\": \"Channel\",\r\n      \"type\": \"nominal\",\r\n      \"header\": {\r\n        \"title\": null,\r\n        \"labelFontSize\": 11,\r\n        \"labelFontWeight\": \"600\",\r\n        \"labelAlign\": \"center\",\r\n        \"labelAngle\": 0,\r\n        \"labelPadding\": 4,\r\n        \"labelColor\": \"#252423\",\r\n        \"labelLimit\": 140\r\n      }\r\n    }\r\n  },\r\n  \"spec\": {\r\n    \"width\": 180,\r\n    \"height\": 60,\r\n    \"layer\": [\r\n      {\r\n        \"description\": \"Background tile — GLOBAL normalised color band -1..4 (Grey = lowest 10% / no data, Navy = highest 10%)\",\r\n        \"mark\": {\r\n          \"type\": \"rect\",\r\n          \"cornerRadius\": 5\r\n        },\r\n        \"encoding\": {\r\n          \"color\": {\r\n            \"field\": \"colorBand\",\r\n            \"type\": \"ordinal\",\r\n            \"scale\": {\r\n              \"domain\": [-1, 0, 1, 2, 3, 4],\r\n              \"range\": [\r\n                \"#AEB4B8\",\r\n                \"#AEB4B8\",\r\n                \"#48CAE4\",\r\n                \"#1FA3B5\",\r\n                \"#0077B6\",\r\n                \"#0B2E6B\"\r\n              ]\r\n            },\r\n            \"legend\": null\r\n          },\r\n          \"tooltip\": [\r\n            { \"field\": \"RowLabel\",   \"title\": \"Dimension\" },\r\n            { \"field\": \"Channel\",    \"title\": \"Channel\" },\r\n            { \"field\": \"lbl_value\",  \"title\": \"Metric\" },\r\n            { \"field\": \"lbl_share\",  \"title\": \"Share\" },\r\n            { \"field\": \"lbl_growth\", \"title\": \"Growth YoY\" },\r\n            { \"field\": \"lbl_change\", \"title\": \"Share Chg (pp)\" }\r\n          ]\r\n        }\r\n      },\r\n      {\r\n        \"description\": \"Top-left: Share Change pp\",\r\n        \"mark\": {\r\n          \"type\": \"text\",\r\n          \"align\": \"left\",\r\n          \"baseline\": \"top\",\r\n          \"dx\": 9,\r\n          \"dy\": 7,\r\n          \"fontSize\": 12,\r\n          \"fontWeight\": \"bold\",\r\n          \"font\": \"Segoe UI\"\r\n        },\r\n        \"encoding\": {\r\n          \"text\": { \"field\": \"lbl_change\", \"type\": \"nominal\" },\n          \"color\": { \"condition\": { \"test\": \"datum.colorBand <= 1\", \"value\": \"#0B2E6B\" }, \"value\": \"white\" }\r\n        }\r\n      },\r\n      {\r\n        \"description\": \"Top-right: Growth YoY%\",\r\n        \"mark\": {\r\n          \"type\": \"text\",\r\n          \"align\": \"right\",\r\n          \"baseline\": \"top\",\r\n          \"dx\": -9,\r\n          \"dy\": 9,\r\n          \"fontSize\": 12,\r\n          \"fontWeight\": \"bold\",\r\n          \"font\": \"Segoe UI\"\r\n        },\r\n        \"encoding\": {\r\n          \"text\": { \"field\": \"lbl_growth\", \"type\": \"nominal\" },\n          \"color\": { \"condition\": { \"test\": \"datum.colorBand <= 1\", \"value\": \"#0B2E6B\" }, \"value\": \"white\" }\r\n        }\r\n      },\r\n      {\r\n        \"description\": \"Bottom-left: Share %\",\r\n        \"mark\": {\r\n          \"type\": \"text\",\r\n          \"align\": \"left\",\r\n          \"baseline\": \"bottom\",\r\n          \"dx\": 9,\r\n          \"dy\": -8,\r\n          \"fontSize\": 12,\r\n          \"fontWeight\": \"bold\",\r\n          \"font\": \"Segoe UI\"\r\n        },\r\n        \"encoding\": {\r\n          \"text\": { \"field\": \"lbl_share\", \"type\": \"nominal\" },\n          \"color\": { \"condition\": { \"test\": \"datum.colorBand <= 1\", \"value\": \"#0B2E6B\" }, \"value\": \"white\" }\r\n        }\r\n      },\r\n      {\r\n        \"description\": \"Bottom-right: Metric value\",\r\n        \"mark\": {\r\n          \"type\": \"text\",\r\n          \"align\": \"right\",\r\n          \"baseline\": \"bottom\",\r\n          \"dx\": -9,\r\n          \"dy\": -8,\r\n          \"fontSize\": 12,\r\n          \"fontWeight\": \"bold\",\r\n          \"font\": \"Segoe UI\"\r\n        },\r\n        \"encoding\": {\r\n          \"text\": { \"field\": \"lbl_value\", \"type\": \"nominal\" },\n          \"color\": { \"condition\": { \"test\": \"datum.colorBand <= 1\", \"value\": \"#0B2E6B\" }, \"value\": \"white\" }\r\n        }\r\n      }\r\n    ]\r\n  }\r\n}'"
+                  "Value": "'{\r\n  \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\",\r\n  \"usermeta\": {\r\n    \"deneb\": {\r\n      \"build\": \"1.6.2.0\",\r\n      \"metaVersion\": 1,\r\n      \"provider\": \"vegaLite\",\r\n      \"providerVersion\": \"5.16.3\"\r\n    },\r\n    \"interactivity\": {\r\n      \"tooltip\": true,\r\n      \"contextMenu\": true,\r\n      \"selection\": false,\r\n      \"highlight\": false,\r\n      \"dataPointLimit\": 50\r\n    },\r\n    \"information\": {\r\n      \"name\": \"Channel Analysis Henkel - Value & Volume v15\",\r\n      \"description\": \"Global heatmap: color scale low->high based on Channel Metric, normalised across the ENTIRE table (both RowLabel and Channel). Grey = lowest 10%, Navy = highest 10%. Missing RowLabel x Channel combinations are imputed so every grid cell exists; cells where all 4 metrics are blank render as a pale blue ''NA'' tile. Thin vertical separators split each row''s pair of values; bottom row font is 1px smaller than the top row.\",\r\n      \"author\": \"CF360\"\r\n    },\r\n    \"dataset\": [\r\n      {\r\n        \"key\": \"__0__\",\r\n        \"name\": \"Parameter Order\",\r\n        \"description\": \"Heatmap Parameter[Parameter Order] — 0=Brand Strategy, 1=PromoType\",\r\n        \"type\": \"numeric\",\r\n        \"kind\": \"column\"\r\n      },\r\n      {\r\n        \"key\": \"__1__\",\r\n        \"name\": \"Brand Strategy\",\r\n        \"description\": \"IMS Processed[Brand Strategy]\",\r\n        \"type\": \"text\",\r\n        \"kind\": \"column\"\r\n      },\r\n      {\r\n        \"key\": \"__2__\",\r\n        \"name\": \"PromoType\",\r\n        \"description\": \"IMS Processed[PromoType]\",\r\n        \"type\": \"text\",\r\n        \"kind\": \"column\"\r\n      },\r\n      {\r\n        \"key\": \"__3__\",\r\n        \"name\": \"Channel\",\r\n        \"description\": \"All Channel[Channel]\",\r\n        \"type\": \"text\",\r\n        \"kind\": \"column\"\r\n      },\r\n      {\r\n        \"key\": \"__4__\",\r\n        \"name\": \"Channel Metric\",\r\n        \"description\": \"Value or Volume — switches on Metric Slicer + Source\",\r\n        \"type\": \"numeric\",\r\n        \"kind\": \"measure\"\r\n      },\r\n      {\r\n        \"key\": \"__5__\",\r\n        \"name\": \"Channel Metric Share\",\r\n        \"description\": \"Value Share or Volume Share decimal\",\r\n        \"type\": \"numeric\",\r\n        \"kind\": \"measure\"\r\n      },\r\n      {\r\n        \"key\": \"__6__\",\r\n        \"name\": \"Channel Metric Growth\",\r\n        \"description\": \"Growth YoY decimal\",\r\n        \"type\": \"numeric\",\r\n        \"kind\": \"measure\"\r\n      },\r\n      {\r\n        \"key\": \"__7__\",\r\n        \"name\": \"Channel Metric Change\",\r\n        \"description\": \"Share Change pp decimal\",\r\n        \"type\": \"numeric\",\r\n        \"kind\": \"measure\"\r\n      }\r\n    ]\r\n  },\r\n  \"config\": {\r\n    \"background\": \"transparent\",\r\n    \"view\": {\r\n      \"stroke\": \"transparent\"\r\n    },\r\n    \"font\": \"Segoe UI, wf_standard-font, helvetica, arial, sans-serif\",\r\n    \"header\": {\r\n      \"titleFontSize\": 0,\r\n      \"labelFontSize\": 12,\r\n      \"labelFontWeight\": \"normal\",\r\n      \"labelColor\": \"#444444\",\r\n      \"labelLimit\": 200,\r\n      \"labelPadding\": 4\r\n    },\r\n    \"facet\": {\r\n      \"spacing\": {\r\n        \"row\": 1,\r\n        \"column\": 1\r\n      }\r\n    }\r\n  },\r\n  \"data\": {\r\n    \"name\": \"dataset\"\r\n  },\r\n  \"transform\": [\r\n    {\r\n      \"calculate\": \"datum[''Parameter Order''] === 0 ? datum[''Brand Strategy''] : datum[''PromoType'']\",\r\n      \"as\": \"RowLabel\"\r\n    },\r\n    {\r\n      \"filter\": \"(datum[''Parameter Order''] === 0 && datum[''Brand Strategy''] != null) || (datum[''Parameter Order''] === 1 && datum[''PromoType''] != null)\"\r\n    },\r\n    {\r\n      \"aggregate\": [\r\n        {\r\n          \"op\": \"sum\",\r\n          \"field\": \"Channel Metric\",\r\n          \"as\": \"Channel Metric\"\r\n        },\r\n        {\r\n          \"op\": \"mean\",\r\n          \"field\": \"Channel Metric Share\",\r\n          \"as\": \"Channel Metric Share\"\r\n        },\r\n        {\r\n          \"op\": \"mean\",\r\n          \"field\": \"Channel Metric Growth\",\r\n          \"as\": \"Channel Metric Growth\"\r\n        },\r\n        {\r\n          \"op\": \"mean\",\r\n          \"field\": \"Channel Metric Change\",\r\n          \"as\": \"Channel Metric Change\"\r\n        },\r\n        {\r\n          \"op\": \"min\",\r\n          \"field\": \"Parameter Order\",\r\n          \"as\": \"Parameter Order\"\r\n        }\r\n      ],\r\n      \"groupby\": [\r\n        \"RowLabel\",\r\n        \"Channel\"\r\n      ]\r\n    },\r\n    {\r\n      \"filter\": \"datum[''Parameter Order''] !== null\"\r\n    },\r\n    {\r\n      \"impute\": \"Channel Metric\",\r\n      \"key\": \"Channel\",\r\n      \"groupby\": [\r\n        \"RowLabel\"\r\n      ],\r\n      \"method\": \"value\",\r\n      \"value\": null\r\n    },\r\n    {\r\n      \"joinaggregate\": [\r\n        {\r\n          \"op\": \"min\",\r\n          \"field\": \"Channel Metric\",\r\n          \"as\": \"row_min\"\r\n        },\r\n        {\r\n          \"op\": \"max\",\r\n          \"field\": \"Channel Metric\",\r\n          \"as\": \"row_max\"\r\n        }\r\n      ]\r\n    },\r\n    {\r\n      \"calculate\": \"(datum[''row_max''] - datum[''row_min'']) > 0 ? (datum[''Channel Metric''] - datum[''row_min'']) / (datum[''row_max''] - datum[''row_min'']) : 0\",\r\n      \"as\": \"norm\"\r\n    },\r\n    {\r\n      \"calculate\": \"datum[''Channel Metric''] == null || datum[''Channel Metric''] == 0 ? -1 : datum[''norm''] < 0.1 ? 0 : datum[''norm''] < 0.25 ? 1 : datum[''norm''] < 0.5 ? 2 : datum[''norm''] < 0.75 ? 3 : 4\",\r\n      \"as\": \"colorBand\"\r\n    },\r\n    {\r\n      \"calculate\": \"datum[''Channel Metric''] != null ? (abs(datum[''Channel Metric'']) >= 1000000 ? format(datum[''Channel Metric'']/1000000, '',.2f'') + ''M'' : abs(datum[''Channel Metric'']) >= 1000 ? format(datum[''Channel Metric'']/1000, '',.2f'') + ''K'' : format(datum[''Channel Metric''], '',.2f'')) : ''''\",\r\n      \"as\": \"lbl_value\"\r\n    },\r\n    {\r\n      \"calculate\": \"datum[''Channel Metric Share''] != null ? format(datum[''Channel Metric Share''] * 100, ''.0f'') + ''%'' : ''''\",\r\n      \"as\": \"lbl_share\"\r\n    },\r\n    {\r\n      \"calculate\": \"datum[''Channel Metric Growth''] != null ? (datum[''Channel Metric Growth''] >= 0 ? ''+'' : '''') + format(datum[''Channel Metric Growth''] * 100, ''.0f'') + ''%'' : ''''\",\r\n      \"as\": \"lbl_growth\"\r\n    },\r\n    {\r\n      \"calculate\": \"datum[''Channel Metric Change''] != null ? (datum[''Channel Metric Change''] >= 0 ? ''+'' : '''') + format(datum[''Channel Metric Change''] * 100, ''.1f'') + ''pp'' : ''''\",\r\n      \"as\": \"lbl_change\"\r\n    },\r\n    {\r\n      \"calculate\": \"(datum[''lbl_value''] === '''' && datum[''lbl_share''] === '''' && datum[''lbl_growth''] === '''' && datum[''lbl_change''] === '''') ? 1 : 0\",\r\n      \"as\": \"isAllBlank\"\r\n    },\r\n    {\r\n      \"calculate\": \"datum[''isAllBlank''] === 1 ? -2 : datum[''colorBand'']\",\r\n      \"as\": \"colorBand\"\r\n    }\r\n  ],\r\n  \"facet\": {\r\n    \"row\": {\r\n      \"field\": \"RowLabel\",\r\n      \"type\": \"nominal\",\r\n      \"header\": {\r\n        \"title\": null,\r\n        \"labelFontSize\": 12,\r\n        \"labelFontWeight\": \"600\",\r\n        \"labelAlign\": \"left\",\r\n        \"labelBaseline\": \"middle\",\r\n        \"labelAngle\": 0,\r\n        \"labelPadding\": 8,\r\n        \"labelColor\": \"#252423\",\r\n        \"labelLimit\": 150\r\n      }\r\n    },\r\n    \"column\": {\r\n      \"field\": \"Channel\",\r\n      \"type\": \"nominal\",\r\n      \"header\": {\r\n        \"title\": null,\r\n        \"labelFontSize\": 11,\r\n        \"labelFontWeight\": \"600\",\r\n        \"labelAlign\": \"center\",\r\n        \"labelAngle\": 0,\r\n        \"labelPadding\": 4,\r\n        \"labelColor\": \"#252423\",\r\n        \"labelLimit\": 140\r\n      }\r\n    }\r\n  },\r\n  \"spec\": {\r\n    \"width\": 180,\r\n    \"height\": 60,\r\n    \"layer\": [\r\n      {\r\n        \"description\": \"Background tile — GLOBAL normalised color band -2..4 (Pale blue = all 4 metrics blank/no data, Grey = lowest 10%, Navy = highest 10%)\",\r\n        \"mark\": {\r\n          \"type\": \"rect\",\r\n          \"cornerRadius\": 5\r\n        },\r\n        \"encoding\": {\r\n          \"color\": {\r\n            \"field\": \"colorBand\",\r\n            \"type\": \"ordinal\",\r\n            \"scale\": {\r\n              \"domain\": [\r\n                -2,\r\n                -1,\r\n                0,\r\n                1,\r\n                2,\r\n                3,\r\n                4\r\n              ],\r\n              \"range\": [\r\n                \"#C9D6E3\",\r\n                \"#AEB4B8\",\r\n                \"#AEB4B8\",\r\n                \"#48CAE4\",\r\n                \"#1FA3B5\",\r\n                \"#0077B6\",\r\n                \"#0B2E6B\"\r\n              ]\r\n            },\r\n            \"legend\": null\r\n          },\r\n          \"tooltip\": [\r\n            {\r\n              \"field\": \"RowLabel\",\r\n              \"title\": \"Dimension\"\r\n            },\r\n            {\r\n              \"field\": \"Channel\",\r\n              \"title\": \"Channel\"\r\n            },\r\n            {\r\n              \"field\": \"lbl_value\",\r\n              \"title\": \"Metric\"\r\n            },\r\n            {\r\n              \"field\": \"lbl_share\",\r\n              \"title\": \"Share\"\r\n            },\r\n            {\r\n              \"field\": \"lbl_growth\",\r\n              \"title\": \"Growth YoY\"\r\n            },\r\n            {\r\n              \"field\": \"lbl_change\",\r\n              \"title\": \"Share Chg (pp)\"\r\n            }\r\n          ]\r\n        }\r\n      },\r\n      {\r\n        \"description\": \"Top-left: Share Change pp\",\r\n        \"mark\": {\r\n          \"type\": \"text\",\r\n          \"align\": \"left\",\r\n          \"baseline\": \"top\",\r\n          \"dx\": 8,\r\n          \"dy\": 6,\r\n          \"fontSize\": 13,\r\n          \"fontWeight\": \"bold\",\r\n          \"font\": \"Segoe UI\"\r\n        },\r\n        \"encoding\": {\r\n          \"text\": {\r\n            \"field\": \"lbl_change\",\r\n            \"type\": \"nominal\"\r\n          },\r\n          \"color\": {\r\n            \"condition\": {\r\n              \"test\": \"datum.colorBand <= 1\",\r\n              \"value\": \"#0B2E6B\"\r\n            },\r\n            \"value\": \"white\"\r\n          }\r\n        }\r\n      },\r\n      {\r\n        \"description\": \"Top-right: Growth YoY%\",\r\n        \"mark\": {\r\n          \"type\": \"text\",\r\n          \"align\": \"right\",\r\n          \"baseline\": \"top\",\r\n          \"dx\": -8,\r\n          \"dy\": 6,\r\n          \"fontSize\": 13,\r\n          \"fontWeight\": \"bold\",\r\n          \"font\": \"Segoe UI\"\r\n        },\r\n        \"encoding\": {\r\n          \"text\": {\r\n            \"field\": \"lbl_growth\",\r\n            \"type\": \"nominal\"\r\n          },\r\n          \"color\": {\r\n            \"condition\": {\r\n              \"test\": \"datum.colorBand <= 1\",\r\n              \"value\": \"#0B2E6B\"\r\n            },\r\n            \"value\": \"white\"\r\n          }\r\n        }\r\n      },\r\n      {\r\n        \"description\": \"Bottom-left: Share %\",\r\n        \"mark\": {\r\n          \"type\": \"text\",\r\n          \"align\": \"left\",\r\n          \"baseline\": \"bottom\",\r\n          \"dx\": 8,\r\n          \"dy\": -7,\r\n          \"fontSize\": 14,\r\n          \"fontWeight\": \"bold\",\r\n          \"font\": \"Segoe UI\"\r\n        },\r\n        \"encoding\": {\r\n          \"text\": {\r\n            \"field\": \"lbl_share\",\r\n            \"type\": \"nominal\"\r\n          },\r\n          \"color\": {\r\n            \"condition\": {\r\n              \"test\": \"datum.colorBand <= 1\",\r\n              \"value\": \"#0B2E6B\"\r\n            },\r\n            \"value\": \"white\"\r\n          }\r\n        }\r\n      },\r\n      {\r\n        \"description\": \"Bottom-right: Metric value\",\r\n        \"mark\": {\r\n          \"type\": \"text\",\r\n          \"align\": \"right\",\r\n          \"baseline\": \"bottom\",\r\n          \"dx\": -8,\r\n          \"dy\": -7,\r\n          \"fontSize\": 14,\r\n          \"fontWeight\": \"bold\",\r\n          \"font\": \"Segoe UI\"\r\n        },\r\n        \"encoding\": {\r\n          \"text\": {\r\n            \"field\": \"lbl_value\",\r\n            \"type\": \"nominal\"\r\n          },\r\n          \"color\": {\r\n            \"condition\": {\r\n              \"test\": \"datum.colorBand <= 1\",\r\n              \"value\": \"#0B2E6B\"\r\n            },\r\n            \"value\": \"white\"\r\n          }\r\n        }\r\n      },\r\n      {\r\n        \"description\": \"Separator — thin vertical rule between the two top-row values (Share Change pp | Growth YoY%)\",\r\n        \"mark\": {\r\n          \"type\": \"rule\",\r\n          \"strokeWidth\": 1\r\n        },\r\n        \"encoding\": {\r\n          \"x\": {\r\n            \"value\": 90\r\n          },\r\n          \"y\": {\r\n            \"value\": 8\r\n          },\r\n          \"y2\": {\r\n            \"value\": 26\r\n          },\r\n          \"color\": {\r\n            \"condition\": {\r\n              \"test\": \"datum.colorBand <= 1\",\r\n              \"value\": \"#0B2E6B\"\r\n            },\r\n            \"value\": \"white\"\r\n          },\r\n          \"opacity\": {\r\n            \"condition\": {\r\n              \"test\": \"datum.isAllBlank === 1\",\r\n              \"value\": 0\r\n            },\r\n            \"value\": 0.35\r\n          }\r\n        }\r\n      },\r\n      {\r\n        \"description\": \"Separator — thin vertical rule between the two bottom-row values (Share % | Metric value)\",\r\n        \"mark\": {\r\n          \"type\": \"rule\",\r\n          \"strokeWidth\": 1\r\n        },\r\n        \"encoding\": {\r\n          \"x\": {\r\n            \"value\": 90\r\n          },\r\n          \"y\": {\r\n            \"value\": 34\r\n          },\r\n          \"y2\": {\r\n            \"value\": 52\r\n          },\r\n          \"color\": {\r\n            \"condition\": {\r\n              \"test\": \"datum.colorBand <= 1\",\r\n              \"value\": \"#0B2E6B\"\r\n            },\r\n            \"value\": \"white\"\r\n          },\r\n          \"opacity\": {\r\n            \"condition\": {\r\n              \"test\": \"datum.isAllBlank === 1\",\r\n              \"value\": 0\r\n            },\r\n            \"value\": 0.35\r\n          }\r\n        }\r\n      },\r\n      {\r\n        \"description\": \"Center label — shown ONLY when all 4 metrics are blank: displays ''NA'' on the pale-blue tile\",\r\n        \"mark\": {\r\n          \"type\": \"text\",\r\n          \"align\": \"center\",\r\n          \"baseline\": \"middle\",\r\n          \"fontSize\": 14,\r\n          \"fontWeight\": \"bold\",\r\n          \"font\": \"Segoe UI\"\r\n        },\r\n        \"encoding\": {\r\n          \"text\": {\r\n            \"condition\": {\r\n              \"test\": \"datum.isAllBlank === 1\",\r\n              \"value\": \"NA\"\r\n            },\r\n            \"value\": \"\"\r\n          },\r\n          \"color\": {\r\n            \"value\": \"#0B2E6B\"\r\n          }\r\n        }\r\n      }\r\n    ]\r\n  }\r\n}'"
                 }
               }
             },
@@ -177,14 +177,14 @@
             "viewportHeight": {
               "expr": {
                 "Literal": {
-                  "Value": "302D"
+                  "Value": "358.3999996185302D"
                 }
               }
             },
             "viewportWidth": {
               "expr": {
                 "Literal": {
-                  "Value": "663D"
+                  "Value": "662.7272727272726D"
                 }
               }
             }
@@ -231,125 +231,86 @@
             }
           }
         }
+      ],
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Heatmap Parameter"
+                    }
+                  },
+                  "Property": "Deneb2 Heading"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 1,
+                      "Percent": 0.2
+                    }
+                  }
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI Bold'', wf_segoe-ui_bold, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "spacing": [
+        {
+          "properties": {
+            "spaceAbovePlotArea": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "de22f9d16059c43c5337",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "16eb6f8a13050713bb79",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Heatmap Parameter"
-              }
-            },
-            "Property": "Heatmap Parameter Order"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "4c65a202e62aee3bb0de",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "IMS Processed"
-              }
-            },
-            "Property": "Brand Strategy"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "131747e4080a6217bea0",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "IMS Processed"
-              }
-            },
-            "Property": "PromoType"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "cc94fdfb2be405604d42",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "All channel"
-              }
-            },
-            "Property": "Channel"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "ba8fd6d6c7c0ad937d3e",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "MetricTable"
-              }
-            },
-            "Property": "Channel Metric"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "7202f456adb7aae23501",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "MetricTable"
-              }
-            },
-            "Property": "Channel Metric Share"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "c91a63c8cd2a2ce8b201",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "MetricTable"
-              }
-            },
-            "Property": "Channel Metric Growth"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "2fdac1c1c0a248123081",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "MetricTable"
-              }
-            },
-            "Property": "Channel Metric Change"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
-  }
+  "parentGroupName": "de22f9d16059c43c5337"
 }
