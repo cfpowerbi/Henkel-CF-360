@@ -1,0 +1,26 @@
+table 'Metric Slicer'
+	lineageTag: 234f3618-8504-477d-af01-8136b16743ba
+
+	column Metric
+		lineageTag: 090203a7-6687-480a-8958-9bdcb5c7afa0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Metric]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MetricOrder
+		formatString: 0
+		lineageTag: 6dd90785-ffe5-4835-b116-08bd636c88d9
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [MetricOrder]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Metric Slicer' = calculated
+		mode: import
+		source = DATATABLE("Metric", STRING, "MetricOrder", INTEGER, {{"Value", 0}, {"Volume", 1},{"Price", 2}})
+
+	annotation PBI_Id = d9f02591d5a94efa8c71c9c02b8d579d
+

@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "79a4a8702b86bb220856",
+  "position": {
+    "x": 41.666666666666671,
+    "y": 337.5,
+    "z": 11000,
+    "height": 292.5,
+    "width": 596.66666666666674,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "BU"
+                }
+              },
+              "queryRef": "EPOS Processed data.BU",
+              "nativeQueryRef": "BU",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Value YTD"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Value YTD",
+              "nativeQueryRef": "EPOS P Value YTD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Value YTD LY"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Value YTD LY",
+              "nativeQueryRef": "EPOS P Value YTD LY"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Volume YTD"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Volume YTD",
+              "nativeQueryRef": "EPOS P Volume YTD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Volume YTD LY"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Volume YTD LY",
+              "nativeQueryRef": "EPOS P Volume YTD LY"
+            }
+          ]
+        }
+      }
+    },
+    "expansionStates": [
+      {
+        "roles": [
+          "Rows"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "EPOS Processed data.BU"
+            ],
+            "isPinned": true
+          }
+        ],
+        "root": {}
+      }
+    ],
+    "drillFilterOtherVisuals": true
+  }
+}

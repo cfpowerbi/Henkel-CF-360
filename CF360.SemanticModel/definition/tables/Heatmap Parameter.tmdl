@@ -1,0 +1,57 @@
+table 'Heatmap Parameter'
+	lineageTag: b7a55764-cf8e-4c52-9a1e-533011619fa7
+
+	measure 'Deneb2 Heading' =
+			
+			"Channel wise & "
+			    & MAX('Heatmap Parameter'[Heatmap Parameter])
+			    & " . "
+			    & SELECTEDVALUE('Metric Slicer'[Metric])
+			    & " . "
+			    & SELECTEDVALUE('Source'[Source])
+		lineageTag: b58e3604-0096-4d0d-bf24-8cdf4bff505e
+
+	column 'Heatmap Parameter'
+		lineageTag: 559bc98f-3e30-4894-a929-982a16c13947
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Heatmap Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Heatmap Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Heatmap Parameter Fields'
+		isHidden
+		lineageTag: 2d4db200-eecb-48dd-a62a-a7edd7161143
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Heatmap Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Heatmap Parameter Order'
+		formatString: 0
+		lineageTag: 07565903-31af-4fd4-b624-aa3e12869c03
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Heatmap Parameter' = calculated
+		mode: import
+		source =
+				{
+				    ("Brand Strategy", NAMEOF('IMS Processed'[Brand Strategy]), 0),
+				    ("PromoType", NAMEOF('Nielsen Processed'[PromoType]), 1)
+				}
+
+	annotation PBI_Id = 7e14204c0db94302b8d5dab17edf5c74
+

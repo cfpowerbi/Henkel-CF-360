@@ -1,0 +1,84 @@
+relationship 24fc8121-5e6b-7fd9-e754-9dc6ce9ba580
+	fromColumn: 'EPOS Processed data'.Source
+	toColumn: Source.Source
+
+relationship eaead8d1-e8af-279e-170a-c90ce90ebea8
+	fromColumn: 'IMS Processed'.Source
+	toColumn: Source.Source
+
+relationship 4121ee2a-9554-855c-0d0c-cc5f0b10e615
+	fromColumn: 'EPOS Processed data'.Channel_Key
+	toColumn: 'All channel'.Key
+
+relationship ba649414-8830-253c-0b2a-046226074d02
+	fromColumn: 'IMS Processed'.Channel_Key
+	toColumn: 'All channel'.Key
+
+relationship 06e402ce-c7b9-8834-c2b4-6b59e3b65879
+	fromColumn: 'Nielsen Processed'.Channel_Key
+	toColumn: 'All channel'.Key
+
+relationship 698b4e6c-fffa-097f-e3d7-0c5372ec57ce
+	fromColumn: 'Nielsen Processed'.Source
+	toColumn: Source.Source
+
+relationship AutoDetected_4acd02c8-40c6-403e-9031-df90aa4cf014
+	fromColumn: 'IMS Processed'.'Hierarchy Index.RNN'
+	toColumn: 'Hierarchy Index'.RNN
+
+relationship AutoDetected_3329acfb-f7c7-465b-997b-163b109ca86b
+	fromColumn: 'EPOS Processed data'.'Hierarchy Index.RNN'
+	toColumn: 'Hierarchy Index'.RNN
+
+relationship AutoDetected_e43903c5-7f38-420a-b7cd-8548d8a62c02
+	fromColumn: 'Nielsen Processed'.'Hierarchy Index.RNN'
+	toColumn: 'Hierarchy Index'.RNN
+
+relationship 1914118e-d29e-4010-b838-7619329e6c0c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dates.monthdate
+	toColumn: LocalDateTable_0bb8c0f4-29df-4d47-a1e5-0725f5b04338.Date
+
+relationship 9735da43-92ab-1906-2678-31368580b918
+	toCardinality: many
+	fromColumn: 'IMS Processed'.Date
+	toColumn: dates.monthdate
+
+relationship 7ac1a06a-b559-df32-ee2f-aa366101db23
+	toCardinality: many
+	fromColumn: 'EPOS Processed data'.monthdate
+	toColumn: dates.monthdate
+
+relationship dce43959-0f3d-09fe-a811-eb52517864dd
+	toCardinality: many
+	fromColumn: 'Nielsen Processed'.monthdate
+	toColumn: dates.monthdate
+
+relationship 7f7c60a9-16df-4b05-992a-0aee868226cc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Ecom Data'.offerenddate
+	toColumn: LocalDateTable_b7ef249a-dcd4-4449-9f6b-521eca27b37f.Date
+
+relationship AutoDetected_6ba822ce-21dd-4316-bd9f-331479c1a11f
+	fromColumn: 'Ecom Data'.'Hierarchy Index.RNN'
+	toColumn: 'Hierarchy Index'.RNN
+
+relationship 67aaab76-46bc-a9d2-9cbd-f4d2ea565509
+	toCardinality: many
+	fromColumn: 'Ecom Data'.offerstartdate
+	toColumn: dates.monthdate
+
+relationship 4ffa0615-5c75-4b76-8df7-03abb93abd43
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'FLYER DATA'.offerenddate
+	toColumn: LocalDateTable_062cc487-534b-47c0-b37e-ab5944e0931e.Date
+
+relationship AutoDetected_624f9132-a209-43b3-8754-dc79b412e190
+	fromColumn: 'FLYER DATA'.'Hierarchy Index.RNN'
+	toColumn: 'Hierarchy Index'.RNN
+
+relationship dc9a6c5f-d777-f807-a750-1fc515e7792b
+	toCardinality: many
+	fromColumn: 'FLYER DATA'.offerstartdate
+	toColumn: dates.monthdate
+

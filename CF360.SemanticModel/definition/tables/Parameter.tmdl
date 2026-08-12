@@ -1,0 +1,47 @@
+table Parameter
+	lineageTag: 197b41de-63be-42eb-8d9c-da32004358de
+
+	column Parameter
+		lineageTag: dce62b38-699c-4bcc-94f8-c2b00419d8e1
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: ca820380-bc4b-41f0-b0e1-7443de72db47
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: cc835ab6-47fd-4c6c-9b20-b803d049aede
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter = calculated
+		mode: import
+		source =
+				{
+				    ("Mode", NAMEOF('PeriodMode'[Mode]), 0)
+				}
+
+	annotation PBI_Id = ddd66fc7b1a94fa7a199554b3a688a68
+

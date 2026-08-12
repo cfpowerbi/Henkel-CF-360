@@ -1,0 +1,685 @@
+table 'Ecom Data'
+	lineageTag: 3a8c72ad-eb6a-4614-a54b-7fe5d3239811
+
+	measure 'Ecom P Price Custom' = AVERAGE ( 'Ecom Data'[SellingPriceperKgL] )
+		formatString: 0.00
+		displayFolder: Ecom P Price
+		lineageTag: 866089cb-9359-436f-a028-c145c0798f79
+
+	measure 'Ecom P Price YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        AVERAGE ( 'Ecom Data'[SellingPriceperKgL] ),
+			        FILTER (
+			            ALL ( 'Ecom Data'[offerstartdate] ),
+			            'Ecom Data'[offerstartdate] <= LastDataDate
+			                && YEAR ( 'Ecom Data'[offerstartdate] ) = YEAR ( LastDataDate )
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Ecom P Price
+		lineageTag: 7c67dcf2-f812-4e2b-b68a-f4f693f97b30
+
+	measure 'Ecom P Price MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    CALCULATE (
+			        AVERAGE ( 'Ecom Data'[SellingPriceperKgL] ),
+			        KEEPFILTERS ( 'Ecom Data'[offerstartdate] > CutoffDate ),
+			        KEEPFILTERS ( 'Ecom Data'[offerstartdate] <= GlobalMaxDate )
+			    )
+		formatString: 0.00
+		displayFolder: Ecom P Price
+		lineageTag: 6ef50d60-c6c2-4293-80aa-ab4b245fd292
+
+	measure 'Ecom P Price LY Custom' = CALCULATE ( [Ecom P Price Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: Ecom P Price
+		lineageTag: 65834890-ba24-4b8b-8767-b90624c1af3a
+
+	measure 'Ecom P Price LY YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        AVERAGE ( 'Ecom Data'[SellingPriceperKgL] ),
+			        FILTER (
+			            ALL ( 'Ecom Data'[offerstartdate] ),
+			            'Ecom Data'[offerstartdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'Ecom Data'[offerstartdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Ecom P Price
+		lineageTag: dd468d95-b587-4ca6-8bf2-64e9f88c56f2
+
+	measure 'Ecom P Price LY MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        AVERAGE ( 'Ecom Data'[SellingPriceperKgL] ),
+			        KEEPFILTERS ( 'Ecom Data'[offerstartdate] > CutoffLY ),
+			        KEEPFILTERS ( 'Ecom Data'[offerstartdate] <= AnchorLY )
+			    )
+		formatString: 0.00
+		displayFolder: Ecom P Price
+		lineageTag: 51b16a9f-fa95-4c77-bd25-60b086482ab7
+
+	measure 'Ecom P Price Share Custom' = DIVIDE ( [Ecom P Price Custom], CALCULATE ( [Ecom P Price Custom], ALL ( 'Ecom Data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 79fa73af-d8ac-4a69-a53e-a61a77f56928
+
+	measure 'Ecom P Price Share YTD' = DIVIDE ( [Ecom P Price YTD], CALCULATE ( [Ecom P Price YTD], ALL ( 'Ecom Data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 3f394581-5af2-4d96-ad46-bf332426a02b
+
+	measure 'Ecom P Price Share MAT' = DIVIDE ( [Ecom P Price MAT], CALCULATE ( [Ecom P Price MAT], ALL ( 'Ecom Data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 65428c56-29ff-4baf-9da3-1407b7f47982
+
+	measure 'Ecom P Price Share LY Custom' = DIVIDE ( [Ecom P Price LY Custom], CALCULATE ( [Ecom P Price LY Custom], ALL ( 'Ecom Data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: a1295acc-edd0-4d09-9e4d-9a44d76282f8
+
+	measure 'Ecom P Price Share LY YTD' = DIVIDE ( [Ecom P Price LY YTD], CALCULATE ( [Ecom P Price LY YTD], ALL ( 'Ecom Data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 8b0cc137-13d5-431c-b2cf-8dec70a043ed
+
+	measure 'Ecom P Price Share LY MAT' = DIVIDE ( [Ecom P Price LY MAT], CALCULATE ( [Ecom P Price LY MAT], ALL ( 'Ecom Data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 15c63499-6e01-4c2e-8410-6764b1ac164a
+
+	measure 'Ecom P Price Growth Custom' = DIVIDE ( [Ecom P Price Custom] - [Ecom P Price LY Custom], [Ecom P Price Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 8a2bceaa-53f5-4b8e-92e0-092c35675b0e
+
+	measure 'Ecom P Price Growth YTD' = DIVIDE ( [Ecom P Price YTD] - [Ecom P Price LY YTD], [Ecom P Price YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 0d990f03-c8be-485e-be0f-a18a23cccd7c
+
+	measure 'Ecom P Price Growth MAT' = DIVIDE ( [Ecom P Price MAT] - [Ecom P Price LY MAT], [Ecom P Price MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: e26f7c69-ec1f-4334-9c6c-367ceb0cda06
+
+	measure 'Ecom P Price Change Custom' = [Ecom P Price Share Custom] - [Ecom P Price Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 538769f8-b56f-41ca-a6f7-f901a8745b14
+
+	measure 'Ecom P Price Change YTD' = [Ecom P Price Share YTD] - [Ecom P Price Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 7dadf2b7-4956-4a18-b4e6-733a96e30198
+
+	measure 'Ecom P Price Change MAT' = [Ecom P Price Share MAT] - [Ecom P Price Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 98ca9dbc-b192-4aa0-880a-f8beb4b426e7
+
+	measure 'Ecom P Price Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Ecom P Price YTD], "MAT", [Ecom P Price MAT], [Ecom P Price Custom] )
+		formatString: 0.00
+		displayFolder: Ecom P Price
+		lineageTag: d3fe3655-59e5-4c0f-83ff-ba37f7dc2767
+
+	measure 'Ecom P Price LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Ecom P Price LY YTD], "MAT", [Ecom P Price LY MAT], [Ecom P Price LY Custom] )
+		formatString: 0.00
+		displayFolder: Ecom P Price
+		lineageTag: aa4e9b7c-3d58-45fb-b791-b6f31fcbd22c
+
+	measure 'Ecom P Price Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Ecom P Price Share YTD], "MAT", [Ecom P Price Share MAT], [Ecom P Price Share Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 92d920a9-543c-404b-a9ed-bfabdd86f644
+
+	measure 'Ecom P Price Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Ecom P Price Growth YTD], "MAT", [Ecom P Price Growth MAT], [Ecom P Price Growth Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 10fca3e3-5c0f-4707-8890-a27622f770cd
+
+	measure 'Ecom P Price Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Ecom P Price Change YTD], "MAT", [Ecom P Price Change MAT], [Ecom P Price Change Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Price
+		lineageTag: 87d251be-776c-4149-89c9-fadb5b275dcb
+
+	measure 'Ecom P Henkel Price Custom' = CALCULATE ( [Ecom P Price Custom], 'Ecom Data'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 47f1e992-c6b6-4d0a-bd51-be70c4d41dae
+
+	measure 'Ecom P Henkel Price YTD' = CALCULATE ( [Ecom P Price YTD], 'Ecom Data'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 9dda2dfd-e39b-40c3-bb42-2527af3c3519
+
+	measure 'Ecom P Henkel Price MAT' = CALCULATE ( [Ecom P Price MAT], 'Ecom Data'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 665c2268-9e66-41a3-8b1f-ccc67e29b521
+
+	measure 'Ecom P Henkel Price LY Custom' = CALCULATE ( [Ecom P Price LY Custom], 'Ecom Data'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Ecom P Henkel Price
+		lineageTag: e56a1152-fc28-4fc2-9725-4ec86055c11a
+
+	measure 'Ecom P Henkel Price LY YTD' = CALCULATE ( [Ecom P Price LY YTD], 'Ecom Data'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 8d5e2114-6ad2-40a8-953a-587936bce743
+
+	measure 'Ecom P Henkel Price LY MAT' = CALCULATE ( [Ecom P Price LY MAT], 'Ecom Data'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Ecom P Henkel Price
+		lineageTag: ac95390b-4b03-4219-b4d8-7a95ec9341cf
+
+	measure 'Ecom P Henkel Price Share Custom' = DIVIDE ( CALCULATE ( [Ecom P Price Custom], 'Ecom Data'[Flag] = "My Brand" ), [Ecom P Price Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: ae8336bc-a1b9-4379-bf81-8136fcdec7b8
+
+	measure 'Ecom P Henkel Price Share YTD' = DIVIDE ( CALCULATE ( [Ecom P Price YTD], 'Ecom Data'[Flag] = "My Brand" ), [Ecom P Price YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 8ce17203-6ae0-4c7e-9754-be8b44997d66
+
+	measure 'Ecom P Henkel Price Share MAT' = DIVIDE ( CALCULATE ( [Ecom P Price MAT], 'Ecom Data'[Flag] = "My Brand" ), [Ecom P Price MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: fb4a9396-2870-48e5-8bc9-0ac4d40c0279
+
+	measure 'Ecom P Henkel Price Growth Custom' = DIVIDE ( [Ecom P Henkel Price Custom] - [Ecom P Henkel Price LY Custom], [Ecom P Henkel Price Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 7e969070-ab8e-4b8e-a961-95fd59d4fad0
+
+	measure 'Ecom P Henkel Price Growth YTD' = DIVIDE ( [Ecom P Henkel Price YTD] - [Ecom P Henkel Price LY YTD], [Ecom P Henkel Price YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: c8f848b8-97c5-46cd-b1cd-128e8a096864
+
+	measure 'Ecom P Henkel Price Growth MAT' = DIVIDE ( [Ecom P Henkel Price MAT] - [Ecom P Henkel Price LY MAT], [Ecom P Henkel Price MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 0e96dd0d-94b0-43d3-8bb8-ab6040a08a31
+
+	measure 'Ecom P Henkel Price Change Custom' = [Ecom P Henkel Price Share Custom] - DIVIDE ( CALCULATE ( [Ecom P Price LY Custom], 'Ecom Data'[Flag] = "My Brand" ), [Ecom P Price LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 97e4305c-b8c5-413d-bc9a-93ed1f8ec216
+
+	measure 'Ecom P Henkel Price Change YTD' = [Ecom P Henkel Price Share YTD] - DIVIDE ( CALCULATE ( [Ecom P Price LY YTD], 'Ecom Data'[Flag] = "My Brand" ), [Ecom P Price LY YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 32507d13-a517-477e-8d90-f5b3e6bfd24f
+
+	measure 'Ecom P Henkel Price Change MAT' = [Ecom P Henkel Price Share MAT] - DIVIDE ( CALCULATE ( [Ecom P Price LY MAT], 'Ecom Data'[Flag] = "My Brand" ), [Ecom P Price LY MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: b47a85a2-e5a1-46f8-a57d-6ca50dcd4403
+
+	measure 'Ecom P Henkel Price Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [Ecom P Price YTD], 'Ecom Data'[Flag] = "My Brand" ),
+			        "MAT", CALCULATE ( [Ecom P Price MAT], 'Ecom Data'[Flag] = "My Brand" ),
+			        CALCULATE ( [Ecom P Price Custom], 'Ecom Data'[Flag] = "My Brand" )
+			    )
+		formatString: 0.00
+		displayFolder: Ecom P Henkel Price
+		lineageTag: a9c18d33-8945-462b-b4de-1c751b5bbdba
+
+	measure 'Ecom P Henkel Price LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [Ecom P Price LY YTD], 'Ecom Data'[Flag] = "My Brand" ),
+			        "MAT", CALCULATE ( [Ecom P Price LY MAT], 'Ecom Data'[Flag] = "My Brand" ),
+			        CALCULATE ( [Ecom P Price LY Custom], 'Ecom Data'[Flag] = "My Brand" )
+			    )
+		formatString: 0.00
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 628d34e9-fe57-40ec-8940-b0b32134888a
+
+	measure 'Ecom P Henkel Price Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Ecom P Henkel Price Share YTD],
+			        "MAT", [Ecom P Henkel Price Share MAT],
+			        [Ecom P Henkel Price Share Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: f37d12c9-1602-4bd1-9829-1fe520c85bb0
+
+	measure 'Ecom P Henkel Price Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Ecom P Henkel Price Growth YTD],
+			        "MAT", [Ecom P Henkel Price Growth MAT],
+			        [Ecom P Henkel Price Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 6ba807f4-0d42-4af2-850b-059c882d30d1
+
+	measure 'Ecom P Henkel Price Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Ecom P Henkel Price Change YTD],
+			        "MAT", [Ecom P Henkel Price Change MAT],
+			        [Ecom P Henkel Price Change Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Ecom P Henkel Price
+		lineageTag: 2f007b4c-b061-4eb3-a869-c4239867969c
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 232c53f2-45df-4cf2-bc32-e5243d067c9e
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Offerid
+		dataType: int64
+		formatString: 0
+		lineageTag: f8b09429-0979-46a7-80fe-11adbee32044
+		summarizeBy: sum
+		sourceColumn: Offerid
+
+		annotation SummarizationSetBy = Automatic
+
+	column offerstartdate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7329606b-232a-4abb-8444-6786f45c7b06
+		summarizeBy: none
+		sourceColumn: offerstartdate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column offerenddate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7e208a44-87d9-48e2-bc73-2e0443ceac9e
+		summarizeBy: none
+		sourceColumn: offerenddate
+
+		variation Variation
+			isDefault
+			relationship: 7f7c60a9-16df-4b05-992a-0aee868226cc
+			defaultHierarchy: LocalDateTable_b7ef249a-dcd4-4449-9f6b-521eca27b37f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column promoprice
+		dataType: double
+		lineageTag: 7cb1a8e0-1789-4e56-8c9a-5b5bc213c245
+		summarizeBy: sum
+		sourceColumn: promoprice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column regularprice
+		dataType: double
+		lineageTag: d4739713-5e9c-485b-94aa-d72a1315345f
+		summarizeBy: sum
+		sourceColumn: regularprice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column promoquantity
+		dataType: double
+		lineageTag: 6bc9a438-0440-4289-ab26-ebc6503373dd
+		summarizeBy: sum
+		sourceColumn: promoquantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Offerpriceperpacksize
+		dataType: double
+		lineageTag: ac24fd81-3b1a-4716-8860-a879315c0e01
+		summarizeBy: sum
+		sourceColumn: Offerpriceperpacksize
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'customer group'
+		dataType: string
+		lineageTag: 50c77420-99bf-4d2d-9208-cf8915f6f58f
+		summarizeBy: none
+		sourceColumn: customer group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'promo type'
+		dataType: string
+		lineageTag: 58d9c007-9162-431c-aeb3-c730746dbd71
+		summarizeBy: none
+		sourceColumn: promo type
+
+		annotation SummarizationSetBy = Automatic
+
+	column brandid
+		dataType: int64
+		formatString: 0
+		lineageTag: be3c21a5-b47e-4f15-b123-a8fc5a4bb2a3
+		summarizeBy: sum
+		sourceColumn: brandid
+
+		annotation SummarizationSetBy = Automatic
+
+	column BRAND
+		dataType: string
+		lineageTag: d8f29f44-024f-496c-b2e5-d5934eb89e66
+		summarizeBy: none
+		sourceColumn: BRAND
+
+		annotation SummarizationSetBy = Automatic
+
+	column productid
+		dataType: int64
+		formatString: 0
+		lineageTag: 743ec0ae-3400-428d-bcde-96e12b6c9a46
+		summarizeBy: sum
+		sourceColumn: productid
+
+		annotation SummarizationSetBy = Automatic
+
+	column productname
+		dataType: string
+		lineageTag: 4685c66d-790e-4151-bfb7-23cbb8bb7db6
+		summarizeBy: none
+		sourceColumn: productname
+
+		annotation SummarizationSetBy = Automatic
+
+	column packsizeid
+		dataType: int64
+		formatString: 0
+		lineageTag: d8a1587b-aa5b-4f14-b67a-bc423a4fe664
+		summarizeBy: sum
+		sourceColumn: packsizeid
+
+		annotation SummarizationSetBy = Automatic
+
+	column SIZE
+		dataType: string
+		lineageTag: bbc6c68c-8b14-4111-9194-e8eb9a84d246
+		summarizeBy: none
+		sourceColumn: SIZE
+
+		annotation SummarizationSetBy = Automatic
+
+	column bu
+		dataType: string
+		lineageTag: 570e81c3-79b8-4d8f-8ff6-14c0f05ab400
+		summarizeBy: none
+		sourceColumn: bu
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SUB CATEGORY'
+		dataType: string
+		lineageTag: a52db183-0acc-4961-9e19-b998ef39882b
+		summarizeBy: none
+		sourceColumn: SUB CATEGORY
+
+		annotation SummarizationSetBy = Automatic
+
+	column FORMAT
+		dataType: string
+		lineageTag: 77ebbbec-f57f-473a-bd67-36ebb06ae936
+		summarizeBy: none
+		sourceColumn: FORMAT
+
+		annotation SummarizationSetBy = Automatic
+
+	column parent
+		dataType: int64
+		formatString: 0
+		lineageTag: 77bb0375-1bf4-40ad-89d8-b85bfd3a6a9a
+		summarizeBy: sum
+		sourceColumn: parent
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount
+		dataType: double
+		lineageTag: 3e512282-c375-46b4-8709-7754bc43695d
+		summarizeBy: sum
+		sourceColumn: discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Discount_percent
+		dataType: double
+		lineageTag: 20b2c3ac-646f-4af9-a989-db67771b0b8b
+		summarizeBy: sum
+		sourceColumn: Discount_percent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column country
+		dataType: string
+		lineageTag: 62d53e27-3631-4877-a9d6-c90636c901a0
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Flag
+		dataType: string
+		lineageTag: 03a71baa-f7d9-4931-9eee-442fd8a7f3ec
+		summarizeBy: none
+		sourceColumn: Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column Yearmonth
+		dataType: int64
+		formatString: 0
+		lineageTag: 28563fa4-18e2-48d1-8485-50f8367d5037
+		summarizeBy: sum
+		sourceColumn: Yearmonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel
+		dataType: string
+		lineageTag: 545d64e5-b579-4bd3-bf35-8fb09dbe536d
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priceperkg_ltr_Calculated
+		dataType: double
+		lineageTag: 8d4029b6-8e6d-488d-a6e8-56b48d6cacde
+		summarizeBy: sum
+		sourceColumn: Priceperkg_ltr_Calculated
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SellingPrice
+		dataType: double
+		lineageTag: 4d31dcdc-4400-49ac-be1a-514e96ce98cf
+		summarizeBy: sum
+		sourceColumn: SellingPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SellingPriceperKgL
+		dataType: double
+		lineageTag: 934ac2c9-0a74-4d04-b888-401c4cf24fa1
+		summarizeBy: sum
+		sourceColumn: SellingPriceperKgL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RegularPriceperKgL
+		dataType: double
+		lineageTag: 893dcc9b-ffbe-46cf-bd85-d3201d7d0eb5
+		summarizeBy: sum
+		sourceColumn: RegularPriceperKgL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_flag
+		dataType: int64
+		formatString: 0
+		lineageTag: d49cbc7e-a255-42f1-bc02-f4003f6c3bed
+		summarizeBy: sum
+		sourceColumn: discount_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUB-CHANNEL
+		dataType: string
+		lineageTag: 3c59ae21-ef61-464f-b20d-8b4729e063fd
+		summarizeBy: none
+		sourceColumn: SUB-CHANNEL
+
+		annotation SummarizationSetBy = Automatic
+
+	column DISTRIBUTOR
+		dataType: string
+		lineageTag: a8c9133b-f267-43b1-8d6a-99c7c0280783
+		summarizeBy: none
+		sourceColumn: DISTRIBUTOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SALES TYPE'
+		dataType: string
+		lineageTag: af69ea8a-0f31-4e06-bbb0-41ad2c3e65f3
+		summarizeBy: none
+		sourceColumn: SALES TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'BRAND STRATEGY'
+		dataType: string
+		lineageTag: 06bfce8a-0028-41d4-b15f-28f5f7d4158e
+		summarizeBy: none
+		sourceColumn: BRAND STRATEGY
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PRICE BRAND'
+		dataType: string
+		lineageTag: fb7a4135-f519-41d2-8c39-04579baf1fe3
+		summarizeBy: none
+		sourceColumn: PRICE BRAND
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PRODUCT TYPE'
+		dataType: string
+		lineageTag: 5735bc20-1b0c-4310-9d23-3e4a5b333821
+		summarizeBy: none
+		sourceColumn: PRODUCT TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PRICE TIER'
+		dataType: string
+		lineageTag: 37dd43cb-31c3-42e6-a565-953604e7cfa6
+		summarizeBy: none
+		sourceColumn: PRICE TIER
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hierarchy Index.RNN'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9a0fdcef-4665-4bf8-82fe-dfbffa8f24ad
+		summarizeBy: none
+		sourceColumn: Hierarchy Index.RNN
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hierarchy Index.rank'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c8d8319-da32-4a8c-97cc-6187a46db8c4
+		summarizeBy: sum
+		sourceColumn: Hierarchy Index.rank
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Ecom Data' = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="henkel-clicflyer"]}[Data], "SELECT DISTINCT#(lf)    a.year as Year,#(lf)    a.Id as Offerid,#(lf)    cast(a.Data_ExtractionDate as date) as offerstartdate,#(lf)    cast(a.Data_ExtractionDate as date) as offerenddate,#(lf)   promoprice_calculated as promoprice,#(lf)    a.Ecom_RegularPrice as regularprice,#(lf)    a.PromoQuantity as promoquantity,#(lf)    a.offerpriceperpacksize as Offerpriceperpacksize,#(lf)   case when a.Ecom_Source='Tawneel' then 'Tawseel_E' else concat(a.Ecom_Source,'_E') end as `customer group`,#(lf)    a.type as  `promo type`,#(lf)    a.BrandId as brandid,#(lf)    a.BrandName as BRAND,#(lf)    a.ProductId as productid,#(lf)    a.ProductName as productname,#(lf)    a.PackSizeId as packsizeid,#(lf)  Unified_PackSize_Agg AS `SIZE`,#(lf)    -- a.Unitpacksizeid,#(lf)   -- a.basepacksize as Unitpacksize,#(lf)    --a.BasePackQty as qty,#(lf)   -- '' as coverage,#(lf)    a.bu,#(lf)    a.category_sbu as `SUB CATEGORY`,#(lf)    a.sub_category as `FORMAT`,#(lf)    --case when a.AddonPacksize is null then ""-"" else#(lf)    --a.AddonPacksize end as combo_packsize,#(lf)    --case when a.AddonPackQty is null or a.addonpackqty =0 then ""-"" else  #(lf)    --CAST(a.AddonPackQty AS STRING) end as combo_qty,#(lf)    0 as parent,#(lf)   discount_calculated/100  as discount,#(lf)    CAST(ROUND(discount_calculated , 2) AS FLOAT64) as Discount_percent,#(lf)    CASE#(lf)      WHEN a.CountryName = ""United Arab Emirates"" THEN ""UAE""#(lf)      ELSE a.countryname#(lf)    END AS country,#(lf)    CASE#(lf)      WHEN a.brandid IN (753,872,17843,59,20227,38277,1694,1694,753,1545,1502) THEN 'My Brand'#(lf)      ELSE 'Competitor'#(lf)    END AS Flag,#(lf)    --a.Total_Volume as final_volume,#(lf)    a.year_month as Yearmonth,#(lf)    '' as Channel,#(lf)    a.OfferPriceperKgL as Priceperkg_ltr_Calculated,#(lf)    CASE#(lf)      WHEN promoprice_calculated is not NULL and promoprice_calculated<>0 THEN promoprice_calculated#(lf)      ELSE Ecom_RegularPrice#(lf)  END AS SellingPrice,#(lf)  CASE#(lf)      WHEN promoprice_calculated is not NULL and promoprice_calculated<>0 THEN offerpriceperkgl#(lf)      ELSE RegularPriceperKgL#(lf)  END AS SellingPriceperKgL,#(lf)  RegularPriceperKgL,#(lf)case when discount_calculated=0#(lf)        THEN 0#(lf)    ELSE 1#(lf)END AS discount_flag,#(lf)'' AS `SUB-CHANNEL`,#(lf)'' AS `DISTRIBUTOR`,#(lf)'Online' AS `SALES TYPE`,#(lf)'' AS `BRAND STRATEGY`,#(lf)'' AS `PRICE BRAND`,#(lf)'' AS `PRODUCT TYPE`,#(lf)'' AS `PRICE TIER`,#(lf)  FROM `henkel-clicflyer.henkel_raw_data.EcomAnalysis_tbl_Henkel` a#(lf)  WHERE cast(a.Data_ExtractionDate as date) >= '2025-06-04'#(lf)    AND a.BrandName != 'others'#(lf)    AND a.ProductId != 1132#(lf)    AND a.CountryName IN ('Saudi Arabia', 'United Arab Emirates', 'Kuwait','Bahrain','Oman','Qatar')#(lf)    AND a.Country_Category IN (29, 210, 19, 110, 39, 310,49,410,59,510,69,610)#(lf)    AND year_month >= 202507", null, [EnableFolding=true]),
+				    #"Merged Queries" = Table.NestedJoin(Source, {"bu", "SUB CATEGORY", "FORMAT"}, #"Hierarchy Index", {"BU", "SubCategory", "Format"}, "Hierarchy Index", JoinKind.LeftOuter),
+				    #"Expanded Hierarchy Index" = Table.ExpandTableColumn(#"Merged Queries", "Hierarchy Index", {"RNN", "rank"}, {"Hierarchy Index.RNN", "Hierarchy Index.rank"})
+				in
+				    #"Expanded Hierarchy Index"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

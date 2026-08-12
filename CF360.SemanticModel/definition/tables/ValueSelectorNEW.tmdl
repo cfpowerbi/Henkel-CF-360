@@ -1,0 +1,78 @@
+table ValueSelectorNEW
+	lineageTag: 6321d1a3-f67a-4bf4-bb7b-391b8a3bed87
+
+	column ParameterGGDGDG
+		lineageTag: 18b93604-4134-4138-bcb9-76088f396f24
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'ParameterGGDGDG Order'
+
+		relatedColumnDetails
+			groupByColumn: 'ParameterGGDGDG Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ParameterGGDGDG Fields'
+		lineageTag: 3c4af9e8-7cab-42d9-853a-0d9850e7c0d6
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'ParameterGGDGDG Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ParameterGGDGDG Order'
+		formatString: 0
+		lineageTag: ceb5cc85-d2d1-4818-9566-2576eb1546ca
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value4
+		lineageTag: 306e229e-77df-4ab2-b686-50511d0e45d0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value5
+		lineageTag: 585697d1-fee5-45c5-80d4-8373a14fd135
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value5]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ValueSelectorNEW = calculated
+		mode: import
+		source =
+				{("IMS Val", NAMEOF('IMS Processed'[Gross IMS P Dynamic]), 1, "📊 IMS Overview", "IMS"),
+				    ("IMS Investment", NAMEOF('IMS Processed'[Investment P Dynamic]), 2, "📊 IMS Overview", "IMS"),
+				    ("IMS NES", NAMEOF('IMS Processed'[Nes]), 3, "📊 IMS Overview", "IMS"),
+				    ("IMS GP1", NAMEOF('IMS Processed'[GP1 P Dynamic]), 4, "📊 IMS Overview", "IMS"),
+				    ("IMS Val Growth%", NAMEOF('IMS Processed'[Gross IMS P Dynamic]), 5, "📊 IMS Overview", "IMS"),
+				
+				    ("EPOS Val", NAMEOF('EPOS Processed data'[EPOS P Value Dynamic]), 6, "🛒 EPOS Overview", "EPOS"),
+				    ("EPOS Val Share", NAMEOF('EPOS Processed data'[EPOS P Value share change]), 7, "🛒 EPOS Overview", "EPOS"),
+				    ("EPOS Vol", NAMEOF('EPOS Processed data'[EPOS P Volume Dynamic]), 8, "🛒 EPOS Overview", "EPOS"),
+				    ("EPOS Vol Share", NAMEOF('EPOS Processed data'[EPOS P Volume share change]), 9, "🛒 EPOS Overview", "EPOS"),
+				    ("EPOS Val Growth%", NAMEOF('EPOS Processed data'[EPOS P Value Growth dynamic]), 10, "🛒 EPOS Overview", "EPOS"),
+				    ("EPOS Vol Growth%", NAMEOF('EPOS Processed data'[EPOS P Volume Growth dynamic]), 11, "🛒 EPOS Overview", "EPOS"),
+				
+				    ("Nielsen Val", NAMEOF('Nielsen Processed'[Nielsen P Value Dynamic]), 12, "📈 Nielsen Overview", "Nielsen"),
+				    ("Nielsen Val Share", NAMEOF('Nielsen Processed'[Nielsen P Value share change]), 13, "📈 Nielsen Overview", "Nielsen"),
+				    ("Nielsen Vol", NAMEOF('Nielsen Processed'[Nielsen P Volume Dynamic]), 14, "📈 Nielsen Overview", "Nielsen"),
+				    ("Nielsen Vol Share", NAMEOF('Nielsen Processed'[Nielsen P Volume share change]), 15, "📈 Nielsen Overview", "Nielsen"),
+				    ("Nielsen Val Growth%", NAMEOF('Nielsen Processed'[Nielsen P Value Growth dynamic]), 16, "📈 Nielsen Overview", "Nielsen"),
+				    ("Nielsen Vol Growth%", NAMEOF('Nielsen Processed'[Nielsen P Volume Growth Dynamic]), 17, "📈 Nielsen Overview", "Nielsen")
+				}
+
+	annotation PBI_Id = 92f6df48a69d45e4b79ffc63b97bb7ca
+

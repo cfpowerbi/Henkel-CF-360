@@ -1,0 +1,53 @@
+table Dim
+	lineageTag: c8c0438c-f0a1-4ab9-8e12-966c42cacc61
+
+	column Parameter
+		lineageTag: 23e4b6d7-b318-4804-b200-0217ba226f59
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: c91f5c89-da5a-4ee6-b55c-c062a5dc98c4
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 11c4891d-c68b-4986-ae07-be595e1d4c3a
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim = calculated
+		mode: import
+		source =
+				{
+				    ("BU", NAMEOF('IMS Processed'[BU]), 0),
+				    ("Subcategory", NAMEOF('IMS Processed'[SubCategory]), 1),
+				    ("strategy", NAMEOF('IMS Processed'[Brand Strategy]), 2),
+				    ("Brand", NAMEOF('IMS Processed'[Brand]), 3),
+				    ("channel", NAMEOF('IMS Processed'[channel]), 4),
+				    ("subchannel", NAMEOF('IMS Processed'[subchannel]), 5)
+				
+				}
+
+	annotation PBI_Id = 9bfe64aa23f34d15af722738df671f49
+

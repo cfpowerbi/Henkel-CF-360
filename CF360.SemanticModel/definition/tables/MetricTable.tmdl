@@ -1,0 +1,334 @@
+table MetricTable
+	lineageTag: da24932d-38fb-4d9d-a8af-9abbe629e8c2
+
+	measure DisplayValueNEW =
+			
+			VAR _source = SELECTEDVALUE(MetricTable[Source])
+			VAR _metric = SELECTEDVALUE(MetricTable[Metric])
+			RETURN
+			SWITCH(TRUE(),
+			    -- IMS metrics
+			    _source = "IMS" && _metric = "Value",       'IMS Processed'[Gross IMS P Dynamic],
+			    _source = "IMS" && _metric = "Val Chg%",    'IMS Processed'[Gross IMS P Change dynamic],
+			    _source = "IMS" && _metric = "Vol Shr",     'IMS Processed'[Gross IMS P Share Dynamic],
+			    _source = "IMS" && _metric = "Investment",  'IMS Processed'[Investment P Dynamic],
+			    _source = "IMS" && _metric = "NES",         'IMS Processed'[ΔNES P dynamic],
+			    _source = "IMS" && _metric = "GP1",         'IMS Processed'[GP1 P Dynamic],
+			    _source = "IMS" && _metric = "GP1%",        'IMS Processed'[GP1% P Dynamic],
+			    _source = "IMS" && _metric = "L6%",         'IMS Processed'[L6% P Dynamic],
+			
+			    -- Nielsen metrics
+			    _source = "Nielsen" && _metric = "Value",      'Nielsen Processed'[Nielsen P Value Dynamic],
+			    _source = "Nielsen" && _metric = "Val Chg%",   'Nielsen Processed'[Nielsen P Value Change dynamic],
+			    _source = "Nielsen" && _metric = "Vol Shr",    'Nielsen Processed'[Nielsen P Value Share Dynamic],
+			    _source = "Nielsen" && _metric = "Vol",  'Nielsen Processed'[Nielsen P Vol Dynamic],
+			    _source = "Nielsen" && _metric = "Vol Chg%",     'Nielsen Processed'[Nielsen P Vol Change dynamic],
+			    _source = "Nielsen" && _metric = "Vol Shr",      'Nielsen Processed'[Nielsen P Vol Share Dynamic],
+			
+			    -- EPOS metrics
+			    _source = "EPOS" && _metric = "Value",        'EPOS Processed data'[EPOS P Value Dynamic],
+			    _source = "EPOS" && _metric = "Val Chg%",       'EPOS Processed data'[EPOS P Value Change dynamic],
+			    _source = "EPOS" && _metric = "Val Shr",                   'EPOS Processed data'[EPOS P Value Share Dynamic],
+			    _source = "EPOS" && _metric = "Vol",                     'EPOS Processed data'[EPOS P Volume Dynamic],
+			    _source = "EPOS" && _metric = "Vol Chg%",                   'EPOS Processed data'[EPOS P Volume Change dynamic],
+			
+			    BLANK()
+			)
+		lineageTag: 2f32f495-7fcd-48e2-9e67-9db750d39191
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Bridge measure: returns Value dynamic for selected Source
+	measure 'Channel Value' =
+			VAR _src = SELECTEDVALUE('Source'[Source])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _src = "EPOS",    [EPOS P Henkel Value Dynamic],
+			        _src = "NIELSEN", [Nielsen P Henkel Value Dynamic],
+			        _src = "IMS",     [Gross IMS P Dynamic],
+			        BLANK()
+			    )
+		formatString: #,0.0
+		displayFolder: Channel Analysis
+		lineageTag: b2eb28a6-755d-4027-a64d-8362833bc469
+
+	/// Bridge measure: returns Value Share dynamic for selected Source
+	measure 'Channel Value Share' =
+			VAR _src = SELECTEDVALUE('Source'[Source])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _src = "EPOS",    [EPOS P Henkel Value Share Dynamic],
+			        _src = "NIELSEN", [Nielsen P Henkel Value Share Dynamic],
+			        _src = "IMS",     [Gross IMS P Share Dynamic],
+			        BLANK()
+			    )
+		formatString: 0.0%
+		displayFolder: Channel Analysis
+		lineageTag: c450e8a8-e28c-4f28-8367-19774064e3c8
+
+	/// Bridge measure: returns Value Growth YoY% for selected Source
+	measure 'Channel Value Growth' =
+			VAR _src = SELECTEDVALUE('Source'[Source])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _src = "EPOS",    [EPOS P Henkel Value Growth Dynamic],
+			        _src = "NIELSEN", [Nielsen P Henkel Value Growth Dynamic],
+			        _src = "IMS",     [Gross IMS P Growth Dynamic],
+			        BLANK()
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Channel Analysis
+		lineageTag: 842b7945-5d28-4b3c-8065-435c363bfeeb
+
+	/// Bridge measure: returns Value Share Change (pp) for selected Source
+	measure 'Channel Value Change' =
+			VAR _src = SELECTEDVALUE('Source'[Source])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _src = "EPOS",    [EPOS P Henkel Value Change Dynamic],
+			        _src = "NIELSEN", [Nielsen P Henkel Value Change Dynamic],
+			        _src = "IMS",     [Gross IMS P Growth Dynamic],
+			        BLANK()
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Channel Analysis
+		lineageTag: 9f147cf3-dfa0-4ccb-bb7e-1dfbb4b7fbc5
+
+	/// Bridge: Volume dynamic switched by Source
+	measure 'Channel Volume' =
+			VAR _src = SELECTEDVALUE('Source'[Source])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _src = "EPOS",    [EPOS P Henkel Volume Dynamic],
+			        _src = "NIELSEN", [Nielsen P Henkel Volume Dynamic],
+			        _src = "IMS",     BLANK(),
+			        BLANK()
+			    )
+		formatString: #,0.0
+		displayFolder: Channel Analysis
+		lineageTag: 21db3de1-2e38-4f72-83d1-a3a447a125b3
+
+	/// Bridge: Volume Share dynamic switched by Source
+	measure 'Channel Volume Share' =
+			VAR _src = SELECTEDVALUE('Source'[Source])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _src = "EPOS",    [EPOS P Henkel Volume Share Dynamic],
+			        _src = "NIELSEN", [Nielsen P Henkel Volume Share Dynamic],
+			        _src = "IMS",     BLANK(),
+			        BLANK()
+			    )
+		formatString: 0.0%
+		displayFolder: Channel Analysis
+		lineageTag: 8ecacd06-f2f1-470d-84c5-dd34bd5d5b78
+
+	/// Bridge: Volume Growth YoY% switched by Source
+	measure 'Channel Volume Growth' =
+			VAR _src = SELECTEDVALUE('Source'[Source])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _src = "EPOS",    [EPOS P Henkel Volume Growth Dynamic],
+			        _src = "NIELSEN", [Nielsen P Henkel Volume Growth Dynamic],
+			        _src = "IMS",     BLANK(),
+			        BLANK()
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Channel Analysis
+		lineageTag: 703f636d-a270-42f7-a125-ee2932675e4e
+
+	/// Bridge: Volume Share Change pp switched by Source
+	measure 'Channel Volume Change' =
+			VAR _src = SELECTEDVALUE('Source'[Source])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _src = "EPOS",    [EPOS P Henkel Volume Change Dynamic],
+			        _src = "NIELSEN", [Nielsen P Henkel Volume Change Dynamic],
+			        _src = "IMS",     BLANK(),
+			        BLANK()
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Channel Analysis
+		lineageTag: e7fdefe9-1857-4ebf-9f1e-e1b91d1abf2d
+
+	/// Unified: returns Value or Volume based on Metric Slicer + Source
+	measure 'Channel Metric' = ```
+			VAR _metric = SELECTEDVALUE('Metric Slicer'[MetricOrder], 0)
+			RETURN
+			    SWITCH(
+			        _metric,
+			        0, [Channel Value],
+			        1, [Channel Volume],
+			        2, [Channel Price]
+			 
+			    )
+			```
+		displayFolder: Channel Analysis
+		lineageTag: 0520ce77-bfcb-400e-becd-86dc425c8cce
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Unified Share: returns Value Share or Volume Share
+	measure 'Channel Metric Share' =
+			VAR _metric = SELECTEDVALUE('Metric Slicer'[MetricOrder], 0)
+			RETURN
+			    SWITCH(
+			        _metric,
+			        0, [Channel Value Share],
+			        1, [Channel Volume Share],
+			        2,BLANK()
+			    )
+		formatString: 0.0%
+		displayFolder: Channel Analysis
+		lineageTag: d729164a-8ca1-4908-bd6c-bc2981a91bae
+
+	/// Unified Growth: returns Value Growth or Volume Growth
+	measure 'Channel Metric Growth' =
+			VAR _metric = SELECTEDVALUE('Metric Slicer'[MetricOrder], 0)
+			RETURN
+			    SWITCH(
+			        _metric,
+			        0, [Channel Value Growth],
+			        1, [Channel Volume Growth],
+			        2,[Channel Price Growth]
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Channel Analysis
+		lineageTag: 5e512a2c-7118-4a75-a795-01d90ddf4a2f
+
+	/// Unified Change pp: returns Value Change or Volume Change
+	measure 'Channel Metric Change' =
+			VAR _metric = SELECTEDVALUE('Metric Slicer'[MetricOrder], 0)
+			RETURN
+			    SWITCH(
+			        _metric,
+			        0, [Channel Value Change],
+			        1, [Channel Volume Change],
+			        2,BLANK()
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Channel Analysis
+		lineageTag: ab16abb1-800d-4c7c-ab9e-4a26cf960c78
+
+	measure 'Channel Price' =
+			VAR _src = SELECTEDVALUE('Source'[Source])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _src = "EPOS",    [EPOS P Price Dynamic],
+			        _src = "NIELSEN", [Nielsen P Price Dynamic],
+			        _src = "IMS",     [Gross IMS P Dynamic],
+			        BLANK()
+			    )
+		displayFolder: Channel Analysis
+		lineageTag: fa94fd15-36fe-4b1b-822c-89b754a8d689
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Channel Price Change' = ```
+			VAR _src = SELECTEDVALUE('Source'[Source])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _src = "EPOS",    [EPOS P Henkel Price Dynamic],
+			        _src = "NIELSEN", [Nielsen P Henkel Price Change Dynamic],
+			        _src = "IMS",    
+			        BLANK()
+			    )
+			```
+		displayFolder: Channel Analysis
+		lineageTag: 5e551c2e-2e47-4ad1-81bb-d777c477ab96
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Channel Price Growth' = ```
+			VAR _src = SELECTEDVALUE('Source'[Source])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _src = "EPOS",    [EPOS P Henkel Price Growth Dynamic],
+			        _src = "NIELSEN", [Nielsen P Henkel Price Growth Dynamic],
+			        _src = "IMS",    
+			        BLANK()
+			    )
+			```
+		displayFolder: Channel Analysis
+		lineageTag: e25c55b8-538a-415d-8ba4-abb0f79c15d7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Channel Price Share' = ```
+			
+			        BLANK()
+			    
+			```
+		formatString: 0
+		displayFolder: Channel Analysis
+		lineageTag: 8c08c8ae-73ee-4ac1-a2f6-bc977b8b8779
+
+	column Source
+		lineageTag: c4ba0491-6db0-4b2a-bb59-58bf17e487f5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Source]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Metric
+		lineageTag: b0dafac0-4881-417b-ac14-79600a29fce0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Metric]
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		formatString: 0
+		lineageTag: 86484e35-d8f5-496d-a633-1416065ca11d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [SortOrder]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition MetricTable = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Source", STRING,
+				    "Metric", STRING,
+				    "SortOrder", INTEGER,
+				    {
+				        {"IMS", "Value",       1},
+				        {"IMS", "Val Chg%",    2},
+				        {"IMS", "Vol Shr",     3},
+				        {"IMS", "Investment",  4},
+				        {"IMS", "NES",         5},
+				        {"IMS", "GP1",         6},
+				        {"IMS", "GP1%",       7},
+				        {"IMS", "L6%",        8},
+				        {"NIELSEN", "Value",  9},
+				        {"NIELSEN", "Val Chg%",10},
+				        {"NIELSEN", "Val Shr", 11},
+				        {"NIELSEN", "Volume",  13},
+				        {"NIELSEN", "Vol Chg%",14},
+				        {"NIELSEN", "Vol Shr", 15},
+				        {"EPOS", "Value",  16},
+				        {"EPOS", "Val Chg%",17},
+				        {"EPOS", "Val Shr", 18},
+				        {"EPOS", "Volume",  19},
+				        {"EPOS", "Vol Chg%",20},
+				        {"EPOS", "Vol Shr", 21}
+				    }
+				)
+
+	annotation PBI_Id = 65edaff4a9f44487b1f37e5db1f19356
+

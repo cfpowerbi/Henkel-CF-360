@@ -1,0 +1,104 @@
+table 'Henkel Matric KPI Parameter'
+	lineageTag: 2a33934f-4394-4a75-8478-6076e03536b7
+
+	column 'Matrix Parameter'
+		lineageTag: a5016bb8-22bb-4701-b646-eee891833d41
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Matrix Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Matrix Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Matrix Parameter Fields'
+		isHidden
+		lineageTag: 307526e0-6279-4b10-b601-3e99b9b54524
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Matrix Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Matrix Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 7857fda9-c386-4080-8802-4cd88c6eb02c
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value4
+		lineageTag: 4c55b61c-1333-4d11-b911-ef4246e3ff20
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value5
+		lineageTag: b754a792-c193-45dc-8fcc-c7e5fcb8dc46
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value6
+		lineageTag: 3f87c15d-d1bd-49a5-a84b-ba6f213e7b66
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value6]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value7
+		lineageTag: 71c6878a-b870-4e5e-85ba-3b1f5e05f25a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value7]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Henkel Matric KPI Parameter' = calculated
+		mode: import
+		source =
+				{("IMS Val", NAMEOF('IMS Processed'[Gross IMS P Dynamic]), 1, "Val", "IMS","📊 IMS Overview","VALUE & VOLUME"),
+				    ("IMS Investment", NAMEOF('IMS Processed'[Investment P Dynamic]), 2, "Inves.", "IMS","📊 IMS Overview","P&L MEETRICS"),
+				    ("IMS NES", NAMEOF('IMS Processed'[chg NES P dynamic]), 3, "NES", "IMS","📊 IMS Overview","P&L MEETRICS"),
+				    ("IMS GP1", NAMEOF('IMS Processed'[GP1 P Dynamic]), 4, "GP1", "IMS","📊 IMS Overview","P&L MEETRICS"),
+				    ("IMS Val Growth%", NAMEOF('IMS Processed'[Gross IMS P Growth dynamic]), 5, "Val Growth %", "IMS","📊 IMS Overview","VALUE & VOLUME"),
+				
+				    ("EPOS Val", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Dynamic]), 6, "Val", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Val Share", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Share Dynamic]), 7, "Val Share", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Val Share Chg", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Change Dynamic]), 8, "Val Share Chg", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Val Growth%", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Growth Dynamic]), 9, "Val Growth%", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Vol", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Dynamic]), 10, "Vol", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Vol Share ", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Share Dynamic]), 11, "Vol Share", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Vol Share Chg ", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Change Dynamic]), 12, "Val Share Chg", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Vol Growth%", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Growth Dynamic]), 13, "Vol Growth%", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Price", NAMEOF('EPOS Processed data'[EPOS P Henkel Price Dynamic]), 14, "Price", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Price Chg", NAMEOF('EPOS Processed data'[EPOS P Henkel Price Change Dynamic]), 15, "Price Chg", "EPOS","🛒 EPOS Overview","OTHERS"),
+				
+				    ("Nielsen Val", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Dynamic]), 16, "Val", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Val Share", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Share Dynamic]), 17, "Val Share", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Val Share Chg", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Change Dynamic]), 18, "Val Share Chg", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Val Growth%", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Growth Dynamic]), 19, "Val Growth%", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Vol", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Dynamic]), 20, "Vol", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Vol Share", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Share Dynamic]), 21, "Vol Share", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Vol Share Chg", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Change Dynamic]), 22, "Val Share Chg", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Vol Growth%", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Growth Dynamic]), 23, "Vol Growth%", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Price", NAMEOF('Nielsen Processed'[Nielsen P Henkel Price Dynamic]), 24, "Price", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Price Chg", NAMEOF('Nielsen Processed'[Nielsen P Henkel Price Change Dynamic]), 25, "Price Chg", "Nielsen","📈 Nielsen Overview","OTHERS")
+				}
+
+	annotation PBI_Id = eaad42bd97614932b38bd9201d2befc4
+

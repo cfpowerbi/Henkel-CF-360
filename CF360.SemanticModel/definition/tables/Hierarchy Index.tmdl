@@ -1,0 +1,70 @@
+table 'Hierarchy Index'
+	lineageTag: f27288ba-fdfa-4b2c-96b1-1d3526950b4a
+
+	column BU
+		dataType: string
+		lineageTag: 07383f97-f7b7-4899-a28e-cafd99847e51
+		summarizeBy: none
+		sourceColumn: BU
+		sortByColumn: rank
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubCategory
+		dataType: string
+		lineageTag: f6dda28b-3983-4aff-9a81-38a627e92f06
+		summarizeBy: none
+		sourceColumn: SubCategory
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Format
+		dataType: string
+		lineageTag: 6f486371-d5ea-4fad-8c7e-063551a05e59
+		summarizeBy: none
+		sourceColumn: Format
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column RNN
+		dataType: int64
+		formatString: 0
+		lineageTag: 06660857-af46-431b-a19a-716865135f49
+		summarizeBy: none
+		sourceColumn: RNN
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column rank
+		dataType: int64
+		formatString: 0
+		lineageTag: 91e0f22f-3ffe-4de5-9ecc-e6ede68c12a0
+		summarizeBy: sum
+		sourceColumn: rank
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Hierarchy Index' = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="henkel-clicflyer"]}[Data], "SELECT #(lf) BU,SubCategory,Format,RNN,IF(bu = ""Laundry Care"", 1, IF(bu = ""Home Care"", 2, IF(bu = ""Beauty Care"", 3, 0))) AS rank#(lf)#(lf)FROM `henkel-clicflyer.AnalyticsSolution.processed_data_henkel_heirarchy`", null, [EnableFolding=true])
+				in
+				    Source
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,98 @@
+table 'Main Parameter'
+	lineageTag: 314de663-2065-464c-a435-120ece524299
+
+	measure 'Deneb3 Heading' = ```
+			
+			"Value Share by Format - "
+			    & MAX('Main Parameter'[Parameter])
+			
+			```
+		lineageTag: 90019d64-38fc-43a9-bac1-fbcc436b756f
+
+	measure 'Deneb3 Heading 2' = ```
+			
+			"Volume Share by Format - "
+			    & MAX('Main Parameter'[Parameter])
+			
+			```
+		lineageTag: ad79ccbe-4855-4898-89cf-97d0b3563c62
+
+	measure 'Deneb3 Heading3' = ```
+			
+			"Price (SAR) by Format - "
+			    & MAX('Main Parameter'[Parameter])
+			
+			```
+		lineageTag: 982537fc-6fb9-4cfb-b506-25b95163a6e3
+
+	measure 'Selected Parameter Value' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Main Parameter'[Parameter Order]),
+			    0, SELECTEDVALUE('Hierarchy Index'[BU]),
+			    1, SELECTEDVALUE('Hierarchy Index'[SubCategory]),
+			    2, SELECTEDVALUE('Hierarchy Index'[Format]),
+			    3, SELECTEDVALUE('All channel'[Channel]),
+			    4, SELECTEDVALUE('IMS Processed'[Subchannel])
+			)
+		lineageTag: 1f18ed56-032f-400b-9f3f-553d6264eec2
+
+	column Parameter
+		lineageTag: 93ff7801-442c-492c-a3a9-2a8fa6b67803
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		lineageTag: c8c6f815-dc89-424f-895d-70105ae8c861
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		formatString: 0
+		lineageTag: 2eaca564-20f6-4fb4-8bfa-b77cda82152a
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Main Parameter' = calculated
+		mode: import
+		source = ```
+				{
+				    ("BU", NAMEOF('Hierarchy Index'[BU]), 0),
+				    ("Sub Category", NAMEOF('Hierarchy Index'[SubCategory]), 1),
+				    ("Format", NAMEOF('Hierarchy Index'[Format]), 2),
+				    ("Channel", NAMEOF('All channel'[Channel]), 3),
+				    ("Price Tier", NAMEOF('IMS Processed'[Customer_Group]), 4),
+				    ("Brand Strategy", NAMEOF('IMS Processed'[Brand Strategy]), 5),
+				    ("Promo Type", NAMEOF('Combined_Product_Table'[PromoType]), 6),
+				    ("Sales Type", NAMEOF('Combined_Product_Table'[Sales_Type]), 7),
+				    ("Price Brand", NAMEOF('IMS Processed'[Price_Brand]), 8) ,  
+				    ("Brand", NAMEOF('Combined_Product_Table'[Brand]), 9),
+				    ("Size", NAMEOF('Combined_Product_Table'[Size]), 10),
+				    ("Product Type", NAMEOF('Combined_Product_Table'[Product Type]), 11),
+				    ("Country", NAMEOF('All channel'[Country]), 12),
+				    ("Manufacturer", NAMEOF('Combined_Product_Table'[Manufacturer]), 13),
+				    ("Sub Channel", NAMEOF('IMS Processed'[Subchannel]), 14),
+				    ("Customer Group", NAMEOF('IMS Processed'[Customer_Group]), 15),
+				    ("Month", NAMEOF('dates'[monthdate]), 16)
+				}
+				```
+
+	annotation PBI_Id = 63f2b184f60a4adea4ecaac6c7164e11
+

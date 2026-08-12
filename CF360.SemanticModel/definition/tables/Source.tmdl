@@ -1,0 +1,291 @@
+table Source
+	lineageTag: d81c075a-df99-4805-98a7-57d3c30ddb64
+
+	measure 'Selected value Label 1' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     [Gross IMS P Henkel Label1],
+			    "EPOS",    [EPOS P Henkel Value Label1],
+			    "NIELSEN", [Nielsen P Henkel Value Label1],
+			    BLANK()
+			)
+		lineageTag: 293a88b8-f1d5-41c1-a0ce-32b5cc83b835
+
+	measure 'Selected value Label 2' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     [Gross IMS P Henkel Label2],
+			    "EPOS",    [EPOS P Henkel Value Label2],
+			    "NIELSEN", [Nielsen P Henkel Value Label2],
+			    BLANK()
+			)
+		lineageTag: 8a23d608-b8b3-41cb-8a13-fca83a95c8b9
+
+	measure 'VALUE Selected SOURCE' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     'IMS Processed'[Gross IMS P Dynamic],
+			    "EPOS",    'EPOS Processed data'[EPOS P Henkel Value Dynamic],
+			    "NIELSEN", 'Nielsen Processed'[Nielsen P Henkel Value Dynamic],
+			    BLANK()
+			)
+		lineageTag: ccaa17cc-7dd0-4d1c-b2c7-723cd36e27ae
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Selected vol Label 1' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     " ",
+			    "EPOS",    [EPOS P Henkel Volume Label1],
+			    "NIELSEN", [Nielsen P Henkel Volume Label1],
+			    BLANK()
+			)
+		lineageTag: 4854c7f6-d810-4ad2-948a-5bee420889aa
+
+	measure 'Selected vol Label 2' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     "",
+			    "EPOS",    [EPOS P Henkel Volume Label2],
+			    "NIELSEN", [Nielsen P Henkel Volume Label2],
+			    BLANK()
+			)
+		lineageTag: e360fe1a-1b5a-4c1b-94ca-4b191134ae83
+
+	measure 'VOL Selected SOURCE' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     "",
+			    "EPOS",    'EPOS Processed data'[EPOS P Henkel Volume Dynamic],
+			    "NIELSEN", 'Nielsen Processed'[Nielsen P Henkel Volume Dynamic],
+			    BLANK()
+			)
+		lineageTag: d58181fe-7cd6-44b8-8a70-ac452ddd1b71
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Selected value format card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     [Gross IMS P Henkel Dynamic],
+			    "EPOS",    [EPOS P Henkel Value Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Value Dynamic],
+			    BLANK()
+			)
+		lineageTag: 59262213-0bc8-49b5-bd1c-5eb8fac24b15
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Selected value share format card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     [Gross IMS P Henkel Share Dynamic],
+			    "EPOS",    [EPOS P Henkel Value Share Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Value Share Dynamic],
+			    BLANK()
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 35d3c276-1d66-42af-8896-a4d3dc6b96ed
+
+	measure 'Selected value change format card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     [Gross IMS P Henkel Change Dynamic],
+			    "EPOS",    [EPOS P Henkel Value Change Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Value Change Dynamic],
+			    BLANK()
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e83d094e-72d8-4d53-a48d-4e7279ac483f
+
+	measure 'Selected value GROWTH FORMAT  card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     [Gross IMS P Henkel Growth Dynamic],
+			    "EPOS",    [EPOS P Henkel Value Growth Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Value Growth Dynamic],
+			    BLANK()
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: fc55a36e-87ba-4567-8b5d-ad633c6959e5
+
+	measure 'Selected vol format card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     BLANK(),
+			    "EPOS",    [EPOS P Henkel Volume Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Vol Dynamic],
+			    BLANK()
+			)
+		lineageTag: 1720ad83-e070-46f8-ac81-3400b0b65eac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Selected vol share format card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     [Gross IMS P Henkel Share Dynamic],
+			    "EPOS",    [EPOS P Henkel Volume Share Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Vol Share Dynamic],
+			    BLANK()
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 3aed45f7-2073-4fb1-9e19-df098c949d7f
+
+	measure 'Selected vol change format card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     [Gross IMS P Henkel Change Dynamic],
+			    "EPOS",    [EPOS P Henkel Volume Change Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Vol Change Dynamic],
+			    BLANK()
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a5824920-2d18-46b4-b06c-bb28f54e644f
+
+	measure 'Selected vol GROWTH FORMAT card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     [Gross IMS P Henkel Growth Dynamic],
+			    "EPOS",    [EPOS P Henkel Volume Growth Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Vol Growth Dynamic],
+			    BLANK()
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 5ba8bf00-ab42-4888-89c6-cccb1280e85d
+
+	measure 'Selected price format card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "EPOS",    [EPOS P Henkel Price Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Price Dynamic],
+			    BLANK()
+			)
+		lineageTag: 30945307-50eb-42ab-a704-2174b77fe0fb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Selected price share format card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "EPOS",    [EPOS P Henkel Price Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Price LY Dynamic],
+			    BLANK()
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 3760759f-9f5e-4d06-b2a8-315857113278
+
+	measure 'Selected price change format card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS", "",
+			    "EPOS",    [EPOS P Henkel Price Change Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Price Change Dynamic],
+			    BLANK()
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 838754e9-d6df-464a-ae76-b2823191eeb6
+
+	measure 'Selected price GROWTH FORMAT card' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "EPOS",    [EPOS P Henkel Price Growth Dynamic],
+			    "NIELSEN", [Nielsen P Henkel Price Growth Dynamic],
+			    BLANK()
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 740f411c-bf88-4cdb-8649-cf447fb6783e
+
+	measure 'PRICE Selected SOURCE' =
+			
+			VAR SelectedSource = SELECTEDVALUE('Source'[Source])
+			RETURN
+			SWITCH(
+			    SelectedSource,
+			    "IMS",     "",
+			    "EPOS",    'EPOS Processed data'[EPOS P Henkel Price Dynamic],
+			    "NIELSEN", 'Nielsen Processed'[Nielsen P Henkel Price Dynamic],
+			    BLANK()
+			)
+		lineageTag: dbc55efc-c4a2-4049-a48a-e22f48355518
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Source
+		lineageTag: a71e96c8-4a89-4d51-9628-8cc8131cc576
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Source]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Source = calculated
+		mode: import
+		source =
+				
+				DATATABLE (
+				    "Source", STRING,
+				    {
+				        { "EPOS" },
+				        { "IMS" },
+				        { "NIELSEN" }
+				    }
+				)
+
+	annotation PBI_Id = f80436a83c5e47ff8d738607ba1a4cbd
+

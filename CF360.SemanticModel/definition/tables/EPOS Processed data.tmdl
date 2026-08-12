@@ -1,0 +1,1918 @@
+table 'EPOS Processed data'
+	lineageTag: 76271c9e-54f6-4291-8209-e1f65007fad2
+
+	measure 'EPOS P Value share change' = [EPOS P Value Share Dynamic] - [EPOS P Value Share LY Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: 817b3546-6704-491f-a164-e3b2d7e0121c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EPOS P Value Label1' =
+			FORMAT([EPOS P Value Dynamic] / 1000000, "#,##0.0M")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [EPOS P Value share change] >= 0,
+			    FORMAT(ABS([EPOS P Value share change]), "0.0%"),
+			    FORMAT(ABS([EPOS P Value share change]), "0.0%")
+			)
+		displayFolder: EPOS P value share
+		lineageTag: 7b2c4220-c342-498c-8ef3-58f0225bd55e
+
+	measure 'EPOS P Value Label2' =
+			FORMAT([EPOS P Value Growth Dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [EPOS P Value Change dynamic] >= 0,
+			    FORMAT(ABS([EPOS P Value Change dynamic]), "0.0%"),
+			    FORMAT(ABS([EPOS P Value Change dynamic]), "0.0%")
+			)
+		displayFolder: EPOS P value share
+		lineageTag: 2148899e-cb20-413a-bd3c-b138e8c7f20a
+
+	measure 'EPOS P Henkel Value Label1' = ```
+			
+			VAR _value = [EPOS P Henkel Value Dynamic]
+			VAR _formattedValue = 
+			    IF(
+			        ABS(_value) >= 1000000,
+			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
+			        IF(
+			            ABS(_value) >= 1000,
+			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
+			            FORMAT(_value, "#,##0.0")
+			        )
+			    )
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([EPOS P Henkel Value Share Dynamic]), "0.0%")
+			```
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 51d36c1d-f4ca-4107-9650-79a22302df94
+
+	measure 'EPOS P Henkel Value Label2' =
+			FORMAT([EPOS P Henkel Value Growth Dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& FORMAT(ABS([EPOS P Henkel Value Change Dynamic]), "0.0%")
+		displayFolder: EPOS P value Henkel share
+		lineageTag: f5907a54-80cd-48b9-a15d-607b9b16588b
+
+	measure 'EPOS P Value Custom' = SUM ( 'EPOS Processed data'[sales_val] )
+		formatString: 0.00
+		displayFolder: EPOS P value share
+		lineageTag: cd46f8a0-ebe6-403b-98d2-98b1adaac663
+
+	measure 'EPOS P Value YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[sales_val] ),
+			        FILTER (
+			            ALL ( 'EPOS Processed data'[monthdate] ),
+			            'EPOS Processed data'[monthdate] <= LastDataDate
+			                && YEAR ( 'EPOS Processed data'[monthdate] ) = YEAR ( LastDataDate )
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P value share
+		lineageTag: 97ce60e9-b10c-4967-af7d-41ff95ff419e
+
+	measure 'EPOS P Value Share Custom' = DIVIDE ( [EPOS P Value Custom], CALCULATE ( [EPOS P Value Custom], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: a4f074ed-f4bc-41b2-bcb7-4ca41cafa356
+
+	measure 'EPOS P Value Share YTD' = DIVIDE ( [EPOS P Value YTD], CALCULATE ( [EPOS P Value YTD], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: 7b99c6d1-1511-4347-b224-80afb58326cc
+
+	measure 'EPOS P Value LY Custom' = CALCULATE ( [EPOS P Value Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: EPOS P value share
+		lineageTag: 1d8fe94b-6582-4da2-8d38-3ed28a5b6044
+
+	measure 'EPOS P Value LY YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[sales_val] ),
+			        FILTER (
+			            ALL ( 'EPOS Processed data'[monthdate] ),
+			            'EPOS Processed data'[monthdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'EPOS Processed data'[monthdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P value share
+		lineageTag: 1c390510-c7f1-46fd-9cc0-ed5dd3de5e09
+
+	measure 'EPOS P Value Growth Custom' =
+			VAR CurrentVar = [EPOS P Value Custom]
+			VAR Prior = [EPOS P Value LY Custom]
+			RETURN DIVIDE ( CurrentVar - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: 0ee2a2af-a1f6-4265-9e20-0e2deef529c1
+
+	measure 'EPOS P Value Growth YTD' =
+			VAR CurrentVal = [EPOS P Value YTD]
+			VAR Prior = [EPOS P Value LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: 54b2f455-6bc3-4d46-8033-df480f59c0bf
+
+	measure 'EPOS P Value Change Custom' = [EPOS P Value Share Custom] - [EPOS P Value Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: dabbb81a-b5b6-4387-ad95-0eba6c3f1231
+
+	measure 'EPOS P Value Change YTD' = [EPOS P Value Share YTD] - [EPOS P Value Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: 64dad627-1907-4d0b-80dd-f48117240fa1
+
+	measure 'EPOS P Qty Custom' = SUM ( 'EPOS Processed data'[volume_sales] )
+		formatString: 0
+		displayFolder: EPOS P qty share
+		lineageTag: 1f25c36f-02ad-4550-abea-87f6752a5d19
+
+	measure 'EPOS P Qty YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        FILTER (
+			            ALL ( 'EPOS Processed data'[monthdate] ),
+			            'EPOS Processed data'[monthdate] <= LastDataDate
+			                && YEAR ( 'EPOS Processed data'[monthdate] ) = YEAR ( LastDataDate )
+			        )
+			    )
+		formatString: 0
+		displayFolder: EPOS P qty share
+		lineageTag: d676ddb0-f57d-4e7d-ace6-f2145d833f59
+
+	measure 'EPOS P Qty LY Custom' = CALCULATE ( [EPOS P Qty Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0
+		displayFolder: EPOS P qty share
+		lineageTag: facbfa6e-c1a9-4c0d-82ac-ea72ba3f4d31
+
+	measure 'EPOS P Qty LY YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        FILTER (
+			            ALL ( 'EPOS Processed data'[monthdate] ),
+			            'EPOS Processed data'[monthdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'EPOS Processed data'[monthdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0
+		displayFolder: EPOS P qty share
+		lineageTag: 5f6b85de-090e-4777-93db-0027ba6f3868
+
+	measure 'EPOS P Qty Share Custom' = DIVIDE ( [EPOS P Qty Custom], CALCULATE ( [EPOS P Qty Custom], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 66448e41-3722-4a2f-acf5-6c2794bcc5ec
+
+	measure 'EPOS P Qty Share YTD' = DIVIDE ( [EPOS P Qty YTD], CALCULATE ( [EPOS P Qty YTD], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 550e38c8-6780-4b36-b491-f3012e5e5a7e
+
+	measure 'EPOS P Qty Growth Custom' =
+			VAR CurrentVAR = [EPOS P Qty Custom]
+			VAR Prior = [EPOS P Qty LY Custom]
+			RETURN DIVIDE ( CurrentVAR - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 23101b4b-d47a-44bd-806e-c05f9d5e18ed
+
+	measure 'EPOS P Qty Growth YTD' =
+			VAR CurrentVAR = [EPOS P Qty YTD]
+			VAR Prior = [EPOS P Qty LY YTD]
+			RETURN DIVIDE ( CurrentVAR - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: cd621791-62ae-4a0a-9ce7-8063539c1bcc
+
+	measure 'EPOS P Qty Change Custom' = [EPOS P Qty Share Custom] - [EPOS P Qty Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 625ca941-fe3d-4b72-b474-c48642949bbc
+
+	measure 'EPOS P Qty Change YTD' = [EPOS P Qty Share YTD] - [EPOS P Qty Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 633b1a0c-6803-4b36-81a8-0c678e187833
+
+	measure 'EPOS P Henkel Value Custom' = CALCULATE ( [EPOS P Value Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 13d1b9ad-493a-4373-9de2-fa12c8189a56
+
+	measure 'EPOS P Henkel Value YTD' = CALCULATE ( [EPOS P Value YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 16f9ef73-af2a-449d-9b8c-963ec6124097
+
+	measure 'EPOS P Henkel Value LY Custom' = CALCULATE ( [EPOS P Value LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 3275c82b-768a-4c7d-aacb-a12ba65407be
+
+	measure 'EPOS P Henkel Value LY YTD' = CALCULATE ( [EPOS P Value LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 6d5f98c1-e9e6-457b-9a19-3ce719674daf
+
+	measure 'EPOS P Henkel Value Share Custom' = DIVIDE ( CALCULATE ( [EPOS P Value Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Value Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 7cc77a48-f12a-4381-87f9-31dd613e161d
+
+	measure 'EPOS P Henkel Value Share YTD' = DIVIDE ( CALCULATE ( [EPOS P Value YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Value YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 9bfa81bc-9abf-456d-ac9a-1bb510ec27b6
+
+	measure 'EPOS P Henkel Value Growth Custom' = DIVIDE ( [EPOS P Henkel Value Custom] - [EPOS P Henkel Value LY Custom], [EPOS P Henkel Value Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 256bda39-3737-432d-907b-53fb98ad7f38
+
+	measure 'EPOS P Henkel Value Growth YTD' = DIVIDE ( [EPOS P Henkel Value YTD] - [EPOS P Henkel Value LY YTD], [EPOS P Henkel Value YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: e4b8bbc2-e9a4-43f9-a9a1-aac41206fc9e
+
+	measure 'EPOS P Henkel Value Change Custom' = [EPOS P Henkel Value Share Custom] - DIVIDE ( CALCULATE ( [EPOS P Value LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Value LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 71694b60-aae8-407d-9176-47acaf458492
+
+	measure 'EPOS P Henkel Value Change YTD' = [EPOS P Henkel Value Share YTD] - DIVIDE ( CALCULATE ( [EPOS P Value LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Value LY YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 044a800e-aadb-42d1-af8e-9854567e8af5
+
+	measure 'EPOS P Value Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Value YTD],
+			        "MAT", [EPOS P Value MAT],
+			        [EPOS P Value Custom]
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P value share
+		lineageTag: 8a71b430-47e3-4e77-ac78-d4ddb17c8325
+
+	measure 'EPOS P Value MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[sales_val] ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] > CutoffDate ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] <= GlobalMaxDate )
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P value share
+		lineageTag: 2fb0a537-5103-49a6-b86b-7c37c20abd8e
+
+	measure 'EPOS P Qty MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] > CutoffDate ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] <= GlobalMaxDate )
+			    )
+		formatString: 0
+		displayFolder: EPOS P qty share
+		lineageTag: fb06221a-1ecc-40d1-9ec4-1cc8b1a34d27
+
+	measure 'EPOS P Qty LY MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] > CutoffLY ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] <= AnchorLY )
+			    )
+		formatString: 0
+		displayFolder: EPOS P qty share
+		lineageTag: 49118e8d-4908-4a9b-a988-6edda04c86c8
+
+	measure 'EPOS P Value LY MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[sales_val] ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] > CutoffLY ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] <= AnchorLY )
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P value share
+		lineageTag: e6082042-2e58-4c62-acbc-7bb8629e97c0
+
+	measure 'EPOS P Henkel Value MAT' = CALCULATE ( [EPOS P Value MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P value Henkel share
+		lineageTag: a544696e-ea49-4f6f-96ec-6cf514edd720
+
+	measure 'EPOS P Value YTD LY' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[sales_val] ),
+			        FILTER (
+			            ALL ( 'EPOS Processed data'[monthdate] ),
+			            'EPOS Processed data'[monthdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'EPOS Processed data'[monthdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P value share
+		lineageTag: 55205c3b-9372-4a25-9cc8-db5940066d74
+
+	measure 'EPOS P Value Custom LY' = CALCULATE ( [EPOS P Value Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: EPOS P value share
+		lineageTag: 9e333591-d1db-404b-bca6-17e3385de83b
+
+	measure 'EPOS P Value MAT LY' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[sales_val] ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] > CutoffLY ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] <= AnchorLY )
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P value share
+		lineageTag: b1678f25-ad2f-4fbb-b9e9-8b05030ba3bd
+
+	measure 'EPOS P Value Share MAT' = DIVIDE ( [EPOS P Value MAT], CALCULATE ( [EPOS P Value MAT], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: 1120485d-324e-475c-81c6-d8079f1a8b76
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EPOS P Value Change MAT' = [EPOS P Value Share MAT] - [EPOS P Value Share LY MAT]
+		displayFolder: EPOS P value share
+		lineageTag: 8d27b476-4989-4b0f-8438-9114eb6d276b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EPOS P Value Change dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Value Change YTD],
+			        "MAT", [EPOS P Value Change MAT],
+			        [EPOS P Value Change Custom]
+			    )
+		displayFolder: EPOS P value share
+		lineageTag: 9865df36-536f-4738-a0dc-26f75c05063a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EPOS P Volume YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        FILTER (
+			            ALL ( 'EPOS Processed data'[monthdate] ),
+			            'EPOS Processed data'[monthdate] <= LastDataDate
+			                && YEAR ( 'EPOS Processed data'[monthdate] ) = YEAR ( LastDataDate )
+			        )
+			    )
+		formatString: 0
+		displayFolder: EPOS P volume share
+		lineageTag: a3b147f9-6e43-4a29-bf1e-5bdc72c24536
+
+	measure 'EPOS P Volume Share Custom' = DIVIDE ( [EPOS P Volume Custom], CALCULATE ( [EPOS P Volume Custom], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: cb3a57c9-e0a1-4671-a40d-317a0d6919d1
+
+	measure 'EPOS P Volume Share YTD' = DIVIDE ( [EPOS P Volume YTD], CALCULATE ( [EPOS P Volume YTD], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 5d636435-c00b-48a8-9639-3df24485078f
+
+	measure 'EPOS P Volume LY Custom' = CALCULATE ( [EPOS P Volume Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0
+		displayFolder: EPOS P volume share
+		lineageTag: 7b2b4202-7859-4119-bd8d-910003061021
+
+	measure 'EPOS P Volume LY YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        FILTER (
+			            ALL ( 'EPOS Processed data'[monthdate] ),
+			            'EPOS Processed data'[monthdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'EPOS Processed data'[monthdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0
+		displayFolder: EPOS P volume share
+		lineageTag: 9025893d-d8d3-49d1-9de5-38f8a6ff7195
+
+	measure 'EPOS P Volume Growth Custom' =
+			VAR CurrentVal = [EPOS P Volume Custom]
+			VAR Prior = [EPOS P Volume LY Custom]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: fa53404d-fbfe-48e1-a705-c801f19a3911
+
+	measure 'EPOS P Volume Growth YTD' =
+			VAR CurrentVal = [EPOS P Volume YTD]
+			VAR Prior = [EPOS P Volume LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 25ff426e-60b6-4e69-8c5d-2e5f28aed4e6
+
+	measure 'EPOS P Volume Change Custom' = [EPOS P Volume Share Custom] - [EPOS P Volume Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 7f4eabe7-4807-49ae-9ab9-f66c9ae21bc6
+
+	measure 'EPOS P Volume Change YTD' = [EPOS P Volume Share YTD] - [EPOS P Volume Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 7ba7aa32-230c-44e7-a5cc-e3ff56f52533
+
+	measure 'EPOS P Henkel Volume Custom' = CALCULATE ( [EPOS P Volume Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 6d5b5dc5-1865-40b1-bfcf-e3c8ab129356
+
+	measure 'EPOS P Henkel Volume YTD' = CALCULATE ( [EPOS P Volume YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: f83f9dd1-fdcd-46a6-bd9c-3e00ca22c744
+
+	measure 'EPOS P Henkel Volume LY Custom' = CALCULATE ( [EPOS P Volume LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: c100aace-a0e6-4341-8150-64507bf66098
+
+	measure 'EPOS P Henkel Volume LY YTD' = CALCULATE ( [EPOS P Volume LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: c5f33abe-dc25-4d5e-8e2e-39578d9ebe1d
+
+	measure 'EPOS P Henkel Volume Share Custom' = DIVIDE ( CALCULATE ( [EPOS P Volume Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Volume Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: d08ca7a6-2c67-43f2-915a-2375ffce14af
+
+	measure 'EPOS P Henkel Volume Share YTD' = DIVIDE ( CALCULATE ( [EPOS P Volume YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Volume YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: b18e8fb8-928a-48b8-b484-7deb05cfc9d7
+
+	measure 'EPOS P Henkel Volume Growth Custom' = DIVIDE ( [EPOS P Henkel Volume Custom] - [EPOS P Henkel Volume LY Custom], [EPOS P Henkel Volume Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 8c740643-caa5-4321-8e8b-336c725ddb01
+
+	measure 'EPOS P Henkel Volume Growth YTD' = DIVIDE ( [EPOS P Henkel Volume YTD] - [EPOS P Henkel Volume LY YTD], [EPOS P Henkel Volume YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: fcde94bd-c717-49cf-be31-bf49b5e9ed04
+
+	measure 'EPOS P Henkel Volume Change Custom' = [EPOS P Henkel Volume Share Custom] - DIVIDE ( CALCULATE ( [EPOS P Volume LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Volume LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: e0a44f42-0b3c-4bd4-91ce-1fb220cd8665
+
+	measure 'EPOS P Henkel Volume Change YTD' = [EPOS P Henkel Volume Share YTD] - DIVIDE ( CALCULATE ( [EPOS P Volume LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Volume LY YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 5499fece-cd05-45d6-883d-cbe323de5e0e
+
+	measure 'EPOS P Volume Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Volume YTD],
+			        "MAT", [EPOS P Volume MAT],
+			        [EPOS P Volume Custom]
+			    )
+		formatString: 0
+		displayFolder: EPOS P volume share
+		lineageTag: 24a28909-3769-4af1-926a-36d08afbd3e1
+
+	measure 'EPOS P Volume MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] > CutoffDate ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] <= GlobalMaxDate )
+			    )
+		formatString: 0
+		displayFolder: EPOS P volume share
+		lineageTag: 17c5b7f7-ea11-4ece-8b78-feec48a6399c
+
+	measure 'EPOS P Volume LY MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] > CutoffLY ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] <= AnchorLY )
+			    )
+		formatString: 0
+		displayFolder: EPOS P volume share
+		lineageTag: 2603e37b-8b54-4c0e-9e2c-f5356ec9ad34
+
+	measure 'EPOS P Henkel Volume MAT' = CALCULATE ( [EPOS P Volume MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 79fbde21-1756-425c-97f0-6fb35b600897
+
+	measure 'EPOS P Volume YTD LY' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        FILTER (
+			            ALL ( 'EPOS Processed data'[monthdate] ),
+			            'EPOS Processed data'[monthdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'EPOS Processed data'[monthdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0
+		displayFolder: EPOS P volume share
+		lineageTag: 2e5c7d31-dae2-4bb7-bca5-5062e2723f24
+
+	measure 'EPOS P Volume Custom LY' = CALCULATE ( [EPOS P Volume Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0
+		displayFolder: EPOS P volume share
+		lineageTag: 90b94080-999e-4a38-9ab8-99f1add00baf
+
+	measure 'EPOS P Volume MAT LY' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] > CutoffLY ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] <= AnchorLY )
+			    )
+		formatString: 0
+		displayFolder: EPOS P volume share
+		lineageTag: e3f33d23-cc5a-42bb-beaa-a88ec77db9f2
+
+	measure 'EPOS P Volume share change' = [EPOS P Volume Share Dynamic] - [EPOS P Volume Share LY Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 257f9243-1cd6-4c50-b876-72ab4a87cc55
+
+	measure 'EPOS P Volume Label1' =
+			FORMAT([EPOS P Volume Dynamic] / 1000000, "#,##0.0M")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [EPOS P Volume Share Dynamic] >= 0,
+			    FORMAT(ABS([EPOS P Volume Share Dynamic]), "0.0%"),
+			    FORMAT(ABS([EPOS P Volume Share Dynamic]), "0.0%")
+			)
+		displayFolder: EPOS P volume share
+		lineageTag: 3a9f6f99-4a67-4eee-aa69-a49e19c11cbc
+
+	measure 'EPOS P Volume Label2' =
+			FORMAT([EPOS P Volume Growth dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [EPOS P Volume Change dynamic] >= 0,
+			    FORMAT(ABS([EPOS P Volume Change dynamic]), "0.0%"),
+			    FORMAT(ABS([EPOS P Volume Change dynamic]), "0.0%")
+			)
+		displayFolder: EPOS P volume share
+		lineageTag: 949c7418-ff92-4d4d-b897-7478a821eebb
+
+	measure 'EPOS P Henkel Volume Label1' =
+			VAR _value = [EPOS P Henkel Volume Dynamic]
+			VAR _formattedValue =
+			    IF(
+			        ABS(_value) >= 1000000,
+			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
+			        IF(
+			            ABS(_value) >= 1000,
+			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
+			            FORMAT(_value, "#,##0.0")
+			        )
+			    )
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([EPOS P Henkel Volume Share Dynamic]), "0.0%")
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 773f1202-22c7-47cf-abf9-826192cadec1
+
+	measure 'EPOS P Henkel Volume Label2' =
+			FORMAT([EPOS P Henkel Volume Growth Dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& FORMAT(ABS([EPOS P Henkel Volume Change Dynamic]), "0.0%")
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 6030b692-9a23-43dc-b806-4676ae8f8ed1
+
+	measure 'EPOS P Price Custom' = DIVIDE ( [EPOS P Value Custom], [EPOS P Volume Custom] )
+		formatString: 0.00
+		displayFolder: EPOS P Price
+		lineageTag: b94e8d43-444d-4614-a5a0-996495158360
+
+	measure 'EPOS P Price YTD' = DIVIDE ( [EPOS P Value YTD], [EPOS P Volume YTD] )
+		formatString: 0.00
+		displayFolder: EPOS P Price
+		lineageTag: 66e86d1c-27bd-420f-ac30-f9b1e80e6bdf
+
+	measure 'EPOS P Price MAT' = DIVIDE ( [EPOS P Value MAT], [EPOS P Volume MAT] )
+		formatString: 0.00
+		displayFolder: EPOS P Price
+		lineageTag: 281a6876-cc20-4462-87af-e75a6e6c2238
+
+	measure 'EPOS P Price LY MAT' = DIVIDE ( [EPOS P Value LY MAT], [EPOS P Volume LY MAT] )
+		formatString: 0.00
+		displayFolder: EPOS P Price
+		lineageTag: 7eab7e48-0865-43e5-8857-524bb900e57b
+
+	measure 'EPOS P Henkel Price MAT' = CALCULATE ( [EPOS P Price MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 832e9146-c6b1-4a37-a773-009989f32305
+
+	measure 'EPOS P Henkel Price Custom' = CALCULATE ( [EPOS P Price Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P Price Henkel
+		lineageTag: ced8b1df-a082-46d2-888f-6c517b18d91e
+
+	measure 'EPOS P Henkel Price YTD' = CALCULATE ( [EPOS P Price YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 46b47abb-5d69-4a69-b1e5-aa2acfb0e0ca
+
+	measure 'EPOS P Price Share Custom' = DIVIDE ( [EPOS P Price Custom], CALCULATE ( [EPOS P Price Custom], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: c1b78534-b443-4bb5-bf7f-d1e63da5451c
+
+	measure 'EPOS P Price Share YTD' = DIVIDE ( [EPOS P Price YTD], CALCULATE ( [EPOS P Price YTD], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: 8a103bb0-aade-4a12-9980-afb3ad515318
+
+	measure 'EPOS P Price LY Custom' = CALCULATE ( [EPOS P Price Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: EPOS P Price
+		lineageTag: 5e2a15f7-5229-4720-96be-3097d8045108
+
+	measure 'EPOS P Price LY YTD' = DIVIDE ( [EPOS P Value LY YTD], [EPOS P Volume LY YTD] )
+		formatString: 0.00
+		displayFolder: EPOS P Price
+		lineageTag: cf50467b-f9bd-42a3-8345-c753024c3e2c
+
+	measure 'EPOS P Price Growth Custom' =
+			VAR CurrentVal = [EPOS P Price Custom]
+			VAR Prior = [EPOS P Price LY Custom]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: 1ae7b656-aa07-4022-938a-70fccf43e8e6
+
+	measure 'EPOS P Price Growth YTD' =
+			VAR CurrentVal = [EPOS P Price YTD]
+			VAR Prior = [EPOS P Price LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: d7f67424-847b-4cf5-a925-ad33261983bd
+
+	measure 'EPOS P Price Change Custom' = [EPOS P Price Share Custom] - [EPOS P Price Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: 9b729139-2e9a-4724-97d0-e42b8457030c
+
+	measure 'EPOS P Price Change YTD' = [EPOS P Price Share YTD] - [EPOS P Price Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: 2e1f0929-0ea2-4b92-a8e7-daa5dc0d35e6
+
+	measure 'EPOS P Henkel Price LY Custom' = CALCULATE ( [EPOS P Price LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P Price Henkel
+		lineageTag: f6fe63d0-7aed-4392-a2d5-73a7634176d8
+
+	measure 'EPOS P Henkel Price LY YTD' = CALCULATE ( [EPOS P Price LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 56b19c21-9690-41e9-aed7-52bcb18f0dac
+
+	measure 'EPOS P Henkel Price Share Custom' = DIVIDE ( CALCULATE ( [EPOS P Price Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Price Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: a151f171-affd-4d08-8dbd-783e49b0b31c
+
+	measure 'EPOS P Henkel Price Share YTD' = DIVIDE ( CALCULATE ( [EPOS P Price YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Price YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 41ad0b7d-5f81-42e5-832d-b2e7617a3cd3
+
+	measure 'EPOS P Henkel Price Growth Custom' = DIVIDE ( [EPOS P Henkel Price Custom] - [EPOS P Henkel Price LY Custom], [EPOS P Henkel Price Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 0da2022f-9266-43e4-8b33-9fc5509027a1
+
+	measure 'EPOS P Henkel Price Growth YTD' = DIVIDE ( [EPOS P Henkel Price YTD] - [EPOS P Henkel Price LY YTD], [EPOS P Henkel Price YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 492a759f-3d5a-4a4d-87b9-2b6bc1fb1438
+
+	measure 'EPOS P Henkel Price Change Custom' = [EPOS P Henkel Price Share Custom] - DIVIDE ( CALCULATE ( [EPOS P Price LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Price LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: a0599352-681f-432d-8ee4-bc1f848b2707
+
+	measure 'EPOS P Henkel Price Change YTD' = [EPOS P Henkel Price Share YTD] - DIVIDE ( CALCULATE ( [EPOS P Price LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Price LY YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 2a28f989-ab41-4c64-8052-c86921feec65
+
+	measure 'EPOS P Price Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Price YTD],
+			        "MAT", [EPOS P Price MAT],
+			        [EPOS P Price Custom]
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P Price
+		lineageTag: ed1fb1b6-cde3-44e1-a3e3-1966bcf3ddbb
+
+	measure 'EPOS P Price YTD LY' = DIVIDE ( [EPOS P Value LY YTD], [EPOS P Volume LY YTD] )
+		formatString: 0.00
+		displayFolder: EPOS P Price
+		lineageTag: 7fb42375-80c1-4ee3-b256-9a3b8fadaef7
+
+	measure 'EPOS P Price Custom LY' = CALCULATE ( [EPOS P Price Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: EPOS P Price
+		lineageTag: 308318f8-1837-405b-9b43-5e51d43858b3
+
+	measure 'EPOS P Price MAT LY' = DIVIDE ( [EPOS P Value MAT LY], [EPOS P Volume MAT LY] )
+		formatString: 0.00
+		displayFolder: EPOS P Price
+		lineageTag: 62f40981-0f5e-4783-bb32-f042553d56b9
+
+	measure 'EPOS P Price share change' = [EPOS P Price Share Dynamic] - [EPOS P Price Share LY Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: 0c9952ef-5e9c-4628-8a79-0ccae3169c30
+
+	measure 'EPOS P Price Label1' =
+			FORMAT([EPOS P Price Dynamic], "#,##0.00")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [EPOS P Price Share Dynamic] >= 0,
+			    FORMAT(ABS([EPOS P Price Share Dynamic]), "0.0%"),
+			    FORMAT(ABS([EPOS P Price Share Dynamic]), "0.0%")
+			)
+		displayFolder: EPOS P Price
+		lineageTag: f91caa3a-c478-4218-98b6-0baec131d399
+
+	measure 'EPOS P Price Label2' =
+			FORMAT([EPOS P Price Growth dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [EPOS P Price Change dynamic] >= 0,
+			    FORMAT(ABS([EPOS P Price Change dynamic]), "0.0%"),
+			    FORMAT(ABS([EPOS P Price Change dynamic]), "0.0%")
+			)
+		displayFolder: EPOS P Price
+		lineageTag: 6ba6ec62-4124-49cf-8511-494ac8dfd1ab
+
+	measure 'EPOS P Henkel Price Label1' =
+			VAR _value = [EPOS P Henkel Price Dynamic]
+			VAR _formattedValue = FORMAT(_value, "#,##0.00")
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([EPOS P Henkel Price Share Dynamic]), "0.0%")
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 9a325980-7f5e-4d0a-8f6c-807d4232318b
+
+	measure 'EPOS P Henkel Price Label2' =
+			FORMAT([EPOS P Henkel Price Growth Dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& FORMAT(ABS([EPOS P Henkel Price Change Dynamic]), "0.0%")
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 4fac0969-f21c-44c0-9fc8-615be3057bd8
+
+	measure 'EPOS P Volume Share MAT' = DIVIDE ( [EPOS P Volume MAT], CALCULATE ( [EPOS P Volume MAT], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 4873bb3b-d7c8-43b5-931f-e3f450164685
+
+	measure 'EPOS P Volume Change MAT' = [EPOS P Volume Share MAT] - [EPOS P Volume Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: eed404ac-a951-487c-a227-1466df98df9d
+
+	measure 'EPOS P Volume Change dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Volume Change YTD],
+			        "MAT", [EPOS P Volume Change MAT],
+			        [EPOS P Volume Change Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 40a3bfc0-d564-4966-bbee-2df268b43bd9
+
+	measure 'EPOS P Price Share MAT' = DIVIDE ( [EPOS P Price MAT], CALCULATE ( [EPOS P Price MAT], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: b706e37f-b7e8-4f75-b426-bb994dbf6fe0
+
+	measure 'EPOS P Price Change MAT' = [EPOS P Price Share MAT] - [EPOS P Price Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: f12c4873-a3f2-4893-ad5a-3cbc83200150
+
+	measure 'EPOS P Price Change dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Price Change YTD],
+			        "MAT", [EPOS P Price Change MAT],
+			        [EPOS P Price Change Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: cd6b051b-ece2-4258-b951-6ce997db56b9
+
+	measure 'EPOS P Volume Custom' = SUM ( 'EPOS Processed data'[volume_sales] )
+		formatString: 0
+		displayFolder: EPOS P volume share
+		lineageTag: 7a042813-514e-4892-a937-bf6b9fccd0b3
+
+	measure 'EPOS P Value Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Value Growth YTD],
+			        "MAT", [EPOS P Value Growth MAT],
+			        [EPOS P Value Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: d4727b44-cfb8-43c1-808b-2f5ed704066a
+
+	measure 'EPOS P Value Growth MAT' =
+			VAR CurrentVal = [EPOS P Value MAT]
+			VAR Prior = [EPOS P Value LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: 3690ff18-322e-4c45-9e60-de8c5506f32c
+
+	measure 'EPOS P Volume Growth MAT' =
+			VAR CurrentVal = [EPOS P Volume MAT]
+			VAR Prior = [EPOS P Volume LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: b5f414be-f311-42e4-a165-ed8101cb4f62
+
+	measure 'EPOS P Volume Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Volume Growth YTD],
+			        "MAT", [EPOS P Volume Growth MAT],
+			        [EPOS P Volume Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 91d7cb1c-5990-4422-95dd-f9ef59fc7813
+
+	measure 'EPOS P Price Growth MAT' =
+			VAR CurrentVal = [EPOS P Price MAT]
+			VAR Prior = [EPOS P Price LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: 0c9f2edb-2196-4793-9e3c-567b9aaf7cef
+
+	measure 'EPOS P Price Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Price Growth YTD],
+			        "MAT", [EPOS P Price Growth MAT],
+			        [EPOS P Price Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: e389d646-1d8d-410e-823e-3b068558938a
+
+	measure 'EPOS P Henkel Qty Custom' = CALCULATE ( [EPOS P Qty Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 72703a45-f9d8-4246-b4f8-0bccaf56635a
+
+	measure 'EPOS P Henkel Qty YTD' = CALCULATE ( [EPOS P Qty YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 4c12bd86-e6f1-4764-b8a8-65173b3d3bca
+
+	measure 'EPOS P Henkel Qty MAT' = CALCULATE ( [EPOS P Qty MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 992cf95a-55de-4dd8-bad6-0693345c5b42
+
+	measure 'EPOS P Qty MAT LY' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] > CutoffLY ),
+			        KEEPFILTERS ( 'EPOS Processed data'[monthdate] <= AnchorLY )
+			    )
+		formatString: 0
+		displayFolder: EPOS P qty share
+		lineageTag: 720f93b6-1a43-4c61-8424-b450f3342d7e
+
+	measure 'EPOS P Henkel Qty LY Custom' = CALCULATE ( [EPOS P Qty LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: f3ccf105-a552-4945-80e2-15fcd62fe2a9
+
+	measure 'EPOS P Henkel Qty LY YTD' = CALCULATE ( [EPOS P Qty LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: c8e36b51-9a29-4bea-83cc-3a57a0fa1902
+
+	measure 'EPOS P Henkel Qty Share Custom' = DIVIDE ( CALCULATE ( [EPOS P Qty Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Qty Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: d229c2cd-5494-4e51-b3a9-4581a172aba2
+
+	measure 'EPOS P Henkel Qty Share YTD' = DIVIDE ( CALCULATE ( [EPOS P Qty YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Qty YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 51b0f478-3c8e-4e69-9d28-d37988385c43
+
+	measure 'EPOS P Qty YTD LY' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'EPOS Processed data'[volume_sales] ),
+			        FILTER (
+			            ALL ( 'EPOS Processed data'[monthdate] ),
+			            'EPOS Processed data'[monthdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'EPOS Processed data'[monthdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0
+		displayFolder: EPOS P qty share
+		lineageTag: 80687f18-2aea-4e1c-8b09-7c4bc434e5a5
+
+	measure 'EPOS P Qty Custom LY' = CALCULATE ( [EPOS P Qty Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0
+		displayFolder: EPOS P qty share
+		lineageTag: 17e8e0bf-b2fe-4185-b677-a9cffc45f5bb
+
+	measure 'EPOS P Qty Share MAT' = DIVIDE ( [EPOS P Qty MAT], CALCULATE ( [EPOS P Qty MAT], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 389869f5-3c22-4708-82df-fefe4bc1ab85
+
+	measure 'EPOS P Qty Growth MAT' =
+			VAR CurrentVal = [EPOS P Qty MAT]
+			VAR Prior = [EPOS P Qty LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 014cce1c-e779-4895-9b72-d7f038d33348
+
+	measure 'EPOS P Henkel Qty Growth Custom' = DIVIDE ( [EPOS P Henkel Qty Custom] - [EPOS P Henkel Qty LY Custom], [EPOS P Henkel Qty Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 3b4ac560-afbb-487f-a84d-39b41c7ce0e4
+
+	measure 'EPOS P Henkel Qty Growth YTD' = DIVIDE ( [EPOS P Henkel Qty YTD] - [EPOS P Henkel Qty LY YTD], [EPOS P Henkel Qty YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 948847fb-cf14-4cb3-b086-9ded047d542b
+
+	measure 'EPOS P Henkel Qty Change Custom' = [EPOS P Henkel Qty Share Custom] - DIVIDE ( CALCULATE ( [EPOS P Qty LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Qty LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 19a9e9e5-2251-4f53-b898-a98c48003295
+
+	measure 'EPOS P Henkel Qty Change YTD' = [EPOS P Henkel Qty Share YTD] - DIVIDE ( CALCULATE ( [EPOS P Qty LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Qty LY YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 23bb0365-dbd2-4347-8b8e-d39432ff854d
+
+	measure 'EPOS P Qty Change MAT' = [EPOS P Qty Share MAT] - [EPOS P Qty Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 505b230a-c02f-434d-8621-58137845999f
+
+	measure 'EPOS P Qty Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Qty YTD],
+			        "MAT", [EPOS P Qty MAT],
+			        [EPOS P Qty Custom]
+			    )
+		formatString: 0
+		displayFolder: EPOS P qty share
+		lineageTag: c5d55d0d-99de-42a8-a274-2835353838cd
+
+	measure 'EPOS P Qty Change dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Qty Change YTD],
+			        "MAT", [EPOS P Qty Change MAT],
+			        [EPOS P Qty Change Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 52cb2928-a146-44bb-91e6-96be6de3e813
+
+	measure 'EPOS P Qty Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Qty Growth YTD],
+			        "MAT", [EPOS P Qty Growth MAT],
+			        [EPOS P Qty Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: f3c2e613-ea04-4041-bf0a-e1c1c52055ff
+
+	measure 'EPOS P Qty share change' = [EPOS P Qty Share Dynamic] - [EPOS P Qty Share LY Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 6053a3ca-8ac4-47fb-b63d-9f76006bf5b5
+
+	measure 'EPOS P Qty Label1' =
+			FORMAT([EPOS P Qty Dynamic] / 1000000, "#,##0.0M")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [EPOS P Qty Share Dynamic] >= 0,
+			    FORMAT(ABS([EPOS P Qty Share Dynamic]), "0.0%"),
+			    FORMAT(ABS([EPOS P Qty Share Dynamic]), "0.0%")
+			)
+		displayFolder: EPOS P qty share
+		lineageTag: f4ed4b3c-ead1-4e6e-becc-b071884c088f
+
+	measure 'EPOS P Qty Label2' =
+			FORMAT([EPOS P Qty Growth Dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [EPOS P Qty Change dynamic] >= 0,
+			    FORMAT(ABS([EPOS P Qty Change dynamic]), "0.0%"),
+			    FORMAT(ABS([EPOS P Qty Change dynamic]), "0.0%")
+			)
+		displayFolder: EPOS P qty share
+		lineageTag: 52d610e1-a1e1-4bfb-8741-66752b70faeb
+
+	measure 'EPOS P Henkel Qty Label1' =
+			VAR _value = [EPOS P Henkel Qty Dynamic]
+			VAR _formattedValue =
+			    IF(
+			        ABS(_value) >= 1000000,
+			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
+			        IF(
+			            ABS(_value) >= 1000,
+			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
+			            FORMAT(_value, "#,##0.0")
+			        )
+			    )
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([EPOS P Henkel Qty Share Dynamic]), "0.0%")
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 37c60598-266e-4a49-b928-ca8f66e21a9a
+
+	measure 'EPOS P Henkel Qty Label2' =
+			FORMAT([EPOS P Henkel Qty Growth Dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& FORMAT(ABS([EPOS P Henkel Qty Change Dynamic]), "0.0%")
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: eed7f4c5-ed24-4782-bb7e-41cf3797529c
+
+	measure 'EPOS P Henkel Value LY MAT' = CALCULATE ( [EPOS P Value LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 6608063a-0efe-4eb1-9703-eaa770b21aca
+
+	measure 'EPOS P Henkel Value Share MAT' = DIVIDE ( CALCULATE ( [EPOS P Value MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Value MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 314dde9d-624c-4440-a08c-150cf0dd62a9
+
+	measure 'EPOS P Henkel Value Growth MAT' = DIVIDE ( [EPOS P Henkel Value MAT] - [EPOS P Henkel Value LY MAT], [EPOS P Henkel Value MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 4fd84b00-3a8f-414e-aefd-a359a2de570d
+
+	measure 'EPOS P Henkel Value Change MAT' = [EPOS P Henkel Value Share MAT] - DIVIDE ( CALCULATE ( [EPOS P Value LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Value LY MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: e1f44982-4402-4415-ae54-d0bb8495ce62
+
+	measure 'EPOS P Henkel Value Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [EPOS P Value YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [EPOS P Value MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [EPOS P Value Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 49371419-c395-4a03-9644-5877dadede63
+
+	measure 'EPOS P Henkel Value LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [EPOS P Value LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [EPOS P Value LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [EPOS P Value LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P value Henkel share
+		lineageTag: b0f05b04-6dad-4a77-b732-d0b0300fcb7f
+
+	measure 'EPOS P Henkel Value Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( CALCULATE ( [EPOS P Value YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Value YTD] ),
+			        "MAT", DIVIDE ( CALCULATE ( [EPOS P Value MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Value MAT] ),
+			        DIVIDE ( CALCULATE ( [EPOS P Value Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Value Custom] )
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 3c3a2333-085e-48d1-8da0-8ddc2ce3dadf
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'EPOS P Henkel Value Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( [EPOS P Henkel Value YTD] - [EPOS P Henkel Value LY YTD], [EPOS P Henkel Value YTD] ),
+			        "MAT", DIVIDE ( [EPOS P Henkel Value MAT] - [EPOS P Henkel Value LY MAT], [EPOS P Henkel Value MAT] ),
+			        DIVIDE ( [EPOS P Henkel Value Custom] - [EPOS P Henkel Value LY Custom], [EPOS P Henkel Value Custom] )
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: f8fb0cfe-01cb-4e30-962e-72629ade8737
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'EPOS P Henkel Value Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Henkel Value Change YTD],
+			        "MAT", [EPOS P Henkel Value Change MAT],
+			        [EPOS P Henkel Value Change Custom]
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value Henkel share
+		lineageTag: 8a154b9a-36bf-4911-988e-32adfd4e5645
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'EPOS P Henkel Volume LY MAT' = CALCULATE ( [EPOS P Volume LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 85e27cdb-86fb-4c5e-b2dc-732bfea4ca55
+
+	measure 'EPOS P Henkel Volume Share MAT' = DIVIDE ( CALCULATE ( [EPOS P Volume MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Volume MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 902c61eb-87dc-4b98-ae99-859fa8c2b754
+
+	measure 'EPOS P Henkel Volume Growth MAT' = DIVIDE ( [EPOS P Henkel Volume MAT] - [EPOS P Henkel Volume LY MAT], [EPOS P Henkel Volume MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: ef919b46-603a-4a84-ab75-9cc2183d2963
+
+	measure 'EPOS P Henkel Volume Change MAT' = [EPOS P Henkel Volume Share MAT] - DIVIDE ( CALCULATE ( [EPOS P Volume LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Volume LY MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 2ba12f0f-c842-43af-8151-5aeb21936c04
+
+	measure 'EPOS P Henkel Volume Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [EPOS P Volume YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [EPOS P Volume MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [EPOS P Volume Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 63987a5c-7445-4f2a-aa9a-382bf7b2b30a
+
+	measure 'EPOS P Henkel Volume LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [EPOS P Volume LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [EPOS P Volume LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [EPOS P Volume LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 546207a7-1b73-410d-8368-71de4aeb52c5
+
+	measure 'EPOS P Henkel Volume Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( CALCULATE ( [EPOS P Volume YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Volume YTD] ),
+			        "MAT", DIVIDE ( CALCULATE ( [EPOS P Volume MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Volume MAT] ),
+			        DIVIDE ( CALCULATE ( [EPOS P Volume Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Volume Custom] )
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 07d74196-830e-417a-a273-08c2bd32295e
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'EPOS P Henkel Volume Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( [EPOS P Henkel Volume YTD] - [EPOS P Henkel Volume LY YTD], [EPOS P Henkel Volume YTD] ),
+			        "MAT", DIVIDE ( [EPOS P Henkel Volume MAT] - [EPOS P Henkel Volume LY MAT], [EPOS P Henkel Volume MAT] ),
+			        DIVIDE ( [EPOS P Henkel Volume Custom] - [EPOS P Henkel Volume LY Custom], [EPOS P Henkel Volume Custom] )
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 300b71fa-e897-48a9-8374-0706704f4a0d
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'EPOS P Henkel Volume Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Henkel Volume Change YTD],
+			        "MAT", [EPOS P Henkel Volume Change MAT],
+			        [EPOS P Henkel Volume Change Custom]
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume Henkel share
+		lineageTag: 5d9a0dee-c3e2-4e26-bf0f-054ffbefaa10
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'EPOS P Henkel Qty LY MAT' = CALCULATE ( [EPOS P Qty LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 4d617519-f6c7-4631-85a0-33b678e151a5
+
+	measure 'EPOS P Henkel Qty Share MAT' = DIVIDE ( CALCULATE ( [EPOS P Qty MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Qty MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 04977743-d933-47d3-b15f-6353d5d89b70
+
+	measure 'EPOS P Henkel Qty Growth MAT' = DIVIDE ( [EPOS P Henkel Qty MAT] - [EPOS P Henkel Qty LY MAT], [EPOS P Henkel Qty MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 405f4ef1-49b8-4428-9e16-f57b9781872b
+
+	measure 'EPOS P Henkel Qty Change MAT' = [EPOS P Henkel Qty Share MAT] - DIVIDE ( CALCULATE ( [EPOS P Qty LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Qty LY MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: fd96231a-9d1b-43b8-b7d7-d85d99d83cef
+
+	measure 'EPOS P Henkel Qty Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [EPOS P Qty YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [EPOS P Qty MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [EPOS P Qty Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 83c03c61-602f-4a2e-8384-68cf6e3d6849
+
+	measure 'EPOS P Henkel Qty LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [EPOS P Qty LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [EPOS P Qty LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [EPOS P Qty LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: e08aa202-c531-41d5-8817-61825f5ea566
+
+	measure 'EPOS P Henkel Qty Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( CALCULATE ( [EPOS P Qty YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Qty YTD] ),
+			        "MAT", DIVIDE ( CALCULATE ( [EPOS P Qty MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Qty MAT] ),
+			        DIVIDE ( CALCULATE ( [EPOS P Qty Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Qty Custom] )
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: ee904fa6-c2d6-44e1-901b-a79e870e0a14
+
+	measure 'EPOS P Henkel Qty Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( [EPOS P Henkel Qty YTD] - [EPOS P Henkel Qty LY YTD], [EPOS P Henkel Qty YTD] ),
+			        "MAT", DIVIDE ( [EPOS P Henkel Qty MAT] - [EPOS P Henkel Qty LY MAT], [EPOS P Henkel Qty MAT] ),
+			        DIVIDE ( [EPOS P Henkel Qty Custom] - [EPOS P Henkel Qty LY Custom], [EPOS P Henkel Qty Custom] )
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: 820db36b-ca16-4d03-8898-4167217f776a
+
+	measure 'EPOS P Henkel Qty Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Henkel Qty Change YTD],
+			        "MAT", [EPOS P Henkel Qty Change MAT],
+			        [EPOS P Henkel Qty Change Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty Henkel share
+		lineageTag: d4053843-36e1-4a61-a42e-97c1607a3896
+
+	measure 'EPOS P Henkel Price LY MAT' = CALCULATE ( [EPOS P Price LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 137ad3d6-a598-477a-8553-eebc1aa777ba
+
+	measure 'EPOS P Henkel Price Share MAT' = DIVIDE ( CALCULATE ( [EPOS P Price MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Price MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 3863a3f0-783f-4a7d-ad3c-17a77a72c0d1
+
+	measure 'EPOS P Henkel Price Growth MAT' = DIVIDE ( [EPOS P Henkel Price MAT] - [EPOS P Henkel Price LY MAT], [EPOS P Henkel Price MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 25beaae1-3311-43b4-a5b1-d74f4d498241
+
+	measure 'EPOS P Henkel Price Change MAT' = [EPOS P Henkel Price Share MAT] - DIVIDE ( CALCULATE ( [EPOS P Price LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Price LY MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: f321b45d-6197-4359-ab46-c15f7350e8e9
+
+	measure 'EPOS P Henkel Price Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [EPOS P Price YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [EPOS P Price MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [EPOS P Price Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P Price Henkel
+		lineageTag: d944b9e5-ee95-4477-bd16-2b31c6a2a521
+
+	measure 'EPOS P Henkel Price LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [EPOS P Price LY YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [EPOS P Price LY MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [EPOS P Price LY Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0.00
+		displayFolder: EPOS P Price Henkel
+		lineageTag: c9954858-067b-4c1f-800e-ff74eb32eb26
+
+	measure 'EPOS P Henkel Price Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( CALCULATE ( [EPOS P Price YTD], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Price YTD] ),
+			        "MAT", DIVIDE ( CALCULATE ( [EPOS P Price MAT], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Price MAT] ),
+			        DIVIDE ( CALCULATE ( [EPOS P Price Custom], 'EPOS Processed data'[manufacturer] = "HENKEL" ), [EPOS P Price Custom] )
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 07f8e130-c18a-4b35-b2e0-72011610fb4e
+
+	measure 'EPOS P Henkel Price Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( [EPOS P Henkel Price YTD] - [EPOS P Henkel Price LY YTD], [EPOS P Henkel Price YTD] ),
+			        "MAT", DIVIDE ( [EPOS P Henkel Price MAT] - [EPOS P Henkel Price LY MAT], [EPOS P Henkel Price MAT] ),
+			        DIVIDE ( [EPOS P Henkel Price Custom] - [EPOS P Henkel Price LY Custom], [EPOS P Henkel Price Custom] )
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 1ad6c525-0f2d-4451-92e8-148efe405f81
+
+	measure 'EPOS P Henkel Price Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Henkel Price Change YTD],
+			        "MAT", [EPOS P Henkel Price Change MAT],
+			        [EPOS P Henkel Price Change Custom]
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price Henkel
+		lineageTag: 5c6bf333-ca46-4d6b-b96f-3a8a1c33c911
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'EPOS P Value Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Value Share YTD],
+			        "MAT", [EPOS P Value Share MAT],
+			        [EPOS P Value Share Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: 8d6790dd-a4b2-4ef5-b922-00c451f003aa
+
+	measure 'EPOS P Value Share LY Custom' = DIVIDE ( [EPOS P Value LY Custom], CALCULATE ( [EPOS P Value LY Custom], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: ab5c25d1-c1ed-441d-815a-320835ac176b
+
+	measure 'EPOS P Value Share LY YTD' = DIVIDE ( [EPOS P Value LY YTD], CALCULATE ( [EPOS P Value LY YTD], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: fad3583c-47ef-4e4f-b081-af119360d54c
+
+	measure 'EPOS P Value Share LY MAT' = DIVIDE ( [EPOS P Value LY MAT], CALCULATE ( [EPOS P Value LY MAT], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: 73a06c4e-ae91-4249-8998-8ac129ff73f4
+
+	measure 'EPOS P Value Share LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Value Share LY YTD],
+			        "MAT", [EPOS P Value Share LY MAT],
+			        [EPOS P Value Share LY Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: a9dcd00e-50f6-4735-b4d6-ed6bc3903b7b
+
+	measure 'EPOS P Volume Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Volume Share YTD],
+			        "MAT", [EPOS P Volume Share MAT],
+			        [EPOS P Volume Share Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 02fb0269-de49-4955-bef5-0651a2654f46
+
+	measure 'EPOS P Volume Share LY Custom' = DIVIDE ( [EPOS P Volume LY Custom], CALCULATE ( [EPOS P Volume LY Custom], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 0d4fcc17-84ae-4883-a9c7-5ea641468f63
+
+	measure 'EPOS P Volume Share LY YTD' = DIVIDE ( [EPOS P Volume LY YTD], CALCULATE ( [EPOS P Volume LY YTD], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 1c49a859-6bb1-40c1-a7c1-2845890f9a8c
+
+	measure 'EPOS P Volume Share LY MAT' = DIVIDE ( [EPOS P Volume LY MAT], CALCULATE ( [EPOS P Volume LY MAT], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: b5a4b3e7-0358-4164-aafb-b9aece9cfd9b
+
+	measure 'EPOS P Volume Share LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Volume Share LY YTD],
+			        "MAT", [EPOS P Volume Share LY MAT],
+			        [EPOS P Volume Share LY Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 062f5027-96e0-40df-a777-d7546d8fabf0
+
+	measure 'EPOS P Qty Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Qty Share YTD],
+			        "MAT", [EPOS P Qty Share MAT],
+			        [EPOS P Qty Share Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: eb03f448-f634-4beb-a6b2-04d4890a0ce3
+
+	measure 'EPOS P Qty Share LY Custom' = DIVIDE ( [EPOS P Qty LY Custom], CALCULATE ( [EPOS P Qty LY Custom], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 61163f34-f8ad-4eac-8ab7-a9180447d8b0
+
+	measure 'EPOS P Qty Share LY YTD' = DIVIDE ( [EPOS P Qty LY YTD], CALCULATE ( [EPOS P Qty LY YTD], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: f78c7870-cab2-4c72-a2af-e7f581a13802
+
+	measure 'EPOS P Qty Share LY MAT' = DIVIDE ( [EPOS P Qty LY MAT], CALCULATE ( [EPOS P Qty LY MAT], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: af067615-9e70-47b9-bfbd-e03e358dc0a6
+
+	measure 'EPOS P Qty Share LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Qty Share LY YTD],
+			        "MAT", [EPOS P Qty Share LY MAT],
+			        [EPOS P Qty Share LY Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P qty share
+		lineageTag: 12376ee8-cc3b-4076-bdc7-63385471651a
+
+	measure 'EPOS P Price Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Price Share YTD],
+			        "MAT", [EPOS P Price Share MAT],
+			        [EPOS P Price Share Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: 27a1a725-16b2-410a-84aa-ac6d0690a1fb
+
+	measure 'EPOS P Price Share LY Custom' = DIVIDE ( [EPOS P Price LY Custom], CALCULATE ( [EPOS P Price LY Custom], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: d197d34e-edea-4bee-bbcf-421f52eb6568
+
+	measure 'EPOS P Price Share LY YTD' = DIVIDE ( [EPOS P Price LY YTD], CALCULATE ( [EPOS P Price LY YTD], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: 67484f87-919d-4d49-ab66-8c25a21b35d8
+
+	measure 'EPOS P Price Share LY MAT' = DIVIDE ( [EPOS P Price LY MAT], CALCULATE ( [EPOS P Price LY MAT], ALL ( 'EPOS Processed data' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: 5e915c42-56dc-4671-9c2e-22278ff65eaf
+
+	measure 'EPOS P Price Share LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Price Share LY YTD],
+			        "MAT", [EPOS P Price Share LY MAT],
+			        [EPOS P Price Share LY Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P Price
+		lineageTag: 461474bd-2d91-4a19-bea3-ca4c2e4c85b5
+
+	column volume_sales
+		dataType: int64
+		formatString: 0
+		lineageTag: b417f12d-f085-4f03-bdc4-d1b063c29318
+		summarizeBy: sum
+		sourceColumn: volume_sales
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_val
+		dataType: double
+		lineageTag: f607b0dd-61a3-41aa-83cb-0a8527a6d9c0
+		summarizeBy: sum
+		sourceColumn: sales_val
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_qty
+		dataType: int64
+		formatString: 0
+		lineageTag: edf4c367-83c1-49dd-b58c-f52c83b330db
+		summarizeBy: sum
+		sourceColumn: sales_qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: string
+		lineageTag: d021d2bc-c87b-4c2a-9b07-7597e31a3431
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 18559949-0fac-4cee-8653-215821c9ca3f
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column yearmonth
+		dataType: int64
+		formatString: 0
+		lineageTag: 3b600512-7046-4661-9411-9538abe745a9
+		summarizeBy: sum
+		sourceColumn: yearmonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column BU
+		dataType: string
+		lineageTag: 754ebf2b-a771-425d-b6a4-b02c6256a7c1
+		summarizeBy: none
+		sourceColumn: BU
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: f23804f4-8e27-41c9-baa2-442b255c5d91
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand
+		dataType: string
+		lineageTag: 24e6075e-5d19-42ef-a200-d843f06b7543
+		summarizeBy: none
+		sourceColumn: Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column Size
+		dataType: string
+		lineageTag: 97103e77-45b6-40b9-8fcd-639c45ea9fd1
+		summarizeBy: none
+		sourceColumn: Size
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Type'
+		dataType: string
+		lineageTag: 35ac3cb7-191a-4dad-999f-4a3be49256a4
+		summarizeBy: none
+		sourceColumn: Product Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromoType
+		dataType: string
+		lineageTag: 2290c22d-fc64-496e-91fb-f00b39ee86fa
+		summarizeBy: none
+		sourceColumn: PromoType
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_name_Mapping
+		dataType: string
+		lineageTag: e421498d-f381-49db-b511-921215a7d8c1
+		summarizeBy: none
+		sourceColumn: item_name_Mapping
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Group
+		dataType: string
+		lineageTag: d26e30d3-6873-4584-a003-e9d6189b488c
+		summarizeBy: none
+		sourceColumn: Customer_Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subchannel
+		dataType: string
+		lineageTag: bfaa5761-e9bc-47de-a2e1-276089035e50
+		summarizeBy: none
+		sourceColumn: Subchannel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales_Type
+		dataType: string
+		lineageTag: 0f9b5e08-889f-4a35-9e3b-269e5df264d0
+		summarizeBy: none
+		sourceColumn: Sales_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel
+		dataType: string
+		lineageTag: aac79cb0-0f60-472d-b237-a539780f921e
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Source =
+			
+			"EPOS"
+		lineageTag: 1191fa2e-c220-4b78-b1e1-64c4a02e92d6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column manufacturer
+		dataType: string
+		lineageTag: 0b847767-cd83-4853-9430-c58640e79574
+		summarizeBy: none
+		sourceColumn: manufacturer
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubCategory
+		dataType: string
+		lineageTag: ce539e79-71bb-460f-a620-8a4f5c113b56
+		summarizeBy: none
+		sourceColumn: SubCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Format
+		dataType: string
+		lineageTag: 4ad6ca13-a428-4725-9860-a9ca180b52d2
+		summarizeBy: none
+		sourceColumn: Format
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel_Key = 'EPOS Processed data'[Country]&'EPOS Processed data'[Channel]
+		lineageTag: cd5efcec-1b03-4d0d-b09d-6b9cac8533b3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column BU_Client
+		dataType: string
+		lineageTag: 0cfa07ec-4f32-49f0-9645-3bd3f3a93808
+		summarizeBy: none
+		sourceColumn: BU_Client
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubCategory_Client
+		dataType: string
+		lineageTag: 43547b79-677e-4833-aebb-48121b6d8641
+		summarizeBy: none
+		sourceColumn: SubCategory_Client
+
+		annotation SummarizationSetBy = Automatic
+
+	column Format_Client
+		dataType: string
+		lineageTag: 7ade83f4-2f54-4a65-9001-ad68de440bbf
+		summarizeBy: none
+		sourceColumn: Format_Client
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_name_raw
+		dataType: string
+		lineageTag: 341ec950-d398-4182-b99d-246ea5088cef
+		summarizeBy: none
+		sourceColumn: item_name_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hierarchy Index.RNN'
+		dataType: int64
+		formatString: 0
+		lineageTag: fd0edc14-cb6c-427b-ac62-7e04a2b1ac0c
+		summarizeBy: none
+		sourceColumn: Hierarchy Index.RNN
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthdate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0f67a159-f442-446d-978b-dbbd082fbd7e
+		summarizeBy: none
+		sourceColumn: monthdate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'EPOS Processed data' = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="henkel-clicflyer"]}[Data], "SELECT distinct * FROM `henkel-clicflyer.AnalyticsSolution.epos_processed_data_henkel`#(lf)WHERE BU IS NOT NULL AND SubCategory IS NOT NULL", null, [EnableFolding=true]),
+				    #"Merged Queries" = Table.NestedJoin(Source, {"BU", "SubCategory", "Format"}, #"Hierarchy Index", {"BU", "SubCategory", "Format"}, "Hierarchy Index", JoinKind.LeftOuter),
+				    #"Expanded Hierarchy Index" = Table.ExpandTableColumn(#"Merged Queries", "Hierarchy Index", {"RNN"}, {"Hierarchy Index.RNN"})
+				in
+				    #"Expanded Hierarchy Index"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

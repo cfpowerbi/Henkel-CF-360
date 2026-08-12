@@ -1,0 +1,55 @@
+table PeriodMode
+	lineageTag: c3e1ad66-af98-49a2-87fc-c50344177090
+
+	measure Selected_Period = SELECTEDVALUE(TimePeriodSelection[Period])
+		lineageTag: 880170fc-1aee-4441-8f04-ff55d580e30d
+
+	measure 'KPI Title1' = [Selected_Period]&" "&"Performance"
+		lineageTag: 35a35de0-ded8-4f20-b965-c2af2c735aa3
+
+	measure 'Selected Parameter Value1' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Main Parameter'[Parameter Order]),
+			    0, SELECTEDVALUE('Hierarchy Index'[BU]),
+			    1, SELECTEDVALUE('Hierarchy Index'[SubCategory]),
+			    2, SELECTEDVALUE('Hierarchy Index'[Format]),
+			    3, SELECTEDVALUE('All channel'[Channel]),
+			    4, SELECTEDVALUE('IMS Processed'[Subchannel])
+			)
+		lineageTag: 64720870-7cec-406a-ac61-e25d7ea3c41e
+
+	column Mode
+		lineageTag: 3f922a71-e028-44e3-a054-46e9a126b78e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mode]
+		sortByColumn: SortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		formatString: 0
+		lineageTag: 47b8c5c7-aed3-496a-b559-68623fc9f5cf
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [SortOrder]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition PeriodMode = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Mode", STRING,
+				    "SortOrder", INTEGER,
+				    {
+				        {"YTD", 1},
+				        {"Custom", 3},
+				        {"MAT", 2}
+				    }
+				)
+
+	annotation PBI_Id = 8a4278d768a24b34a4bd1cbb6c65184a
+

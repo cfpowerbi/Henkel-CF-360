@@ -1,0 +1,102 @@
+table Combined_Product_Table
+	lineageTag: 91599563-209d-496c-aeca-b41f92fba806
+
+	column Source
+		lineageTag: 360e3bd5-7412-439f-8d11-59a8bb3de15f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Source]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand
+		lineageTag: 48c117b7-a729-4f2c-bba3-e3387b6b300f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Brand]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Manufacturer
+		lineageTag: 49233c32-1143-4257-b78b-f203acfcbed3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Manufacturer]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Size
+		lineageTag: 83c446da-338d-44a5-a294-87cbbb209e85
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Size]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales_Type
+		lineageTag: 7271ed96-8872-4db9-ab66-88f6b94a0fbe
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Sales_Type]
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromoType
+		lineageTag: 87a38f8b-6eb4-4164-8253-18499db0e7dd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [PromoType]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Type'
+		lineageTag: 7f7a407a-3fef-4e50-adaa-73b086a4bd9e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Product Type]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Combined_Product_Table = calculated
+		mode: import
+		source = ```
+				
+				UNION (
+				    SELECTCOLUMNS (
+				        'EPOS Processed data',
+				        "Source", "EPOS",
+				        "Brand", [Brand],
+				        "Manufacturer", [Manufacturer],
+				        "Size", [Size],
+				        "Sales_Type", [Sales_Type],
+				        "PromoType", [PromoType],
+				        "Product Type", [Product Type]
+				    ),
+				    
+				    SELECTCOLUMNS (
+				        'Nielsen Processed',
+				        "Source", "Nielsen",
+				        "Brand", [Brand],
+				        "Manufacturer", [Manufacturer],
+				        "Size", [Size],
+				        "Sales_Type", [Sales_Type],
+				        "PromoType", [PromoType],
+				        "Product Type", [Product Type]
+				    ),
+				    
+				    SELECTCOLUMNS (
+				        'IMS Processed',
+				        "Source", "IMS",
+				        "Brand", [Brand],
+				        "Manufacturer", "Not Defined",
+				        "Size", [Size],
+				        "Sales_Type", [Sales_Type],
+				        "PromoType", [PromoType],
+				        "Product Type", "Not Defined"
+				    )
+				)
+				
+				```
+
+	annotation PBI_Id = 71fa6ae32819463581d5b42eddaae302
+

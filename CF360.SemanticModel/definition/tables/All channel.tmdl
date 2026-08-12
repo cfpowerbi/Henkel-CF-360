@@ -1,0 +1,66 @@
+table 'All channel'
+	lineageTag: 08fe77bc-16ce-442b-959b-3dd8500dbfb3
+
+	measure 'Selected Country Heading' =
+			
+			IF(
+			    HASONEVALUE('All channel'[Country]),
+			    SELECTEDVALUE('All channel'[Country]),
+			    "GCC Total"
+			)
+		lineageTag: 3b9bd25c-5f1c-4a71-9639-353ce87b5fca
+
+	measure 'Selected HEADING MULTI COUNTRY' =
+			
+			IF(
+			    HASONEVALUE('All channel'[Country]),
+			    SELECTEDVALUE('All channel'[Country]),
+			    "GCC Total"
+			) & " . " & SELECTEDVALUE('Nielsen Processed'[Sales_Type]) & " . Format"
+		lineageTag: 602a763a-0b92-4ac7-ad0f-6cc26b85bbaf
+
+	measure 'Selected HEADING MULTI format' =
+			
+			IF(
+			    HASONEVALUE('All channel'[Country]),
+			    SELECTEDVALUE('All channel'[Country]),
+			    "GCC Total"
+			) & " . " & SELECTEDVALUE('Nielsen Processed'[Sales_Type]) & " . Manufacturer"
+		lineageTag: c743f722-174e-470b-8cab-8aa6217f84b9
+
+	column Channel
+		dataType: string
+		lineageTag: f79b7aca-51e9-49e4-b67a-b3cca3332965
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: f8abb4fd-33f0-4731-b113-41af2b38ed63
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Key
+		dataType: string
+		lineageTag: 6f183636-3f9c-460c-be8b-1e8d8247aabc
+		summarizeBy: none
+		sourceColumn: Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'All channel' = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="henkel-clicflyer"]}[Data], "SELECT DISTINCT #(lf)  Country,Channel,Concat(Country,Channel) as Key#(lf)#(lf)FROM `henkel-clicflyer.AnalyticsSolution.epos_processed_data_henkel`#(lf)WHERE BU IS NOT NULL AND SubCategory IS NOT NULL#(lf)#(lf)UNION DISTINCT#(lf)#(lf)SELECT DISTINCT #(lf) Country,Channel,Concat(Country,Channel) as Key#(lf)#(lf)FROM `henkel-clicflyer.AnalyticsSolution.ims_processed_data_henkel`#(lf)WHERE BU IS NOT NULL AND SubCategory IS NOT NULL#(lf)#(lf)UNION DISTINCT#(lf)#(lf)SELECT DISTINCT #(lf) Country,Channel,Concat(Country,Channel) as Key#(lf)#(lf)FROM `henkel-clicflyer.AnalyticsSolution.nielsen_processed_data_henkel`#(lf)WHERE BU IS NOT NULL AND SubCategory IS NOT NULL", null, [EnableFolding=true])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

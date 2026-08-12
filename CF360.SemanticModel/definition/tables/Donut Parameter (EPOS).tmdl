@@ -1,0 +1,62 @@
+table 'Donut Parameter (EPOS)'
+	lineageTag: 95b62005-ffee-41d7-8c05-a74190724570
+
+	measure 'Heading Share2' =
+			
+			SELECTEDVALUE('Donut Parameter (EPOS)'[Value4], "Share") & " Share"
+		lineageTag: 91fb8f0d-0942-4381-8dc7-7538a6f58a87
+
+	column Parameter
+		lineageTag: 4828d10d-d80f-425f-8826-1f2f69bcd037
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: cc750b5c-124f-40ba-a693-06c88d20f911
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: d24def37-12bf-42cc-a20e-ecb4136e7312
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value4
+		isHidden
+		lineageTag: a24bbf9a-a78d-4b5d-abc5-621f8a5ed68b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Donut Parameter (EPOS)' = calculated
+		mode: import
+		source =
+				{
+				    ("Manufacturer", NAMEOF('EPOS Processed data'[manufacturer]), 0,"Manufacturer"),
+				    ("Brand", NAMEOF('EPOS Processed data'[Brand]), 1,"Brand")
+				}
+
+	annotation PBI_Id = da43828d7dd44e3d9dfd67408b0c798e
+

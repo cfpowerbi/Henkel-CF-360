@@ -1,0 +1,76 @@
+table 'Donut Parameter (Nielsen)'
+	lineageTag: b9628c47-f792-45af-a440-6b2b2777dcf4
+
+	measure 'Heading Share' =
+			VAR SelCount =
+			    COUNTROWS (
+			        SUMMARIZE (
+			            'Main Parameter',
+			            'Main Parameter'[Parameter],
+			            'Main Parameter'[Parameter Fields]
+			        )
+			    )
+			VAR SelName = IF ( SelCount = 1, MAX ( 'Main Parameter'[Parameter] ) )
+			RETURN
+			    SelName & " Share"
+		lineageTag: a8a2d742-0edd-43af-8ded-0397a166958c
+
+	measure 'Heading Share 3' =
+			
+			SELECTEDVALUE('Donut Parameter (Nielsen)'[Value4])
+		lineageTag: 7d5ae072-5bc7-40da-bbdb-30a2487a6b1a
+
+	column Parameter
+		lineageTag: 056a3b06-0676-47c1-b119-41d4bfa7c31d
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: be31e477-b62e-48e8-9ebc-7a5b874678fc
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 412b993b-8b18-44e8-895a-f94003365663
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value4
+		isHidden
+		lineageTag: 5e7df94d-5afd-498d-bf54-81be36704b96
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Donut Parameter (Nielsen)' = calculated
+		mode: import
+		source =
+				{
+				    ("Manufacturer", NAMEOF('Nielsen Processed'[manufacturer]), 0,"Manufacturer"),
+				    ("Brand", NAMEOF('Nielsen Processed'[Brand]), 1,"Brand")
+				}
+
+	annotation PBI_Id = c45aa64375904b69a9a702c3b5550d66
+

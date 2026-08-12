@@ -1,0 +1,1673 @@
+table 'IMS Processed'
+	lineageTag: 39a5ca05-5400-4f89-a59e-3d021613a5a7
+
+	measure Grossmsly1 =
+			
+			DIVIDE(
+			    SUM('IMS Processed'[grossims]),
+			    CALCULATE(SUM('IMS Processed'[grossims]), ALL('IMS Processed')),
+			    0
+			)
+		lineageTag: 9231c2e8-d60c-427f-80bc-47c855432e54
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gross IMS P Custom' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CustomSum = SUM ( 'IMS Processed'[grossims] )
+			VAR YTDSum = CALCULATE (
+			    SUM ( 'IMS Processed'[grossims] ),
+			    FILTER (
+			        ALL ( 'IMS Processed'[Date] ),
+			        'IMS Processed'[Date] <= LastDataDate
+			            && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate )
+			    )
+			)
+			RETURN
+			    IF ( SelectedMode = "YTD", YTDSum, CustomSum )
+		formatString: 0.00
+		displayFolder: Gross IMS P
+		lineageTag: 596a986a-5012-42ed-b8ed-425f51378bbd
+
+	measure 'Gross IMS P YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[grossims] ),
+			        FILTER (
+			            ALL ( 'IMS Processed'[Date] ),
+			            'IMS Processed'[Date] <= LastDataDate
+			                && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate )
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Gross IMS P
+		lineageTag: fa6fa68a-9b4d-40bb-9543-3881a1d2b8c3
+
+	measure 'Net IMS P Custom' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CustomSum = SUM ( 'IMS Processed'[nes] )
+			VAR YTDSum = CALCULATE (
+			    SUM ( 'IMS Processed'[nes] ),
+			    FILTER (
+			        ALL ( 'IMS Processed'[Date] ),
+			        'IMS Processed'[Date] <= LastDataDate
+			            && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate )
+			    )
+			)
+			RETURN
+			    IF ( SelectedMode = "YTD", YTDSum, CustomSum )
+		formatString: 0.00
+		displayFolder: Net IMS P
+		lineageTag: 3d755164-e627-4c71-bc6e-749961ee3b28
+
+	measure 'Net IMS P YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[nes] ),
+			        FILTER (
+			            ALL ( 'IMS Processed'[Date] ),
+			            'IMS Processed'[Date] <= LastDataDate
+			                && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate )
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Net IMS P
+		lineageTag: 0bc89a1d-10fa-4dd1-8078-b18dff90e9ba
+
+	measure 'GP1 P Custom' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CustomSum = SUM ( 'IMS Processed'[gp1] )
+			VAR YTDSum = CALCULATE (
+			    SUM ( 'IMS Processed'[gp1] ),
+			    FILTER (
+			        ALL ( 'IMS Processed'[Date] ),
+			        'IMS Processed'[Date] <= LastDataDate
+			            && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate )
+			    )
+			)
+			RETURN
+			    IF ( SelectedMode = "YTD", YTDSum, CustomSum )
+		formatString: 0.00
+		displayFolder: GP1 P
+		lineageTag: 3a0cf6ae-0eb5-4ecc-878c-c54b1e1041c7
+
+	measure 'GP1 P YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[gp1] ),
+			        FILTER (
+			            ALL ( 'IMS Processed'[Date] ),
+			            'IMS Processed'[Date] <= LastDataDate
+			                && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate )
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: GP1 P
+		lineageTag: f93858d0-494c-4e6e-9886-8f375f8c6a4e
+
+	measure 'Investment P Custom' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CustomSum = SUM ( 'IMS Processed'[Investment] )
+			VAR YTDSum = CALCULATE (
+			    SUM ( 'IMS Processed'[Investment] ),
+			    FILTER (
+			        ALL ( 'IMS Processed'[Date] ),
+			        'IMS Processed'[Date] <= LastDataDate
+			            && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate )
+			    )
+			)
+			RETURN
+			    IF ( SelectedMode = "YTD", YTDSum, CustomSum )
+		formatString: 0.00
+		displayFolder: Investment P
+		lineageTag: cb7447f1-b6b2-4814-a170-c974258593f4
+
+	measure 'Investment P YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[Investment] ),
+			        FILTER (
+			            ALL ( 'IMS Processed'[Date] ),
+			            'IMS Processed'[Date] <= LastDataDate
+			                && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate )
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Investment P
+		lineageTag: 92096173-b9e7-4859-ac5e-cdc96b5a3abd
+
+	measure 'ROI P Custom' = DIVIDE ( [GP1 P Custom], [Investment P Custom] )
+		formatString: 0.00x
+		displayFolder: ROI P
+		lineageTag: 369b2858-9fcc-4c23-ad75-dd5ac3014cca
+
+	measure 'ROI P YTD' = DIVIDE ( [GP1 P YTD], [Investment P YTD] )
+		formatString: 0.00x
+		displayFolder: ROI P
+		lineageTag: 71c686c6-e9a9-464d-9dae-6c138359c1ab
+
+	measure 'Gross IMS P LY Custom' = CALCULATE ( [Gross IMS P Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: Gross IMS P
+		lineageTag: 1bc71acd-e808-4dce-922b-faa343c9590c
+
+	measure 'Gross IMS P LY YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[grossims] ),
+			        FILTER (
+			            ALL ( 'IMS Processed'[Date] ),
+			            'IMS Processed'[Date] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Gross IMS P
+		lineageTag: 7c698209-aec7-4b9a-a93f-83a17e32084a
+
+	measure 'Net IMS P LY Custom' = CALCULATE ( [Net IMS P Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: Net IMS P
+		lineageTag: c8a9af8a-a99f-4f3f-874b-0e0b690c5a77
+
+	measure 'Net IMS P LY YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[nes] ),
+			        FILTER (
+			            ALL ( 'IMS Processed'[Date] ),
+			            'IMS Processed'[Date] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Net IMS P
+		lineageTag: d1482290-5947-4f62-ac78-56ab75a93580
+
+	measure 'GP1 P LY Custom' = CALCULATE ( [GP1 P Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: GP1 P
+		lineageTag: 00cd6c5e-7bff-445a-8605-ff7cff71f5e5
+
+	measure 'GP1 P LY YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[gp1] ),
+			        FILTER (
+			            ALL ( 'IMS Processed'[Date] ),
+			            'IMS Processed'[Date] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: GP1 P
+		lineageTag: 01d90c5c-56d5-4704-b5fb-10433f1f0fca
+
+	measure 'Investment P LY Custom' = CALCULATE ( [Investment P Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: Investment P
+		lineageTag: 6e94acb9-04ff-4b71-b359-6b78050139c4
+
+	measure 'Investment P LY YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[Investment] ),
+			        FILTER (
+			            ALL ( 'IMS Processed'[Date] ),
+			            'IMS Processed'[Date] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'IMS Processed'[Date] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Investment P
+		lineageTag: 5b825aad-153d-44d8-ba18-150e7a2dffaf
+
+	measure 'ROI P LY Custom' = DIVIDE ( [GP1 P LY Custom], [Investment P LY Custom] )
+		formatString: 0.00x
+		displayFolder: ROI P
+		lineageTag: c093e67c-067e-47e8-a95b-fe3ae6691c89
+
+	measure 'ROI P LY YTD' = DIVIDE ( [GP1 P LY YTD], [Investment P LY YTD] )
+		formatString: 0.00x
+		displayFolder: ROI P
+		lineageTag: afb631d4-f9d6-409a-9040-f2d8f535528a
+
+	measure 'Gross IMS P Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Gross IMS P YTD],
+			        "MAT", [Gross IMS P MAT],
+			        [Gross IMS P Custom]
+			    )
+		formatString: 0.00
+		displayFolder: Gross IMS P
+		lineageTag: 84549aae-4e0d-4d50-a97e-69dc3115d472
+
+	measure 'Net IMS P Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Net IMS P YTD],
+			        "MAT", [Net IMS P MAT],
+			        [Net IMS P Custom]
+			    )
+		formatString: 0.00
+		displayFolder: Net IMS P
+		lineageTag: f58cc25b-340b-49e5-8aea-2c5f972f9281
+
+	measure 'GP1 P Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [GP1 P YTD],
+			        "MAT", [GP1 P MAT],
+			        [GP1 P Custom]
+			    )
+		formatString: 0.00
+		displayFolder: GP1 P
+		lineageTag: 8526e818-b68a-408c-ba18-2cfd7e493057
+
+	measure 'Investment P Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Investment P YTD],
+			        "MAT", [Investment P MAT],
+			        [Investment P Custom]
+			    )
+		formatString: 0.00
+		displayFolder: Investment P
+		lineageTag: c437266f-4735-440d-b6ff-396a59945d3f
+
+	measure 'Gross IMS P MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[grossims] ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] > CutoffDate ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] <= GlobalMaxDate )
+			    )
+		formatString: 0.00
+		displayFolder: Gross IMS P
+		lineageTag: 46d03c32-0837-4abd-b318-03b113ab25ce
+
+	measure 'Gross IMS P LY MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[grossims] ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] > CutoffLY ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] <= AnchorLY )
+			    )
+		formatString: 0.00
+		displayFolder: Gross IMS P
+		lineageTag: de1b198a-486e-4f5d-987c-9c3e48d38299
+
+	measure 'Net IMS P MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[nes] ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] > CutoffDate ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] <= GlobalMaxDate )
+			    )
+		formatString: 0.00
+		displayFolder: Net IMS P
+		lineageTag: ef15acb5-1e84-4142-a836-833b0b0ae4b0
+
+	measure 'Net IMS P LY MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[nes] ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] > CutoffLY ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] <= AnchorLY )
+			    )
+		formatString: 0.00
+		displayFolder: Net IMS P
+		lineageTag: 9bfea226-04bc-4797-9e99-de78c3a5bd0f
+
+	measure 'GP1 P MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[gp1] ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] > CutoffDate ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] <= GlobalMaxDate )
+			    )
+		formatString: 0.00
+		displayFolder: GP1 P
+		lineageTag: 0f2b3b95-e68b-4234-b1f4-99b98596f0df
+
+	measure 'GP1 P LY MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[gp1] ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] > CutoffLY ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] <= AnchorLY )
+			    )
+		formatString: 0.00
+		displayFolder: GP1 P
+		lineageTag: 55219856-93bd-4661-ba71-1cf1ed781cbf
+
+	measure 'Investment P MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[Investment] ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] > CutoffDate ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] <= GlobalMaxDate )
+			    )
+		formatString: 0.00
+		displayFolder: Investment P
+		lineageTag: a157046e-7cba-422b-bf34-8c05e958473d
+
+	measure 'Investment P LY MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'IMS Processed'[Investment] ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] > CutoffLY ),
+			        KEEPFILTERS ( 'IMS Processed'[Date] <= AnchorLY )
+			    )
+		formatString: 0.00
+		displayFolder: Investment P
+		lineageTag: 142ac21e-efd8-48ee-8e58-9b4f79ee8d81
+
+	measure 'Gross IMS P Growth Custom' =
+			VAR CurrentVal = [Gross IMS P Custom]
+			VAR Prior = [Gross IMS P LY Custom]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: ff7e5ef8-d555-47c5-b510-9c0c00cdbfe2
+
+	measure 'Gross IMS P Growth YTD' =
+			VAR CurrentVal = [Gross IMS P YTD]
+			VAR Prior = [Gross IMS P LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: dc7657c7-451c-4609-aca1-a0c6e057b992
+
+	measure 'Gross IMS P Growth MAT' =
+			VAR CurrentVal = [Gross IMS P MAT]
+			VAR Prior = [Gross IMS P LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: 0c383562-b965-4732-a700-5c0d4c3da32f
+
+	measure 'Net IMS P Growth Custom' =
+			VAR CurrentVal = [Net IMS P Custom]
+			VAR Prior = [Net IMS P LY Custom]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: 90173847-a2f1-4fc3-a413-5b6282cc3b74
+
+	measure 'Net IMS P Growth YTD' =
+			VAR CurrentVal = [Net IMS P YTD]
+			VAR Prior = [Net IMS P LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: 74b7de78-326a-463c-84a4-2f9eb5023505
+
+	measure 'Net IMS P Growth MAT' =
+			VAR CurrentVal = [Net IMS P MAT]
+			VAR Prior = [Net IMS P LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: 8958ca1d-28e7-4e13-841d-ecfae42f4460
+
+	measure 'Gross IMS P Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Gross IMS P Growth YTD],
+			        "MAT", [Gross IMS P Growth MAT],
+			        [Gross IMS P Growth Custom]
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: 48f96b2c-1783-4d5f-99f5-8d487cf3a3ec
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Gross IMS P LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Gross IMS P LY YTD],
+			        "MAT", [Gross IMS P LY MAT],
+			        [Gross IMS P LY Custom]
+			    )
+		formatString: 0.00
+		displayFolder: Gross IMS P
+		lineageTag: 473bfb6c-63cf-4257-a7cd-34874b89a107
+
+	measure 'Net IMS P Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Net IMS P Growth YTD],
+			        "MAT", [Net IMS P Growth MAT],
+			        [Net IMS P Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: 08f8e942-99a8-428a-b85f-2623e6e45912
+
+	measure 'Net IMS P LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Net IMS P LY YTD],
+			        "MAT", [Net IMS P LY MAT],
+			        [Net IMS P LY Custom]
+			    )
+		formatString: 0.00
+		displayFolder: Net IMS P
+		lineageTag: c31e3423-2bf0-487a-b19b-b94c34fd5334
+
+	measure 'GP1 P Growth Custom' =
+			VAR CurrentVal = [GP1 P Custom]
+			VAR Prior = [GP1 P LY Custom]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: 07041edb-50fa-4ea2-846a-f862b6438188
+
+	measure 'GP1 P Growth YTD' =
+			VAR CurrentVal = [GP1 P YTD]
+			VAR Prior = [GP1 P LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: a0d96a08-ec37-4f63-876c-a6f88b7278c7
+
+	measure 'GP1 P Growth MAT' =
+			VAR CurrentVal = [GP1 P MAT]
+			VAR Prior = [GP1 P LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: 27937537-7c48-448f-abf8-efb2b9c9a1b0
+
+	measure 'GP1 P Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [GP1 P Growth YTD],
+			        "MAT", [GP1 P Growth MAT],
+			        [GP1 P Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: 4176fb7e-0690-4eed-b297-4400a288da42
+
+	measure 'GP1 P LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [GP1 P LY YTD],
+			        "MAT", [GP1 P LY MAT],
+			        [GP1 P LY Custom]
+			    )
+		formatString: 0.00
+		displayFolder: GP1 P
+		lineageTag: 9b353942-70c2-4971-a2e3-3e0f33217add
+
+	measure 'Investment P Growth Custom' =
+			VAR CurrentVal = [Investment P Custom]
+			VAR Prior = [Investment P LY Custom]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: 931269a3-de30-40b4-9f44-fed06e6b8ac4
+
+	measure 'Investment P Growth YTD' =
+			VAR CurrentVal = [Investment P YTD]
+			VAR Prior = [Investment P LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: 85ddfd37-ffca-49f4-8dc1-36626aa48066
+
+	measure 'Investment P Growth MAT' =
+			VAR CurrentVal = [Investment P MAT]
+			VAR Prior = [Investment P LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: e051b7e2-40ea-43c5-858f-ca0c49aefe94
+
+	measure 'Investment P Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Investment P Growth YTD],
+			        "MAT", [Investment P Growth MAT],
+			        [Investment P Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: 39f0aec6-885a-41ea-a13c-241250ecc6fe
+
+	measure 'Investment P LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Investment P LY YTD],
+			        "MAT", [Investment P LY MAT],
+			        [Investment P LY Custom]
+			    )
+		formatString: 0.00
+		displayFolder: Investment P
+		lineageTag: a90d202f-8b97-4e21-a0e5-5eed8abc9cc2
+
+	measure 'ROI P MAT' = DIVIDE ( [GP1 P MAT], [Investment P MAT] )
+		formatString: 0.00x
+		displayFolder: ROI P
+		lineageTag: 3bf89c69-6e4e-44b8-bd74-78a245fdffae
+
+	measure 'ROI P LY MAT' = DIVIDE ( [GP1 P LY MAT], [Investment P LY MAT] )
+		formatString: 0.00x
+		displayFolder: ROI P
+		lineageTag: d0fba2e5-68cd-4479-820d-512ce879751f
+
+	measure 'ROI P Growth Custom' =
+			VAR CurrentVal = [ROI P Custom]
+			VAR Prior = [ROI P LY Custom]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ROI P
+		lineageTag: da41b536-ff25-4685-b681-b6bb97f1b140
+
+	measure 'ROI P Growth YTD' =
+			VAR CurrentVal = [ROI P YTD]
+			VAR Prior = [ROI P LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ROI P
+		lineageTag: 94beebf6-c456-4fca-aba9-fedcc2118ff5
+
+	measure 'ROI P Growth MAT' =
+			VAR CurrentVal = [ROI P MAT]
+			VAR Prior = [ROI P LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ROI P
+		lineageTag: 6cb43c6b-f5a0-42bf-9e98-da313ca6abe0
+
+	measure 'ROI P Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [ROI P YTD],
+			        "MAT", [ROI P MAT],
+			        [ROI P Custom]
+			    )
+		formatString: 0.00x
+		displayFolder: ROI P
+		lineageTag: 24cfefae-348f-4e43-84b1-64cd290bcdcb
+
+	measure 'ROI P Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [ROI P Growth YTD],
+			        "MAT", [ROI P Growth MAT],
+			        [ROI P Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ROI P
+		lineageTag: 646d2567-2620-40c9-8246-01b95c4df50b
+
+	measure 'ROI P LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [ROI P LY YTD],
+			        "MAT", [ROI P LY MAT],
+			        [ROI P LY Custom]
+			    )
+		formatString: 0.00x
+		displayFolder: ROI P
+		lineageTag: e907c055-8a56-4617-ad4f-c1e3b55c6421
+
+	measure 'Chg Investment P dynamic' =
+			VAR _Period = SELECTEDVALUE(PeriodMode[Mode])
+			VAR _INV_CY =
+			    SWITCH(_Period,
+			        "MAT", [Investment P MAT],
+			        "YTD", [Investment P YTD],
+			        "Custom",  [Investment P Custom]
+			    )
+			VAR _INV_LY =
+			    SWITCH(_Period,
+			        "MAT", [Investment P LY MAT],
+			        "YTD", [Investment P LY YTD],
+			        "Custom",  [Investment P LY Custom]
+			    )
+			RETURN _INV_CY - _INV_LY
+		displayFolder: Investment P
+		lineageTag: 28bbc276-1e3f-438a-9b26-86fa5fc2953c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'chg NES P dynamic' =
+			VAR _Period = SELECTEDVALUE(PeriodMode[Mode])
+			VAR _NES_CY =
+			    SWITCH(_Period,
+			        "MAT", [Net IMS P MAT],
+			        "YTD", [Net IMS P YTD],
+			        "Custom",  [Net IMS P Custom]
+			    )
+			VAR _NES_LY =
+			    SWITCH(_Period,
+			        "MAT", [Net IMS P LY MAT],
+			        "YTD", [Net IMS P LY YTD],
+			        "Custom",  [Net IMS P LY Custom]
+			    )
+			RETURN _NES_CY - _NES_LY
+		displayFolder: Investment P
+		lineageTag: 41b05f14-075c-4438-9bb5-843c5e969969
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'L6 Elasticity P Custom' = DIVIDE ( [Investment P Custom], [GP1 P Custom] )
+		formatString: 0.00x
+		displayFolder: L6 Elasticity P
+		lineageTag: 43208a9a-ce36-42cf-b575-3841b28bbbe0
+
+	measure 'L6 Elasticity P YTD' = DIVIDE ( [Investment P YTD], [GP1 P YTD] )
+		formatString: 0.00x
+		displayFolder: L6 Elasticity P
+		lineageTag: d8e54141-0a65-4c68-908e-ef1a0b126d1f
+
+	measure 'L6 Elasticity P MAT' = DIVIDE ( [Investment P MAT], [GP1 P MAT] )
+		formatString: 0.00x
+		displayFolder: L6 Elasticity P
+		lineageTag: 7b8bbcd4-6696-4e9c-b787-ad9c74a012b3
+
+	measure 'L6 Elasticity P LY Custom' = DIVIDE ( [Investment P LY Custom], [GP1 P LY Custom] )
+		formatString: 0.00x
+		displayFolder: L6 Elasticity P
+		lineageTag: f9bd3262-3298-4df9-a20a-4bca6c3859d9
+
+	measure 'L6 Elasticity P LY YTD' = DIVIDE ( [Investment P LY YTD], [GP1 P LY YTD] )
+		formatString: 0.00x
+		displayFolder: L6 Elasticity P
+		lineageTag: 77f53459-407a-4f88-9b61-840f2272d65f
+
+	measure 'L6 Elasticity P LY MAT' = DIVIDE ( [Investment P LY MAT], [GP1 P LY MAT] )
+		formatString: 0.00x
+		displayFolder: L6 Elasticity P
+		lineageTag: 9b8aa3c0-48a6-4e5e-af97-9b957ab64c21
+
+	measure 'L6 Elasticity P Growth Custom' =
+			VAR CurrentVal = [L6 Elasticity P Custom]
+			VAR Prior = [L6 Elasticity P LY Custom]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: L6 Elasticity P
+		lineageTag: f9edbf26-7845-47d9-9764-2a4976b9c741
+
+	measure 'L6 Elasticity P Growth YTD' =
+			VAR CurrentVal = [L6 Elasticity P YTD]
+			VAR Prior = [L6 Elasticity P LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: L6 Elasticity P
+		lineageTag: d6f3b57c-56e9-47df-8e75-049eb5a99588
+
+	measure 'L6 Elasticity P Growth MAT' =
+			VAR CurrentVal = [L6 Elasticity P MAT]
+			VAR Prior = [L6 Elasticity P LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: L6 Elasticity P
+		lineageTag: 9700bb8d-7557-4476-ba83-44884e7a8b86
+
+	measure 'L6 Elasticity P Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [L6 Elasticity P YTD],
+			        "MAT", [L6 Elasticity P MAT],
+			        [L6 Elasticity P Custom]
+			    )
+		formatString: 0.00x
+		displayFolder: L6 Elasticity P
+		lineageTag: 8cf35a13-c059-4057-9b5e-f9ae22ab8f8f
+
+	measure 'L6 Elasticity P LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [L6 Elasticity P LY YTD],
+			        "MAT", [L6 Elasticity P LY MAT],
+			        [L6 Elasticity P LY Custom]
+			    )
+		formatString: 0.00x
+		displayFolder: L6 Elasticity P
+		lineageTag: 1c24b194-dfc0-4fe5-a16b-0102eea47e3a
+
+	measure 'L6 Elasticity P Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [L6 Elasticity P Growth YTD],
+			        "MAT", [L6 Elasticity P Growth MAT],
+			        [L6 Elasticity P Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: L6 Elasticity P
+		lineageTag: 84946dad-39f3-43e3-a690-38303660095d
+
+	measure 'Gross IMS P Share Custom' = DIVIDE ( [Gross IMS P Custom], CALCULATE ( [Gross IMS P Custom], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: 022ee8ca-d224-4eb3-97ff-d824a5aa9a1a
+
+	measure 'Gross IMS P Share YTD' = DIVIDE ( [Gross IMS P YTD], CALCULATE ( [Gross IMS P YTD], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: dce794e2-000a-4f04-9715-1a37a00d38cd
+
+	measure 'Gross IMS P Share MAT' = DIVIDE ( [Gross IMS P MAT], CALCULATE ( [Gross IMS P MAT], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: b3bb2bb9-e42a-471d-a573-ee8e3bb8b962
+
+	measure 'Gross IMS P Share LY Custom' = DIVIDE ( [Gross IMS P LY Custom], CALCULATE ( [Gross IMS P LY Custom], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: 9ab3510d-6757-4d53-9e3b-a50c65b7fa87
+
+	measure 'Gross IMS P Share LY YTD' = DIVIDE ( [Gross IMS P LY YTD], CALCULATE ( [Gross IMS P LY YTD], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: 6bd3e239-2a2a-47a0-9b9d-33063c4cf468
+
+	measure 'Gross IMS P Share LY MAT' = DIVIDE ( [Gross IMS P LY MAT], CALCULATE ( [Gross IMS P LY MAT], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: c73cda08-6112-4ceb-9946-b367b8cdd87f
+
+	measure 'Net IMS P Share Custom' = DIVIDE ( [Net IMS P Custom], CALCULATE ( [Net IMS P Custom], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: c001c0b0-da54-46de-9174-49c0c568dea2
+
+	measure 'Net IMS P Share YTD' = DIVIDE ( [Net IMS P YTD], CALCULATE ( [Net IMS P YTD], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: d3997dbe-8583-48c5-a3fd-3e25c78ad02e
+
+	measure 'Net IMS P Share MAT' = DIVIDE ( [Net IMS P MAT], CALCULATE ( [Net IMS P MAT], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: 97faa55e-7302-4e22-b20f-760d12232bea
+
+	measure 'Net IMS P Share LY Custom' = DIVIDE ( [Net IMS P LY Custom], CALCULATE ( [Net IMS P LY Custom], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: deceb6b0-2cac-44ba-a0d3-571e4af69af4
+
+	measure 'Net IMS P Share LY YTD' = DIVIDE ( [Net IMS P LY YTD], CALCULATE ( [Net IMS P LY YTD], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: a8d7853e-5866-45db-89c2-a01605c97e22
+
+	measure 'Net IMS P Share LY MAT' = DIVIDE ( [Net IMS P LY MAT], CALCULATE ( [Net IMS P LY MAT], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: ca0d59fb-f259-4307-8666-f9370f494512
+
+	measure 'GP1 P Share Custom' = DIVIDE ( [GP1 P Custom], CALCULATE ( [GP1 P Custom], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: 160570a2-c6ae-4fb9-a6d8-8d427895b575
+
+	measure 'GP1 P Share YTD' = DIVIDE ( [GP1 P YTD], CALCULATE ( [GP1 P YTD], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: 29724c3b-6645-497c-9aad-75d4363aee42
+
+	measure 'GP1 P Share MAT' = DIVIDE ( [GP1 P MAT], CALCULATE ( [GP1 P MAT], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: 863aec46-c23e-4fa9-880c-5bb202234108
+
+	measure 'GP1 P Share LY Custom' = DIVIDE ( [GP1 P LY Custom], CALCULATE ( [GP1 P LY Custom], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: adb353fd-2cb3-46d7-ae4d-c74a7e3365af
+
+	measure 'GP1 P Share LY YTD' = DIVIDE ( [GP1 P LY YTD], CALCULATE ( [GP1 P LY YTD], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: 704d1e60-37c6-477f-bc80-095c2b3fce57
+
+	measure 'GP1 P Share LY MAT' = DIVIDE ( [GP1 P LY MAT], CALCULATE ( [GP1 P LY MAT], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: bef2970f-40b2-4f8e-85fb-9b5a8613aa0e
+
+	measure 'Investment P Share Custom' = DIVIDE ( [Investment P Custom], CALCULATE ( [Investment P Custom], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: da9c741f-b981-4c4b-955b-31ba12aa8b6f
+
+	measure 'Investment P Share YTD' = DIVIDE ( [Investment P YTD], CALCULATE ( [Investment P YTD], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: cad349df-0b34-4e84-bdff-365eccca94b3
+
+	measure 'Investment P Share MAT' = DIVIDE ( [Investment P MAT], CALCULATE ( [Investment P MAT], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: 23b33cea-1051-49bc-90ac-f0274b5b2e7e
+
+	measure 'Investment P Share LY Custom' = DIVIDE ( [Investment P LY Custom], CALCULATE ( [Investment P LY Custom], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: 4df44e82-778b-45bc-ba2d-a55c23770ed9
+
+	measure 'Investment P Share LY YTD' = DIVIDE ( [Investment P LY YTD], CALCULATE ( [Investment P LY YTD], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: e49568d7-0541-4521-a873-cd042332bdfc
+
+	measure 'Investment P Share LY MAT' = DIVIDE ( [Investment P LY MAT], CALCULATE ( [Investment P LY MAT], ALL ( 'IMS Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: dd4ca38f-7640-4d31-aa67-6bbea805574e
+
+	measure 'Gross IMS P Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Gross IMS P Share YTD], "MAT", [Gross IMS P Share MAT], [Gross IMS P Share Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: f03b3871-056a-4637-999e-7ec90ccce4bf
+
+	measure 'Gross IMS P Share LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Gross IMS P Share LY YTD], "MAT", [Gross IMS P Share LY MAT], [Gross IMS P Share LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: d6a4fba1-fb24-4653-968e-990012ffbf2a
+
+	measure 'Gross IMS P Change Custom' = [Gross IMS P Share Custom] - [Gross IMS P Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: 8d9333d0-8027-4d75-8026-3d203f01de02
+
+	measure 'Gross IMS P Change YTD' = [Gross IMS P Share YTD] - [Gross IMS P Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: e113a00e-137e-4cf6-ba97-b6a5ecfb3d4f
+
+	measure 'Gross IMS P Change MAT' = [Gross IMS P Share MAT] - [Gross IMS P Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: 7b09cc04-1009-4204-9057-aa8cda7bebb1
+
+	measure 'Gross IMS P Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Gross IMS P Change YTD], "MAT", [Gross IMS P Change MAT], [Gross IMS P Change Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P
+		lineageTag: 9ff8e4b9-700f-47bf-abca-3f408e63e9d2
+
+	measure 'Net IMS P Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Net IMS P Share YTD], "MAT", [Net IMS P Share MAT], [Net IMS P Share Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: 9a3e6efa-7ae0-43b1-a991-c66a830d0fb2
+
+	measure 'Net IMS P Share LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Net IMS P Share LY YTD], "MAT", [Net IMS P Share LY MAT], [Net IMS P Share LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: bcee16c3-56eb-45a6-9ccf-230d10735471
+
+	measure 'Net IMS P Change Custom' = [Net IMS P Share Custom] - [Net IMS P Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: 6695843c-a891-4b95-bf89-55e52612cfa1
+
+	measure 'Net IMS P Change YTD' = [Net IMS P Share YTD] - [Net IMS P Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: 09e06ee3-12d8-4107-98c2-f7e973b5641c
+
+	measure 'Net IMS P Change MAT' = [Net IMS P Share MAT] - [Net IMS P Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: 9ea006e5-f341-4935-822f-f43a91aa3365
+
+	measure 'Net IMS P Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Net IMS P Change YTD], "MAT", [Net IMS P Change MAT], [Net IMS P Change Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net IMS P
+		lineageTag: f10f8628-dcea-46ac-b3fe-17afbc3ba147
+
+	measure 'GP1 P Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [GP1 P Share YTD], "MAT", [GP1 P Share MAT], [GP1 P Share Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: 204f1402-f080-4dd0-b76b-731e021e1333
+
+	measure 'GP1 P Share LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [GP1 P Share LY YTD], "MAT", [GP1 P Share LY MAT], [GP1 P Share LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: 9f145690-0984-48c9-b220-cec504f83874
+
+	measure 'GP1 P Change Custom' = [GP1 P Share Custom] - [GP1 P Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: fe53bc9d-a89c-4fce-8672-7044a88acb8d
+
+	measure 'GP1 P Change YTD' = [GP1 P Share YTD] - [GP1 P Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: bc98cb16-468a-4c27-83fd-258e65a821f7
+
+	measure 'GP1 P Change MAT' = [GP1 P Share MAT] - [GP1 P Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: e3107937-10cb-4b98-8d13-70faacd8a676
+
+	measure 'GP1 P Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [GP1 P Change YTD], "MAT", [GP1 P Change MAT], [GP1 P Change Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 P
+		lineageTag: 37f4b95c-4c8e-4adb-a3c8-673ef82ba0a6
+
+	measure 'Investment P Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Investment P Share YTD], "MAT", [Investment P Share MAT], [Investment P Share Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: a9fcb640-27b4-4fb0-85d7-7d869a82239d
+
+	measure 'Investment P Share LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Investment P Share LY YTD], "MAT", [Investment P Share LY MAT], [Investment P Share LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: 185f08ed-103d-4998-8f48-f7c6a903ec9b
+
+	measure 'Investment P Change Custom' = [Investment P Share Custom] - [Investment P Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: 388984c9-746a-46c2-b787-2b9deac24ecd
+
+	measure 'Investment P Change YTD' = [Investment P Share YTD] - [Investment P Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: 0dfb1c7f-6ea9-46ef-9ec2-b6b8cf909957
+
+	measure 'Investment P Change MAT' = [Investment P Share MAT] - [Investment P Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: e4df7b81-7a50-43bb-a7ab-fb209d9a7c89
+
+	measure 'Investment P Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Investment P Change YTD], "MAT", [Investment P Change MAT], [Investment P Change Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Investment P
+		lineageTag: ee90065f-ebd5-4109-963f-9107a7a9b4dc
+
+	/// IMS Henkel VALUE set. IMS is Henkel-only shipment data, so no manufacturer filter is needed.
+	/// These six names are referenced by the 'Source' table's SWITCH measures.
+	measure 'Gross IMS P Henkel Dynamic' = [Gross IMS P Dynamic]
+		formatString: 0.00
+		displayFolder: Gross IMS P Henkel
+		lineageTag: f794a336-f02b-55a9-888d-92fc6ca4141c
+
+	measure 'Gross IMS P Henkel Share Dynamic' = [Gross IMS P Share Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P Henkel
+		lineageTag: 820e5a2c-cd4d-5673-8673-f13ff86f138d
+
+	measure 'Gross IMS P Henkel Growth Dynamic' = [Gross IMS P Growth Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P Henkel
+		lineageTag: 6f9391f7-df5e-5c48-ae27-68ba1159d0d3
+
+	measure 'Gross IMS P Henkel Change Dynamic' = [Gross IMS P Change Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Gross IMS P Henkel
+		lineageTag: 2c7ab88b-bade-5b30-a397-9b86369e8039
+
+	measure 'Gross IMS P Henkel Label1' =
+			VAR _value = [Gross IMS P Henkel Dynamic]
+			VAR _formattedValue =
+			    IF(
+			        ABS(_value) >= 1000000,
+			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
+			        IF(
+			            ABS(_value) >= 1000,
+			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
+			            FORMAT(_value, "#,##0.0")
+			        )
+			    )
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([Gross IMS P Henkel Share Dynamic]), "0.0%")
+		displayFolder: Gross IMS P Henkel
+		lineageTag: 866be18d-add6-5111-b9a3-8951e7a3c847
+
+	measure 'Gross IMS P Henkel Label2' =
+			FORMAT([Gross IMS P Henkel Growth Dynamic], "0.0%")
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([Gross IMS P Henkel Change Dynamic]), "0.0%")
+		displayFolder: Gross IMS P Henkel
+		lineageTag: 23e51095-749f-5926-8de9-e15e16fa7538
+
+	/// IMS Henkel VOLUME set - PLACEHOLDER.
+	/// 'IMS Processed' has no volume/quantity column, so these read [grossims] via Gross IMS.
+	/// When a volume column exists, replace the bodies of the four base measures below.
+	measure 'IMS P Henkel Volume Dynamic' = [Gross IMS P Dynamic]
+		formatString: 0.00
+		displayFolder: IMS P Volume Henkel (placeholder)
+		lineageTag: f335853e-2a74-58d3-a664-b12766d422f8
+
+	measure 'IMS P Henkel Volume Share Dynamic' = [Gross IMS P Share Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: IMS P Volume Henkel (placeholder)
+		lineageTag: 433ee5d0-e6ee-5131-af6b-2bf6c389c3ab
+
+	measure 'IMS P Henkel Volume Growth Dynamic' = [Gross IMS P Growth Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: IMS P Volume Henkel (placeholder)
+		lineageTag: 83bbfbb6-b07c-5ffb-b7e0-a63a3a7fdcd8
+
+	measure 'IMS P Henkel Volume Change Dynamic' = [Gross IMS P Change Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: IMS P Volume Henkel (placeholder)
+		lineageTag: e6cd36c3-f07a-5453-8b8e-47289ace6c6f
+
+	measure 'IMS P Henkel Volume Label1' =
+			VAR _value = [IMS P Henkel Volume Dynamic]
+			VAR _formattedValue =
+			    IF(
+			        ABS(_value) >= 1000000,
+			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
+			        IF(
+			            ABS(_value) >= 1000,
+			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
+			            FORMAT(_value, "#,##0.0")
+			        )
+			    )
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([IMS P Henkel Volume Share Dynamic]), "0.0%")
+		displayFolder: IMS P Volume Henkel (placeholder)
+		lineageTag: 57ff11d0-779e-52de-a366-020329a80355
+
+	measure 'IMS P Henkel Volume Label2' =
+			FORMAT([IMS P Henkel Volume Growth Dynamic], "0.0%")
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([IMS P Henkel Volume Change Dynamic]), "0.0%")
+		displayFolder: IMS P Volume Henkel (placeholder)
+		lineageTag: 204d8d47-f45c-5566-b32f-bf9f996f6810
+
+	/// IMS Henkel PTT set - PLACEHOLDER.
+	/// PTT should be a per-unit trade price, which needs volume. Value-based until that column exists.
+	/// Deliberately NOT defined as value/volume: with both on [grossims] that would return 1.00 everywhere.
+	measure 'IMS P Henkel PTT Dynamic' = [Gross IMS P Dynamic]
+		formatString: 0.00
+		displayFolder: IMS P PTT Henkel (placeholder)
+		lineageTag: 0b632fcc-167c-5f20-a29b-7e0b227e39aa
+
+	measure 'IMS P Henkel PTT Share Dynamic' = [Gross IMS P Share Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: IMS P PTT Henkel (placeholder)
+		lineageTag: af1097e4-8ae0-5d17-801c-a14990c88bc7
+
+	measure 'IMS P Henkel PTT Growth Dynamic' = [Gross IMS P Growth Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: IMS P PTT Henkel (placeholder)
+		lineageTag: 9e22c848-c44c-5785-aeec-874737187c6e
+
+	measure 'IMS P Henkel PTT Change Dynamic' = [Gross IMS P Change Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: IMS P PTT Henkel (placeholder)
+		lineageTag: 1cbe242a-1866-569d-af46-912a46e09d79
+
+	measure 'IMS P Henkel PTT Label1' =
+			VAR _value = [IMS P Henkel PTT Dynamic]
+			VAR _formattedValue =
+			    IF(
+			        ABS(_value) >= 1000000,
+			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
+			        IF(
+			            ABS(_value) >= 1000,
+			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
+			            FORMAT(_value, "#,##0.0")
+			        )
+			    )
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([IMS P Henkel PTT Share Dynamic]), "0.0%")
+		displayFolder: IMS P PTT Henkel (placeholder)
+		lineageTag: 30160009-aeb1-5dee-9fcb-efd9d612885f
+
+	measure 'IMS P Henkel PTT Label2' =
+			FORMAT([IMS P Henkel PTT Growth Dynamic], "0.0%")
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([IMS P Henkel PTT Change Dynamic]), "0.0%")
+		displayFolder: IMS P PTT Henkel (placeholder)
+		lineageTag: 7f82755b-921b-5279-8ace-79da30402e87
+
+	measure 'Net IMS P Henkel Label1' =
+			VAR _value = [Net IMS P Dynamic]
+			VAR _formattedValue =
+			    IF(
+			        ABS(_value) >= 1000000,
+			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
+			        IF(
+			            ABS(_value) >= 1000,
+			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
+			            FORMAT(_value, "#,##0.0")
+			        )
+			    )
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([Net IMS P Share Dynamic]), "0.0%")
+		displayFolder: Net IMS P Henkel
+		lineageTag: c2fe2874-e1da-553c-b6cf-eae574781db2
+
+	measure 'Net IMS P Henkel Label2' =
+			FORMAT([Net IMS P Growth Dynamic], "0.0%")
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([Net IMS P Change Dynamic]), "0.0%")
+		displayFolder: Net IMS P Henkel
+		lineageTag: 1c2b4093-e39f-5d81-9b59-b4f8bb346387
+
+	measure 'GP1 P Henkel Label1' =
+			VAR _value = [GP1 P Dynamic]
+			VAR _formattedValue =
+			    IF(
+			        ABS(_value) >= 1000000,
+			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
+			        IF(
+			            ABS(_value) >= 1000,
+			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
+			            FORMAT(_value, "#,##0.0")
+			        )
+			    )
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([GP1 P Share Dynamic]), "0.0%")
+		displayFolder: GP1 P Henkel
+		lineageTag: 6973c201-dec7-5a8d-96a9-299e7a84fffd
+
+	measure 'GP1 P Henkel Label2' =
+			FORMAT([GP1 P Growth Dynamic], "0.0%")
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([GP1 P Change Dynamic]), "0.0%")
+		displayFolder: GP1 P Henkel
+		lineageTag: 72eaa166-7e5c-5d23-a619-ac6b248ba16a
+
+	measure 'Investment P Henkel Label1' =
+			VAR _value = [Investment P Dynamic]
+			VAR _formattedValue =
+			    IF(
+			        ABS(_value) >= 1000000,
+			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
+			        IF(
+			            ABS(_value) >= 1000,
+			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
+			            FORMAT(_value, "#,##0.0")
+			        )
+			    )
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([Investment P Share Dynamic]), "0.0%")
+		displayFolder: Investment P Henkel
+		lineageTag: 7f7ef87c-be0c-5907-95c2-e0f204d36407
+
+	measure 'Investment P Henkel Label2' =
+			FORMAT([Investment P Growth Dynamic], "0.0%")
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([Investment P Change Dynamic]), "0.0%")
+		displayFolder: Investment P Henkel
+		lineageTag: fab46c52-3a9f-5818-9380-d90b0de95332
+
+	/// GP1% = GP1 / NES. ASSUMPTION - confirm the denominator.
+	/// The model had no GP1% measure and the HTML mock hard-codes the value.
+	measure 'GP1 Pct P Dynamic' = DIVIDE ( [GP1 P Dynamic], [Net IMS P Dynamic] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 Pct P
+		lineageTag: 1a19cfa8-d80e-5942-9dde-c2e85c7df636
+
+	measure 'GP1 Pct P LY Dynamic' = DIVIDE ( [GP1 P LY Dynamic], [Net IMS P LY Dynamic] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 Pct P
+		lineageTag: ba2dcff7-e10d-58a3-8e2e-4061b4b68191
+
+	/// Change in a percentage, so the unit is pp not %.
+	measure 'GP1 Pct P Change Dynamic' = [GP1 Pct P Dynamic] - [GP1 Pct P LY Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: GP1 Pct P
+		lineageTag: ec9d73d3-d574-5aa9-bd6d-68cde316101e
+
+	measure 'GP1 Pct P Henkel Label1' =
+			FORMAT([GP1 Pct P Dynamic], "0.0%")
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([GP1 P Share Dynamic]), "0.0%")
+		displayFolder: GP1 Pct P
+		lineageTag: 35f9efec-7527-5e80-af75-df5cb4b0e69e
+
+	measure 'GP1 Pct P Henkel Label2' =
+			VAR _pp = [GP1 Pct P Change Dynamic] * 100
+			RETURN
+			    IF ( _pp >= 0, "+", "" ) & FORMAT ( _pp, "0.0" ) & "pp"
+		displayFolder: GP1 Pct P
+		lineageTag: 5c9d1437-5a46-5cd9-8e8e-631fe29a6db9
+
+	/// L6% = Investment (L6) / NES. ASSUMPTION - confirm the denominator.
+	/// The model had no L6% measure and the HTML mock hard-codes the value.
+	measure 'L6 Pct P Dynamic' = DIVIDE ( [Investment P Dynamic], [Net IMS P Dynamic] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: L6 Pct P
+		lineageTag: 079f1c1b-1a4d-5b74-9de0-b8e0b35026e7
+
+	measure 'L6 Pct P LY Dynamic' = DIVIDE ( [Investment P LY Dynamic], [Net IMS P LY Dynamic] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: L6 Pct P
+		lineageTag: fa3d9843-b153-5a55-a709-f3db9ed684da
+
+	/// Change in a percentage, so the unit is pp not %.
+	measure 'L6 Pct P Change Dynamic' = [L6 Pct P Dynamic] - [L6 Pct P LY Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: L6 Pct P
+		lineageTag: 456454bb-b212-58ca-9d21-d2c0729db4e1
+
+	measure 'L6 Pct P Henkel Label1' =
+			FORMAT([L6 Pct P Dynamic], "0.0%")
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([Investment P Share Dynamic]), "0.0%")
+		displayFolder: L6 Pct P
+		lineageTag: 48f3b2c5-d124-58fb-9750-1935d40396ca
+
+	measure 'L6 Pct P Henkel Label2' =
+			VAR _pp = [L6 Pct P Change Dynamic] * 100
+			RETURN
+			    IF ( _pp >= 0, "+", "" ) & FORMAT ( _pp, "0.0" ) & "pp"
+		displayFolder: L6 Pct P
+		lineageTag: aac5528e-4374-5c5b-9c38-2137ccf923fd
+
+	measure 'L6 Elasticity P Henkel Label1' = FORMAT([L6 Elasticity P Dynamic], "#,##0.00") & "x"
+		displayFolder: L6 Elasticity P Henkel
+		lineageTag: 82530915-43a6-5958-8bb9-001831700266
+
+	measure 'L6 Elasticity P Henkel Label2' =
+			"LY:" & FORMAT([L6 Elasticity P LY Dynamic], "#,##0.00") & "x"
+			    & UNICHAR(10) & " | "
+			    & FORMAT([L6 Elasticity P Growth Dynamic], "0.0%")
+		displayFolder: L6 Elasticity P Henkel
+		lineageTag: 9de1adae-c358-519b-8328-38e490125308
+
+	measure 'ROI P Henkel Label1' = FORMAT([ROI P Dynamic], "#,##0.00") & "x"
+		displayFolder: ROI P Henkel
+		lineageTag: d7fff981-5f64-5442-9c40-62023c8f32d7
+
+	measure 'ROI P Henkel Label2' =
+			"LY:" & FORMAT([ROI P LY Dynamic], "#,##0.00") & "x"
+			    & UNICHAR(10) & " | "
+			    & FORMAT([ROI P Growth Dynamic], "0.0%")
+		displayFolder: ROI P Henkel
+		lineageTag: aa6df223-1938-5902-be10-43486e065482
+
+	/// Henkel-named aliases. IMS is Henkel-only shipment data, so no manufacturer filter is needed.
+	/// These names are bound by visuals on the 'Performance' page.
+	measure 'Net IMS P Henkel Dynamic' = [Net IMS P Dynamic]
+		formatString: 0.00
+		displayFolder: Net IMS P Henkel
+		lineageTag: fef06682-62b7-5584-b9c7-05e4854c50a6
+
+	measure 'GP1 P Henkel Dynamic' = [GP1 P Dynamic]
+		formatString: 0.00
+		displayFolder: GP1 P Henkel
+		lineageTag: c57af358-9987-52e7-9389-75c5590ee589
+
+	measure 'Investment P Henkel Dynamic' = [Investment P Dynamic]
+		formatString: 0.00
+		displayFolder: Investment P Henkel
+		lineageTag: 693fd4fe-1888-5611-85cc-f5fe16933840
+
+	measure 'L6 Elasticity P Henkel Dynamic' = [L6 Elasticity P Dynamic]
+		formatString: 0.00x
+		displayFolder: L6 Elasticity P Henkel
+		lineageTag: 45bd977f-eec8-5014-a0c5-527afec31bb7
+
+	measure 'ROI P Henkel Dynamic' = [ROI P Dynamic]
+		formatString: 0.00x
+		displayFolder: ROI P Henkel
+		lineageTag: fca91635-9a48-56c5-82c0-70708386b008
+
+	column BU
+		dataType: string
+		lineageTag: 1b1e2ce8-08a2-4e23-99ab-4c5d996cda11
+		summarizeBy: none
+		sourceColumn: BU
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: caee8a02-ccde-428c-8ba1-a9722ce98f61
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand
+		dataType: string
+		lineageTag: 24185571-85e3-40ab-aaee-fdb3e2c3d4ff
+		summarizeBy: none
+		sourceColumn: Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column Size
+		dataType: string
+		lineageTag: 5e334181-a668-4f92-b8a6-e4ecc7fe19dc
+		summarizeBy: none
+		sourceColumn: Size
+
+		annotation SummarizationSetBy = Automatic
+
+	column Distributor
+		dataType: string
+		lineageTag: 7b62d075-3e45-40f1-8d53-088459b48ff7
+		summarizeBy: none
+		sourceColumn: Distributor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel
+		dataType: string
+		lineageTag: 8a466c94-ffb9-484b-ac86-75db3dc6ed33
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subchannel
+		dataType: string
+		lineageTag: caf06f6b-a514-4c7d-9f10-b6df1f965e20
+		summarizeBy: none
+		sourceColumn: Subchannel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales_Type
+		dataType: string
+		lineageTag: e40d98f7-1304-4564-8693-c6c2c8e0a37c
+		summarizeBy: none
+		sourceColumn: Sales_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand Strategy'
+		dataType: string
+		lineageTag: 5abd3fcd-93ad-48b2-86a8-65e44d2b7d24
+		summarizeBy: none
+		sourceColumn: Brand Strategy
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Group
+		dataType: string
+		lineageTag: e727c203-a166-4efa-9caa-46c1c724d234
+		summarizeBy: none
+		sourceColumn: Customer_Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price_Brand
+		dataType: string
+		lineageTag: abfa60b1-4335-474f-bcc4-d6a89cea5e02
+		summarizeBy: none
+		sourceColumn: Price_Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d6dbc9a-e21e-4852-bee7-036cb955c29e
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column gp1
+		dataType: double
+		lineageTag: 14d51e95-3dd0-42ab-9a1f-749fa4e450fa
+		summarizeBy: sum
+		sourceColumn: gp1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column grossims
+		dataType: double
+		lineageTag: 791f3309-f22c-4fa8-b8ff-3b76f5a093ad
+		summarizeBy: sum
+		sourceColumn: grossims
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Investment
+		dataType: double
+		lineageTag: 6e75d9aa-4cce-432d-bb9d-be581f996f18
+		summarizeBy: sum
+		sourceColumn: Investment
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Nes
+		dataType: double
+		lineageTag: fffd285e-c5c9-46b9-800e-f47b9bb9a15f
+		summarizeBy: sum
+		sourceColumn: Nes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: db601417-0465-4f3a-8508-aabc8b71dcb4
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column MonthNumber = ```
+			
+			MONTH ( 'IMS Processed'[Date] )
+			
+			```
+		formatString: 0
+		lineageTag: 081fb088-8b82-4f7d-a85a-2ed21ba9cb5e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Source =
+			
+			"IMS"
+		lineageTag: 43ea8d14-b194-4319-b356-ac3429fd141b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Yearmonth = ```
+			'IMS Processed'[Year] * 100 + 'IMS Processed'[MonthNumber]
+			
+			```
+		formatString: 0
+		lineageTag: 4498414b-c964-4007-bb19-b60a915a4666
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubCategory
+		dataType: string
+		lineageTag: ba309789-3696-4fcf-9170-52d4265c15fe
+		summarizeBy: none
+		sourceColumn: SubCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Format
+		dataType: string
+		lineageTag: 7c5f896b-728d-4242-a79a-145e4eb63fbd
+		summarizeBy: none
+		sourceColumn: Format
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromoType
+		dataType: string
+		lineageTag: d5807352-11de-4568-9720-c960e4b81606
+		summarizeBy: none
+		sourceColumn: PromoType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel_Key = 'IMS Processed'[Country]&'IMS Processed'[Channel]
+		lineageTag: 2d6ed2c3-c048-490d-9a0b-961f1d522c6f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column BU_Client
+		dataType: string
+		lineageTag: 5e237f79-0f4e-415b-a37c-99ec84b7bd2e
+		summarizeBy: none
+		sourceColumn: BU_Client
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubCategory_Client
+		dataType: string
+		lineageTag: 521dd025-827f-4f4b-8003-319eacb5271f
+		summarizeBy: none
+		sourceColumn: SubCategory_Client
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hierarchy Index.RNN'
+		dataType: int64
+		formatString: 0
+		lineageTag: 738865f3-3f0e-43ca-a575-06fa87c8e41e
+		summarizeBy: none
+		sourceColumn: Hierarchy Index.RNN
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'IMS Processed' = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="henkel-clicflyer"]}[Data], "SELECT distinct * FROM `henkel-clicflyer.AnalyticsSolution.ims_processed_data_henkel`#(lf)WHERE BU IS NOT NULL AND SubCategory IS NOT NULL and format is not null", null, [EnableFolding=true]),
+				    #"Merged Queries" = Table.NestedJoin(Source, {"BU", "SubCategory", "Format"}, #"Hierarchy Index", {"BU", "SubCategory", "Format"}, "Hierarchy Index", JoinKind.LeftOuter),
+				    #"Expanded Hierarchy Index" = Table.ExpandTableColumn(#"Merged Queries", "Hierarchy Index", {"RNN"}, {"Hierarchy Index.RNN"})
+				in
+				    #"Expanded Hierarchy Index"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

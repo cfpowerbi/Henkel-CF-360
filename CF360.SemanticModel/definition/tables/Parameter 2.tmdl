@@ -1,0 +1,58 @@
+table 'Parameter 2'
+	lineageTag: 1dca586c-a621-47ec-87e9-441897b0686d
+
+	measure 'Deneb1 Heading' =
+			
+			"Channel wise & "
+			    & MAX('Parameter 2'[Parameter])
+			    & " . "
+			    & SELECTEDVALUE('Metric Slicer'[Metric])
+			    & " . "
+			    & SELECTEDVALUE('Source'[Source])
+		lineageTag: e2e9d5c0-24b5-43b3-9826-75a4758c3e97
+
+	column Parameter
+		lineageTag: 93a68d84-90e1-4659-9550-f0120319fa66
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: c56ff971-3515-41b1-add7-aaac41fe5db9
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		formatString: 0
+		lineageTag: dd7ea5fc-aa08-4e66-b4a8-1dabcada49db
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Parameter 2' = calculated
+		mode: import
+		source =
+				{
+				    ("BU", NAMEOF('Hierarchy Index'[BU]), 0),
+				    ("Sub Category", NAMEOF('Hierarchy Index'[SubCategory]), 1),
+				    ("Format", NAMEOF('Hierarchy Index'[Format]), 2)
+				}
+
+	annotation PBI_Id = ca9a26044b854766b9d6493eea5683e1
+

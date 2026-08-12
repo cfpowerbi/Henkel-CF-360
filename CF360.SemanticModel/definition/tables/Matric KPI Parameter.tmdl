@@ -1,0 +1,104 @@
+table 'Matric KPI Parameter'
+	lineageTag: 00ef63bb-355d-4d52-bb7d-4c2815539891
+
+	column Parameter
+		lineageTag: c7d4147f-27a8-44d9-b3ac-cbac8a560a41
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: a72cea2f-d90c-4800-b186-0fccdd31c36a
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 90dad89a-8e16-4176-8390-632e0c4cbc09
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value4
+		lineageTag: 7d7ab686-ee88-4828-bcef-399498173817
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value5
+		lineageTag: 5bf98eef-0f57-4287-8e54-fcf4612df6e0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value6
+		lineageTag: 2132dc81-cb6c-4b52-ada1-ffe6e9b27d87
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value6]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value7
+		lineageTag: 9e2a235c-43c3-4b86-b25f-68d89d4aee38
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value7]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Matric KPI Parameter' = calculated
+		mode: import
+		source =
+				{("IMS Val", NAMEOF('IMS Processed'[Gross IMS P Dynamic]), 1, "Val", "IMS","📊 IMS Overview","VALUE & VOLUME"),
+				    ("IMS Investment", NAMEOF('IMS Processed'[Investment P Dynamic]), 2, "Inves.", "IMS","📊 IMS Overview","P&L MEETRICS"),
+				    ("IMS NES", NAMEOF('IMS Processed'[chg NES P dynamic]), 3, "NES", "IMS","📊 IMS Overview","P&L MEETRICS"),
+				    ("IMS GP1", NAMEOF('IMS Processed'[GP1 P Dynamic]), 4, "GP1", "IMS","📊 IMS Overview","P&L MEETRICS"),
+				    ("IMS Val Growth%", NAMEOF('IMS Processed'[Gross IMS P Growth dynamic]), 5, "Val Growth %", "IMS","📊 IMS Overview","VALUE & VOLUME"),
+				
+				    ("EPOS Val", NAMEOF('EPOS Processed data'[EPOS P Value Dynamic]), 6, "Val", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Val Share", NAMEOF('EPOS Processed data'[EPOS P Value Share Dynamic]), 7, "Val Share", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Val Share Chg", NAMEOF('EPOS Processed data'[EPOS P Value share change]), 8, "Val Share Chg", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Val Growth%", NAMEOF('EPOS Processed data'[EPOS P Value Growth dynamic]), 9, "Val Growth%", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Vol", NAMEOF('EPOS Processed data'[EPOS P Volume Dynamic]), 10, "Vol", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Vol Share ", NAMEOF('EPOS Processed data'[EPOS P Volume Share Dynamic]), 11, "Vol Share", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Vol Share Chg ", NAMEOF('EPOS Processed data'[EPOS P Volume share change]), 12, "Val Share Chg", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Vol Growth%", NAMEOF('EPOS Processed data'[EPOS P Volume Growth dynamic]), 13, "Vol Growth%", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Price", NAMEOF('EPOS Processed data'[EPOS P Price Dynamic]), 14, "Price", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("EPOS Price Chg", NAMEOF('EPOS Processed data'[EPOS P Price Change dynamic]), 15, "Price Chg", "EPOS","🛒 EPOS Overview","OTHERS"),
+				
+				    ("Nielsen Val", NAMEOF('Nielsen Processed'[Nielsen P Value Dynamic]), 16, "Val", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Val Share", NAMEOF('Nielsen Processed'[Nielsen P Value Share Dynamic]), 17, "Val Share", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Val Share Chg", NAMEOF('Nielsen Processed'[Nielsen P Value share change]), 18, "Val Share Chg", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Val Growth%", NAMEOF('Nielsen Processed'[Nielsen P Value Growth Dynamic]), 19, "Val Growth%", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Vol", NAMEOF('Nielsen Processed'[Nielsen P Volume Dynamic]), 20, "Vol", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Vol Share", NAMEOF('Nielsen Processed'[Nielsen P Volume Share Dynamic]), 21, "Vol Share", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Val Share Chg", NAMEOF('Nielsen Processed'[Nielsen P Volume share change]), 22, "Val Share Chg", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Vol Growth%", NAMEOF('Nielsen Processed'[Nielsen P Volume Growth Dynamic]), 23, "Vol Growth%", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Price", NAMEOF('Nielsen Processed'[Nielsen P Price Dynamic]), 24, "Price", "Nielsen","📈 Nielsen Overview","OTHERS"),
+				    ("Nielsen Price Chg", NAMEOF('Nielsen Processed'[Nielsen P Price Change dynamic]), 25, "Price Chg", "Nielsen","📈 Nielsen Overview","OTHERS")
+				}
+
+	annotation PBI_Id = ceb822c19b984b9c9d511e496ce06811
+

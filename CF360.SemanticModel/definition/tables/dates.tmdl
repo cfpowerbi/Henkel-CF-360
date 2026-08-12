@@ -1,0 +1,44 @@
+table dates
+	lineageTag: cc640803-ee29-42f0-b74b-853c88ad5951
+
+	measure 'MAT Date Filter' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    IF (
+			        SelectedMode = "MAT",
+			        IF ( MAX ( 'dates'[monthdate] ) > CutoffDate, 1, 0 ),
+			        1
+			    )
+		formatString: 0
+		lineageTag: 3e07a26b-7c18-42be-99d0-9010334cf8fb
+
+	column monthdate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d9237a03-cc88-4983-a7ce-8d1345cb3c84
+		summarizeBy: none
+		sourceColumn: monthdate
+
+		variation Variation
+			isDefault
+			relationship: 1914118e-d29e-4010-b838-7619329e6c0c
+			defaultHierarchy: LocalDateTable_0bb8c0f4-29df-4d47-a1e5-0725f5b04338.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dates = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="henkel-clicflyer"]}[Data], "SELECT DISTINCT #(lf)  monthdate #(lf)FROM `henkel-clicflyer.AnalyticsSolution.epos_processed_data_henkel`#(lf)#(lf)#(lf)UNION DISTINCT#(lf)#(lf)SELECT DISTINCT #(lf) `date` as monthdate#(lf)#(lf)FROM `henkel-clicflyer.AnalyticsSolution.ims_processed_data_henkel`#(lf)#(lf)#(lf)UNION DISTINCT#(lf)#(lf)SELECT DISTINCT #(lf)monthdate#(lf)#(lf)FROM `henkel-clicflyer.AnalyticsSolution.nielsen_processed_data_henkel`", null, [EnableFolding=true])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

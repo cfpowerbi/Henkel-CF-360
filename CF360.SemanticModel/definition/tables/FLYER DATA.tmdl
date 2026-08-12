@@ -1,0 +1,643 @@
+table 'FLYER DATA'
+	lineageTag: 61237738-9558-4a3c-8158-04273902ad97
+
+	measure 'Flyer P Price Custom' = AVERAGE ( 'FLYER DATA'[Priceperkg_ltr_Calculated] )
+		formatString: 0.00
+		displayFolder: Flyer P Price
+		lineageTag: 99c7caef-44a7-42c8-91be-5b27a8b3de5b
+
+	measure 'Flyer P Price YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        AVERAGE ( 'FLYER DATA'[Priceperkg_ltr_Calculated] ),
+			        FILTER (
+			            ALL ( 'FLYER DATA'[offerstartdate] ),
+			            'FLYER DATA'[offerstartdate] <= LastDataDate
+			                && YEAR ( 'FLYER DATA'[offerstartdate] ) = YEAR ( LastDataDate )
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Flyer P Price
+		lineageTag: 73d17260-796c-4f96-8de7-21eee8fa2178
+
+	measure 'Flyer P Price MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    CALCULATE (
+			        AVERAGE ( 'FLYER DATA'[Priceperkg_ltr_Calculated] ),
+			        KEEPFILTERS ( 'FLYER DATA'[offerstartdate] > CutoffDate ),
+			        KEEPFILTERS ( 'FLYER DATA'[offerstartdate] <= GlobalMaxDate )
+			    )
+		formatString: 0.00
+		displayFolder: Flyer P Price
+		lineageTag: 795577b5-a493-452b-9f7a-67beb19388ee
+
+	measure 'Flyer P Price LY Custom' = CALCULATE ( [Flyer P Price Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: Flyer P Price
+		lineageTag: 906906da-3614-4744-b082-b55405096e0c
+
+	measure 'Flyer P Price LY YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        AVERAGE ( 'FLYER DATA'[Priceperkg_ltr_Calculated] ),
+			        FILTER (
+			            ALL ( 'FLYER DATA'[offerstartdate] ),
+			            'FLYER DATA'[offerstartdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'FLYER DATA'[offerstartdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Flyer P Price
+		lineageTag: 97a37d38-a3aa-4300-9225-1c70c0e90387
+
+	measure 'Flyer P Price LY MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        AVERAGE ( 'FLYER DATA'[Priceperkg_ltr_Calculated] ),
+			        KEEPFILTERS ( 'FLYER DATA'[offerstartdate] > CutoffLY ),
+			        KEEPFILTERS ( 'FLYER DATA'[offerstartdate] <= AnchorLY )
+			    )
+		formatString: 0.00
+		displayFolder: Flyer P Price
+		lineageTag: c2619414-3b79-48da-8b91-9df74af0a9c2
+
+	measure 'Flyer P Price Share Custom' = DIVIDE ( [Flyer P Price Custom], CALCULATE ( [Flyer P Price Custom], ALL ( 'FLYER DATA' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: 6d23d2d1-d2f2-437e-8b2d-3c48008778a4
+
+	measure 'Flyer P Price Share YTD' = DIVIDE ( [Flyer P Price YTD], CALCULATE ( [Flyer P Price YTD], ALL ( 'FLYER DATA' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: a36904ef-de03-4552-8b32-f2d213625b14
+
+	measure 'Flyer P Price Share MAT' = DIVIDE ( [Flyer P Price MAT], CALCULATE ( [Flyer P Price MAT], ALL ( 'FLYER DATA' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: b1f6bb51-6e6f-47e0-a2f8-d0e06cd61a51
+
+	measure 'Flyer P Price Share LY Custom' = DIVIDE ( [Flyer P Price LY Custom], CALCULATE ( [Flyer P Price LY Custom], ALL ( 'FLYER DATA' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: 573566a7-bbe4-451c-84a1-37ad64c38a3f
+
+	measure 'Flyer P Price Share LY YTD' = DIVIDE ( [Flyer P Price LY YTD], CALCULATE ( [Flyer P Price LY YTD], ALL ( 'FLYER DATA' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: cd1627a1-417c-43f7-a7da-06b4e7575391
+
+	measure 'Flyer P Price Share LY MAT' = DIVIDE ( [Flyer P Price LY MAT], CALCULATE ( [Flyer P Price LY MAT], ALL ( 'FLYER DATA' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: d1b836b5-3e01-452e-a1ad-f9d710f51e88
+
+	measure 'Flyer P Price Growth Custom' = DIVIDE ( [Flyer P Price Custom] - [Flyer P Price LY Custom], [Flyer P Price Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: ad49396a-766d-4abc-b59d-fb5662f086e6
+
+	measure 'Flyer P Price Growth YTD' = DIVIDE ( [Flyer P Price YTD] - [Flyer P Price LY YTD], [Flyer P Price YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: 1c6afa1c-1873-4282-9f6d-e9948d2a7f81
+
+	measure 'Flyer P Price Growth MAT' = DIVIDE ( [Flyer P Price MAT] - [Flyer P Price LY MAT], [Flyer P Price MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: f5df57fd-94e5-41dd-ae2b-0e06516052d1
+
+	measure 'Flyer P Price Change Custom' = [Flyer P Price Share Custom] - [Flyer P Price Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: f93d9a61-f164-403b-9f26-af66ecc4f88c
+
+	measure 'Flyer P Price Change YTD' = [Flyer P Price Share YTD] - [Flyer P Price Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: 9572af38-0fdc-40f5-9408-b45a6aa4b8a6
+
+	measure 'Flyer P Price Change MAT' = [Flyer P Price Share MAT] - [Flyer P Price Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: 42c4f62e-d024-4716-a6ee-641a1bc4e18c
+
+	measure 'Flyer P Price Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Flyer P Price YTD], "MAT", [Flyer P Price MAT], [Flyer P Price Custom] )
+		formatString: 0.00
+		displayFolder: Flyer P Price
+		lineageTag: e44b0dc7-3a0a-40b8-a2e9-60f7e2a92559
+
+	measure 'Flyer P Price LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Flyer P Price LY YTD], "MAT", [Flyer P Price LY MAT], [Flyer P Price LY Custom] )
+		formatString: 0.00
+		displayFolder: Flyer P Price
+		lineageTag: 2292abba-71e0-4298-a30f-162b5301079c
+
+	measure 'Flyer P Price Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Flyer P Price Share YTD], "MAT", [Flyer P Price Share MAT], [Flyer P Price Share Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: 5ea3e4be-216b-4fbf-ab4f-cc54ecf2f712
+
+	measure 'Flyer P Price Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Flyer P Price Growth YTD], "MAT", [Flyer P Price Growth MAT], [Flyer P Price Growth Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: cecd76ae-36bc-410e-a175-ff6fc0e2e6da
+
+	measure 'Flyer P Price Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Flyer P Price Change YTD], "MAT", [Flyer P Price Change MAT], [Flyer P Price Change Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Price
+		lineageTag: 870116c3-4022-44db-8918-300c70332888
+
+	measure 'Flyer P Henkel Price Custom' = CALCULATE ( [Flyer P Price Custom], 'FLYER DATA'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Flyer P Henkel Price
+		lineageTag: cfba9f50-c32c-4a38-91ff-55c69f305f21
+
+	measure 'Flyer P Henkel Price YTD' = CALCULATE ( [Flyer P Price YTD], 'FLYER DATA'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 41a2d200-e4ad-4174-8f7e-2fc381e44b52
+
+	measure 'Flyer P Henkel Price MAT' = CALCULATE ( [Flyer P Price MAT], 'FLYER DATA'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 5c466f3d-219f-46f4-8a9e-31cf7c22f028
+
+	measure 'Flyer P Henkel Price LY Custom' = CALCULATE ( [Flyer P Price LY Custom], 'FLYER DATA'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Flyer P Henkel Price
+		lineageTag: eab725fd-0ac7-4637-901d-9b18345e2b21
+
+	measure 'Flyer P Henkel Price LY YTD' = CALCULATE ( [Flyer P Price LY YTD], 'FLYER DATA'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 87b5d5a0-4886-4544-81a2-d5be6938ade7
+
+	measure 'Flyer P Henkel Price LY MAT' = CALCULATE ( [Flyer P Price LY MAT], 'FLYER DATA'[Flag] = "My Brand" )
+		formatString: 0.00
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 1a057314-4b09-48b2-89fe-d209c9f223ab
+
+	measure 'Flyer P Henkel Price Share Custom' = DIVIDE ( CALCULATE ( [Flyer P Price Custom], 'FLYER DATA'[Flag] = "My Brand" ), [Flyer P Price Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 444dc94b-727a-435c-8e80-d6612a37b71d
+
+	measure 'Flyer P Henkel Price Share YTD' = DIVIDE ( CALCULATE ( [Flyer P Price YTD], 'FLYER DATA'[Flag] = "My Brand" ), [Flyer P Price YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: d00ea3c3-0d25-4d45-9f07-2b9be7c660b3
+
+	measure 'Flyer P Henkel Price Share MAT' = DIVIDE ( CALCULATE ( [Flyer P Price MAT], 'FLYER DATA'[Flag] = "My Brand" ), [Flyer P Price MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 53834541-71e5-465c-b297-e21dc548c39f
+
+	measure 'Flyer P Henkel Price Growth Custom' = DIVIDE ( [Flyer P Henkel Price Custom] - [Flyer P Henkel Price LY Custom], [Flyer P Henkel Price Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: c156a674-9a4d-4a5b-8ac3-210204e6c345
+
+	measure 'Flyer P Henkel Price Growth YTD' = DIVIDE ( [Flyer P Henkel Price YTD] - [Flyer P Henkel Price LY YTD], [Flyer P Henkel Price YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: aa923313-6114-4f1d-9d74-125fb4730de0
+
+	measure 'Flyer P Henkel Price Growth MAT' = DIVIDE ( [Flyer P Henkel Price MAT] - [Flyer P Henkel Price LY MAT], [Flyer P Henkel Price MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: e19604de-d4e6-484b-b775-738ac4ff3e7c
+
+	measure 'Flyer P Henkel Price Change Custom' = [Flyer P Henkel Price Share Custom] - DIVIDE ( CALCULATE ( [Flyer P Price LY Custom], 'FLYER DATA'[Flag] = "My Brand" ), [Flyer P Price LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: cd7f5046-7956-4808-abbd-c247f944c731
+
+	measure 'Flyer P Henkel Price Change YTD' = [Flyer P Henkel Price Share YTD] - DIVIDE ( CALCULATE ( [Flyer P Price LY YTD], 'FLYER DATA'[Flag] = "My Brand" ), [Flyer P Price LY YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 8bf49b83-4377-45c8-8b90-ca79d84ac7b5
+
+	measure 'Flyer P Henkel Price Change MAT' = [Flyer P Henkel Price Share MAT] - DIVIDE ( CALCULATE ( [Flyer P Price LY MAT], 'FLYER DATA'[Flag] = "My Brand" ), [Flyer P Price LY MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 667f407b-b2fb-42d6-a233-e9bdf15acda1
+
+	measure 'Flyer P Henkel Price Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [Flyer P Price YTD], 'FLYER DATA'[Flag] = "My Brand" ),
+			        "MAT", CALCULATE ( [Flyer P Price MAT], 'FLYER DATA'[Flag] = "My Brand" ),
+			        CALCULATE ( [Flyer P Price Custom], 'FLYER DATA'[Flag] = "My Brand" )
+			    )
+		formatString: 0.00
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 6a985829-d4b8-41f0-b74e-0f725f9af57a
+
+	measure 'Flyer P Henkel Price LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [Flyer P Price LY YTD], 'FLYER DATA'[Flag] = "My Brand" ),
+			        "MAT", CALCULATE ( [Flyer P Price LY MAT], 'FLYER DATA'[Flag] = "My Brand" ),
+			        CALCULATE ( [Flyer P Price LY Custom], 'FLYER DATA'[Flag] = "My Brand" )
+			    )
+		formatString: 0.00
+		displayFolder: Flyer P Henkel Price
+		lineageTag: b2cd7fcf-2093-4034-b4c0-86896f41188b
+
+	measure 'Flyer P Henkel Price Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Flyer P Henkel Price Share YTD], "MAT", [Flyer P Henkel Price Share MAT], [Flyer P Henkel Price Share Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 7dd927a4-eff2-42e2-be39-9fb19d640902
+
+	measure 'Flyer P Henkel Price Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Flyer P Henkel Price Growth YTD], "MAT", [Flyer P Henkel Price Growth MAT], [Flyer P Henkel Price Growth Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 3b0ce7e1-7113-49c2-aff6-c946cb261a3e
+
+	measure 'Flyer P Henkel Price Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH ( SelectedMode, "YTD", [Flyer P Henkel Price Change YTD], "MAT", [Flyer P Henkel Price Change MAT], [Flyer P Henkel Price Change Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Flyer P Henkel Price
+		lineageTag: 748382e7-2362-4c8d-85aa-b4fa53912865
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 589b9715-ed1a-49c2-aec0-9b15031cd458
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PROMO TYPE'
+		dataType: string
+		lineageTag: 68d1c6eb-85e1-47de-b2c1-40a3903c2bfd
+		summarizeBy: none
+		sourceColumn: PROMO TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Offerid
+		dataType: int64
+		formatString: 0
+		lineageTag: 30c146f4-eca4-474c-8bd7-eec3d45a1463
+		summarizeBy: sum
+		sourceColumn: Offerid
+
+		annotation SummarizationSetBy = Automatic
+
+	column offerstartdate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 17c4482b-6e6e-41d7-8572-9aedf2726783
+		summarizeBy: none
+		sourceColumn: offerstartdate
+
+		annotation SummarizationSetBy = Automatic
+
+	column offerenddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0809948a-4bd2-4362-830a-a197c0af1e1d
+		summarizeBy: none
+		sourceColumn: offerenddate
+
+		variation Variation
+			isDefault
+			relationship: 4ffa0615-5c75-4b76-8df7-03abb93abd43
+			defaultHierarchy: LocalDateTable_062cc487-534b-47c0-b37e-ab5944e0931e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column promoprice
+		dataType: double
+		lineageTag: 1d7817a3-c4bc-478a-94a4-86edcafc86b0
+		summarizeBy: sum
+		sourceColumn: promoprice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column regularprice
+		dataType: double
+		lineageTag: 418d1542-822d-42b5-9246-9e04a66d410c
+		summarizeBy: sum
+		sourceColumn: regularprice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column promoquantity
+		dataType: double
+		lineageTag: 30d8acd4-662f-4353-bd7e-0c45a7eeabf9
+		summarizeBy: sum
+		sourceColumn: promoquantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Offerpriceperpacksize
+		dataType: double
+		lineageTag: ee83569e-1828-4cb2-ad7f-39e7ea15c286
+		summarizeBy: sum
+		sourceColumn: Offerpriceperpacksize
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column retailerid
+		dataType: int64
+		formatString: 0
+		lineageTag: c14e2065-63d6-4371-97ac-eb5a9ac4ab9c
+		summarizeBy: sum
+		sourceColumn: retailerid
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CUSTOMER GROUP'
+		dataType: string
+		lineageTag: a4039923-eb94-4803-a7d2-b0c7ec5afd99
+		summarizeBy: none
+		sourceColumn: CUSTOMER GROUP
+
+		annotation SummarizationSetBy = Automatic
+
+	column brandid
+		dataType: int64
+		formatString: 0
+		lineageTag: eaf70956-c869-4afe-a37f-a6fa705be43c
+		summarizeBy: sum
+		sourceColumn: brandid
+
+		annotation SummarizationSetBy = Automatic
+
+	column BRAND
+		dataType: string
+		lineageTag: 655ad74b-e98a-484c-bc93-c5cc810208aa
+		summarizeBy: none
+		sourceColumn: BRAND
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'BRAND STRATEGY'
+		dataType: string
+		lineageTag: 21eb620d-4591-4efa-aead-6b1b0617de65
+		summarizeBy: none
+		sourceColumn: BRAND STRATEGY
+
+		annotation SummarizationSetBy = Automatic
+
+	column productid
+		dataType: int64
+		formatString: 0
+		lineageTag: c9aa76e0-3d10-456f-8a28-1111cccf5a96
+		summarizeBy: sum
+		sourceColumn: productid
+
+		annotation SummarizationSetBy = Automatic
+
+	column productname
+		dataType: string
+		lineageTag: 520f84ba-d098-44e0-b695-da9865d5c58a
+		summarizeBy: none
+		sourceColumn: productname
+
+		annotation SummarizationSetBy = Automatic
+
+	column packsizeid
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ca7c7a5-7edc-4f2a-8fe4-22ff397d7635
+		summarizeBy: sum
+		sourceColumn: packsizeid
+
+		annotation SummarizationSetBy = Automatic
+
+	column SIZE
+		dataType: string
+		lineageTag: 80936aef-324b-46f2-bb90-fed277826369
+		summarizeBy: none
+		sourceColumn: SIZE
+
+		annotation SummarizationSetBy = Automatic
+
+	column BU
+		dataType: string
+		lineageTag: 5ab121f0-f319-4488-b018-ab2e2335caf3
+		summarizeBy: none
+		sourceColumn: BU
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SUB CATEGORY'
+		dataType: string
+		lineageTag: a6b7e5e0-3879-4d16-b57b-a9417772a174
+		summarizeBy: none
+		sourceColumn: SUB CATEGORY
+
+		annotation SummarizationSetBy = Automatic
+
+	column FORMAT
+		dataType: string
+		lineageTag: 3b3def39-b104-475c-a147-74d7b1a0affa
+		summarizeBy: none
+		sourceColumn: FORMAT
+
+		annotation SummarizationSetBy = Automatic
+
+	column parent
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f1928e4-2cba-4e8d-bd5a-ef7ef38097cc
+		summarizeBy: sum
+		sourceColumn: parent
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount
+		dataType: double
+		lineageTag: 01bf6bfd-fb22-421b-a4bb-b0bff38ce802
+		summarizeBy: sum
+		sourceColumn: discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Discount_percent
+		dataType: double
+		lineageTag: 9bb2335d-473c-470b-b564-3ff66b723660
+		summarizeBy: sum
+		sourceColumn: Discount_percent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COUNTRY
+		dataType: string
+		lineageTag: 7ffb8deb-9d38-4707-9a4a-c610f1046ac6
+		summarizeBy: none
+		sourceColumn: COUNTRY
+
+		annotation SummarizationSetBy = Automatic
+
+	column Flag
+		dataType: string
+		lineageTag: dc17a809-3acf-4b52-ac60-be3045c40e62
+		summarizeBy: none
+		sourceColumn: Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column Yearmonth
+		dataType: int64
+		formatString: 0
+		lineageTag: b2bed859-b641-4860-be2d-dabf2cbdac2c
+		summarizeBy: sum
+		sourceColumn: Yearmonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthYear
+		dataType: string
+		lineageTag: 80ef2630-8cfd-4802-bd00-373efe5ef69c
+		summarizeBy: none
+		sourceColumn: MonthYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterYear
+		dataType: string
+		lineageTag: eacebabe-140d-4905-b81a-84685beef1ce
+		summarizeBy: none
+		sourceColumn: QuarterYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column CHANNEL
+		dataType: string
+		lineageTag: e4b6c17b-2c7a-4556-86f9-90a60d97f3d3
+		summarizeBy: none
+		sourceColumn: CHANNEL
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUB-CHANNEL
+		dataType: string
+		lineageTag: 81c618b6-845a-41ce-b506-dceafa931d3b
+		summarizeBy: none
+		sourceColumn: SUB-CHANNEL
+
+		annotation SummarizationSetBy = Automatic
+
+	column DISTRIBUTOR
+		dataType: string
+		lineageTag: 06423563-0e16-469f-a6a3-48b6116bdd4f
+		summarizeBy: none
+		sourceColumn: DISTRIBUTOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priceperkg_ltr_Calculated
+		dataType: double
+		lineageTag: db38de50-e752-4aa8-a458-7992260bbaab
+		summarizeBy: sum
+		sourceColumn: Priceperkg_ltr_Calculated
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'SALES TYPE'
+		dataType: string
+		lineageTag: 1af17a04-7ad3-4102-bea0-10463baca918
+		summarizeBy: none
+		sourceColumn: SALES TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PRICE BRAND'
+		dataType: string
+		lineageTag: 91e94661-9acf-40eb-8cc3-6f2e58027ea3
+		summarizeBy: none
+		sourceColumn: PRICE BRAND
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PRODUCT TYPE'
+		dataType: string
+		lineageTag: 4cf49a51-0b5f-42d5-bf66-e0c30c2545a7
+		summarizeBy: none
+		sourceColumn: PRODUCT TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PRICE TIER'
+		dataType: string
+		lineageTag: bbbba8a2-331a-48d3-bb17-e45a0904f8dd
+		summarizeBy: none
+		sourceColumn: PRICE TIER
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hierarchy Index.RNN'
+		dataType: int64
+		formatString: 0
+		lineageTag: 94665437-764a-4053-979a-15d5a7b0b25d
+		summarizeBy: none
+		sourceColumn: Hierarchy Index.RNN
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'FLYER DATA' = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="henkel-clicflyer"]}[Data], "SELECT DISTINCT#(lf)    Year,#(lf)    type AS `PROMO TYPE`,#(lf)    Offerid,#(lf)    offerstartdate,#(lf)    offerenddate,#(lf)    promoprice,#(lf)    regularprice,#(lf)    promoquantity,#(lf)    Offerpriceperpacksize,#(lf)    retailerid,#(lf)    retailername AS `CUSTOMER GROUP`,#(lf)    brandid,#(lf)    brandname AS `BRAND`,#(lf)    '' AS `BRAND STRATEGY`,#(lf)    productid,#(lf)    productname,#(lf)    packsizeid,#(lf)    packsize AS `SIZE`,#(lf)    bu AS `BU`,#(lf)    category_SBU AS `SUB CATEGORY`,#(lf)    Sub_Category AS `FORMAT`,#(lf) #(lf)    CASE#(lf)        WHEN AnalyticsIsParent = TRUE THEN 1#(lf)        ELSE 0#(lf)    END AS parent,#(lf) #(lf)    discount,#(lf)    Discount_percent,#(lf) #(lf)    CASE#(lf)        WHEN countryid = 1 THEN 'Saudi Arabia'#(lf)        WHEN countryid = 2 THEN 'Kuwait'#(lf)        WHEN countryid = 3 THEN 'UAE'#(lf)        WHEN countryid = 4 THEN 'Bahrain'#(lf)        WHEN countryid = 5 THEN 'Qatar'#(lf)        WHEN countryid = 6 THEN 'Oman'#(lf)    END AS `COUNTRY`,#(lf) #(lf)    CASE#(lf)        WHEN brandname IN (""Loreal Paris"", ""Loreal Elvive"") THEN ""Competitor""#(lf)        ELSE BrandFlag#(lf)    END AS Flag,#(lf) #(lf)    year_month AS Yearmonth,#(lf) #(lf)    CONCAT(#(lf)        FORMAT_DATE('%b', offerstartdate),#(lf)        "" "",#(lf)        EXTRACT(YEAR FROM offerstartdate)#(lf)    ) AS MonthYear,#(lf) #(lf)    CONCAT(#(lf)        ""Q"",#(lf)        EXTRACT(QUARTER FROM offerstartdate),#(lf)        "" "",#(lf)        EXTRACT(YEAR FROM offerstartdate)#(lf)    ) AS QuarterYear,#(lf) #(lf)    CASE#(lf)        WHEN channel = """" THEN ""Others""#(lf)        ELSE channel#(lf)    END AS `CHANNEL`,#(lf) #(lf)    '' AS `SUB-CHANNEL`,#(lf)    '' AS `DISTRIBUTOR`,#(lf) #(lf)    CASE#(lf)        WHEN Sub_Category LIKE 'Hair Dye' THEN Offerpriceperpacksize#(lf)        WHEN Sub_Category LIKE 'RimBlocks' THEN Offerpriceperpacksize#(lf)        ELSE OfferPriceperKgL#(lf)    END AS Priceperkg_ltr_Calculated,#(lf) #(lf)    'OFFLINE' AS `SALES TYPE`,#(lf)    '' AS `PRICE BRAND`,#(lf)    '' AS `PRODUCT TYPE`,#(lf)    '' AS `PRICE TIER`#(lf) #(lf)FROM `henkel-clicflyer.henkel_raw_data.Flyer_PromoAnalysis_tbl_Henkel`#(lf)WHERE region = 'All' and year_month >= 202501", null, [EnableFolding=true]),
+				    #"Merged Queries" = Table.NestedJoin(Source, {"BU", "SUB CATEGORY", "FORMAT"}, #"Hierarchy Index", {"BU", "SubCategory", "Format"}, "Hierarchy Index", JoinKind.LeftOuter),
+				    #"Expanded Hierarchy Index" = Table.ExpandTableColumn(#"Merged Queries", "Hierarchy Index", {"RNN"}, {"Hierarchy Index.RNN"})
+				in
+				    #"Expanded Hierarchy Index"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

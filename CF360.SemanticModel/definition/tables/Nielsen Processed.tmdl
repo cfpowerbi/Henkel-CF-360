@@ -1,0 +1,1525 @@
+table 'Nielsen Processed'
+	lineageTag: 497612ef-6ed4-46ac-978f-cb2c4629b5c2
+
+	measure 'Value Explanation' = "ℹ️"
+		lineageTag: e0375d33-d597-45b5-8162-829c0a8a041e
+
+	measure 'Nielsen P Volume Custom' = SUM ( 'Nielsen Processed'[sales_volume_000] )
+		formatString: 0
+		displayFolder: Nielsen P volume share
+		lineageTag: ef9655b0-9de0-465f-ac77-87922a5b7998
+
+	measure 'Nielsen P Volume YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_volume_000] ),
+			        FILTER (
+			            ALL ( 'Nielsen Processed'[monthdate] ),
+			            'Nielsen Processed'[monthdate] <= LastDataDate
+			                && YEAR ( 'Nielsen Processed'[monthdate] ) = YEAR ( LastDataDate )
+			        )
+			    )
+		formatString: 0
+		displayFolder: Nielsen P volume share
+		lineageTag: d4d22e5b-8fd8-4b57-8f89-b3814c3f68fa
+
+	measure 'Nielsen P Value Custom' = SUM ( 'Nielsen Processed'[sales_value_000] )
+		formatString: 0.00
+		displayFolder: Nielsen P value share
+		lineageTag: a92da1d5-a72a-4fa9-b42a-00898051203a
+
+	measure 'Nielsen P Value YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_value_000] ),
+			        FILTER (
+			            ALL ( 'Nielsen Processed'[monthdate] ),
+			            'Nielsen Processed'[monthdate] <= LastDataDate
+			                && YEAR ( 'Nielsen Processed'[monthdate] ) = YEAR ( LastDataDate )
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P value share
+		lineageTag: 26102cf4-67f5-4b9f-a872-f43dda187733
+
+	measure 'Nielsen P Price Custom' = DIVIDE ( [Nielsen P Value Custom], [Nielsen P Volume Custom] )
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: 27dba963-dc6d-4be5-9ca0-bb58d896c4da
+
+	measure 'Nielsen P Price YTD' = DIVIDE ( [Nielsen P Value YTD], [Nielsen P Volume YTD] )
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: af0a039f-9219-4030-b3f6-34556901a8a0
+
+	measure 'Nielsen P Volume LY Custom' = CALCULATE ( [Nielsen P Volume Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0
+		displayFolder: Nielsen P volume share
+		lineageTag: d7c94552-6aff-4369-ba8d-478e42fe59ae
+
+	measure 'Nielsen P Volume LY YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_volume_000] ),
+			        FILTER (
+			            ALL ( 'Nielsen Processed'[monthdate] ),
+			            'Nielsen Processed'[monthdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'Nielsen Processed'[monthdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0
+		displayFolder: Nielsen P volume share
+		lineageTag: a0c78c93-3602-4ae7-9bce-4005a0373c56
+
+	measure 'Nielsen P Volume Share Custom' = DIVIDE ( [Nielsen P Volume Custom], CALCULATE ( [Nielsen P Volume Custom], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: dbc7572d-0dd5-4bf4-9b8a-643ab16ff816
+
+	measure 'Nielsen P Volume Share YTD' = DIVIDE ( [Nielsen P Volume YTD], CALCULATE ( [Nielsen P Volume YTD], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: d8dca9b3-e0ba-4894-aae8-2070cb508b58
+
+	measure 'Nielsen P Volume Growth Custom' =
+			VAR CurrentVal = [Nielsen P Volume Custom]
+			VAR Prior = [Nielsen P Volume LY Custom]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 7810f791-97a1-4697-b7cb-b130350ede53
+
+	measure 'Nielsen P Volume Growth YTD' =
+			VAR CurrentVal = [Nielsen P Volume YTD]
+			VAR Prior = [Nielsen P Volume LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 12cfbe05-bd55-4b90-add4-864c438c79b0
+
+	measure 'Nielsen P Volume Change Custom' = [Nielsen P Volume Share Custom] - [Nielsen P Volume Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 026f399f-61a0-43e0-ac29-7e6fecf4af6d
+
+	measure 'Nielsen P Volume Change YTD' = [Nielsen P Volume Share YTD] - [Nielsen P Volume Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 2ab183e5-2a93-44ab-b5c7-919deb0614af
+
+	measure 'Nielsen P Value LY Custom' = CALCULATE ( [Nielsen P Value Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: Nielsen P value share
+		lineageTag: 8d2154d2-8fde-4aa9-be6e-1b0b847aa950
+
+	measure 'Nielsen P Value LY YTD' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_value_000] ),
+			        FILTER (
+			            ALL ( 'Nielsen Processed'[monthdate] ),
+			            'Nielsen Processed'[monthdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'Nielsen Processed'[monthdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P value share
+		lineageTag: 9c86bbc4-6b9f-4ee5-b026-29baf21403ab
+
+	measure 'Nielsen P Value Share Custom' = DIVIDE ( [Nielsen P Value Custom], CALCULATE ( [Nielsen P Value Custom], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: e783490f-5603-4eda-a658-4faeb6ff9eb9
+
+	measure 'Nielsen P Value Share YTD' = DIVIDE ( [Nielsen P Value YTD], CALCULATE ( [Nielsen P Value YTD], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: 88f3f16c-2863-493e-a9d5-9ad1846cb5b4
+
+	measure 'Nielsen P Value Growth Custom' =
+			VAR CurrentVal = [Nielsen P Value Custom]
+			VAR Prior = [Nielsen P Value LY Custom]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: 9540c187-264d-47f2-b1ab-8382398bdc96
+
+	measure 'Nielsen P Value Growth YTD' =
+			VAR CurrentVal = [Nielsen P Value YTD]
+			VAR Prior = [Nielsen P Value LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: fa3ce633-36dc-493d-8a9f-388e863d56fd
+
+	measure 'Nielsen P Value Change Custom' = [Nielsen P Value Share Custom] - [Nielsen P Value Share LY Custom]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: b35d588e-40a9-432b-850a-d5347317d421
+
+	measure 'Nielsen P Value Change YTD' = [Nielsen P Value Share YTD] - [Nielsen P Value Share LY YTD]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: df7de1f3-0cd5-4289-bcce-97897d220767
+
+	measure 'Nielsen P Price LY Custom' = CALCULATE ( [Nielsen P Price Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: b5d4e2c6-fb52-405a-84b0-24aa4e3793c2
+
+	measure 'Nielsen P Price LY YTD' = DIVIDE ( [Nielsen P Value LY YTD], [Nielsen P Volume LY YTD] )
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: 39e0ea00-4fb1-44f6-ab34-f9ab552edbd2
+
+	measure 'Nielsen P Price Growth Custom' =
+			VAR CurrentVal = [Nielsen P Price Custom]
+			VAR Prior = [Nielsen P Price LY Custom]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: 2af21c69-341a-4711-bf46-ed32669c53f4
+
+	measure 'Nielsen P Price Growth YTD' =
+			VAR CurrentVal = [Nielsen P Price YTD]
+			VAR Prior = [Nielsen P Price LY YTD]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: 7dc01a60-560f-476c-b5b4-c17fb7dc8504
+
+	measure 'Nielsen P Price Change Custom' = [Nielsen P Price Share Custom] - [Nielsen P Price Share LY Custom]
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: f12df1fb-a945-424c-95e8-6c60175706a3
+
+	measure 'Nielsen P Price Change YTD' = [Nielsen P Price Share YTD] - [Nielsen P Price Share LY YTD]
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: 67f61b6f-4b33-4ff6-92b4-ef210dc6074e
+
+	measure 'Nielsen P Henkel Volume Custom' = CALCULATE ( [Nielsen P Volume Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 1f916253-f1b4-4b8a-8553-773c7458eff8
+
+	measure 'Nielsen P Henkel Volume YTD' = CALCULATE ( [Nielsen P Volume YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 69c4f4cf-28b9-4410-8463-ffcad3fb8386
+
+	measure 'Nielsen P Henkel Value Custom' = CALCULATE ( [Nielsen P Value Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 2fc545e8-1e2f-44b1-9d57-ddb6fd7f62fd
+
+	measure 'Nielsen P Henkel Value YTD' = CALCULATE ( [Nielsen P Value YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 762074ca-2c8b-4aa5-8529-f6665eff222b
+
+	measure 'Nielsen P Henkel Price Custom' = CALCULATE ( [Nielsen P Price Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 71f9b20e-8fcd-4593-9b41-0eb776c40c7a
+
+	measure 'Nielsen P Henkel Price YTD' = CALCULATE ( [Nielsen P Price YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: d72c6da5-d2ef-44fa-a276-b81410285e44
+
+	measure 'Nielsen P Henkel Volume LY Custom' = CALCULATE ( [Nielsen P Volume LY Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: c1813601-33b0-45ed-a5bc-6b016f138e59
+
+	measure 'Nielsen P Henkel Volume LY YTD' = CALCULATE ( [Nielsen P Volume LY YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 42eb613a-eec8-4e45-8127-6e77b7c2259f
+
+	measure 'Nielsen P Henkel Volume Share Custom' = DIVIDE ( CALCULATE ( [Nielsen P Volume Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Volume Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 6af93ab7-0d7f-4084-81a0-36c714c35d6b
+
+	measure 'Nielsen P Henkel Volume Share YTD' = DIVIDE ( CALCULATE ( [Nielsen P Volume YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Volume YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: abb5edfa-dd40-4024-bd0c-357aa18447b3
+
+	measure 'Nielsen P Henkel Volume Growth Custom' = DIVIDE ( [Nielsen P Henkel Volume Custom] - [Nielsen P Henkel Volume LY Custom], [Nielsen P Henkel Volume Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 82b9ece9-3f6a-4861-bed4-6a79b4384c2c
+
+	measure 'Nielsen P Henkel Volume Growth YTD' = DIVIDE ( [Nielsen P Henkel Volume YTD] - [Nielsen P Henkel Volume LY YTD], [Nielsen P Henkel Volume YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 931698db-bcbc-4733-b542-e24258aee43e
+
+	measure 'Nielsen P Henkel Volume Change Custom' = [Nielsen P Henkel Volume Share Custom] - DIVIDE ( CALCULATE ( [Nielsen P Volume LY Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Volume LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: dbe296ff-1642-40b2-9b15-b4929065d099
+
+	measure 'Nielsen P Henkel Volume Change YTD' = [Nielsen P Henkel Volume Share YTD] - DIVIDE ( CALCULATE ( [Nielsen P Volume LY YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Volume LY YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 5b193ade-ada7-4411-b8e9-b35c57e0a772
+
+	measure 'Nielsen P Henkel Value LY Custom' = CALCULATE ( [Nielsen P Value LY Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: aa78b826-000e-4676-98e8-92d379f70cfc
+
+	measure 'Nielsen P Henkel Value LY YTD' = CALCULATE ( [Nielsen P Value LY YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 6ffaaa58-e546-4f0b-98c5-aa4cf188e53e
+
+	measure 'Nielsen P Henkel Value Share Custom' = DIVIDE ( CALCULATE ( [Nielsen P Value Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Value Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 819c8771-0832-4cfa-a941-96227c87c517
+
+	measure 'Nielsen P Henkel Value Share YTD' = DIVIDE ( CALCULATE ( [Nielsen P Value YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Value YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 534300fd-052f-44bd-82b8-0f71d8f2d0f6
+
+	measure 'Nielsen P Henkel Value Growth Custom' = DIVIDE ( [Nielsen P Henkel Value Custom] - [Nielsen P Henkel Value LY Custom], [Nielsen P Henkel Value Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: f63c8223-3fe8-4925-9582-dc0368d5db8b
+
+	measure 'Nielsen P Henkel Value Growth YTD' = DIVIDE ( [Nielsen P Henkel Value YTD] - [Nielsen P Henkel Value LY YTD], [Nielsen P Henkel Value YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 5eff7b43-5261-4881-bf92-166b8f4dc9f3
+
+	measure 'Nielsen P Henkel Value Change Custom' = [Nielsen P Henkel Value Share Custom] - DIVIDE ( CALCULATE ( [Nielsen P Value LY Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Value LY Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 7e9d7968-c908-46f8-9045-8be941dc371f
+
+	measure 'Nielsen P Henkel Value Change YTD' = [Nielsen P Henkel Value Share YTD] - DIVIDE ( CALCULATE ( [Nielsen P Value LY YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Value LY YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 5c87a58d-d4d0-48b1-bfc9-76ae70d13241
+
+	measure 'Nielsen P Henkel Price LY Custom' = CALCULATE ( [Nielsen P Price LY Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 9e5aa470-556f-4174-ac29-2f2b3d51ba84
+
+	measure 'Nielsen P Henkel Price LY YTD' = CALCULATE ( [Nielsen P Price LY YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 1e2aa877-05cf-49e7-b2a5-951688e4e267
+
+	measure 'Nielsen P Henkel Price Growth Custom' = DIVIDE ( [Nielsen P Henkel Price Custom] - [Nielsen P Henkel Price LY Custom], [Nielsen P Henkel Price Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: d4081829-ee4a-48b8-b8ee-979818b19817
+
+	measure 'Nielsen P Henkel Price Growth YTD' = DIVIDE ( [Nielsen P Henkel Price YTD] - [Nielsen P Henkel Price LY YTD], [Nielsen P Henkel Price YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: a981e086-6256-4145-8651-4223f1001d22
+
+	measure 'Nielsen P Henkel Price Change Custom' = [Nielsen P Henkel Price Share Custom] - DIVIDE ( CALCULATE ( [Nielsen P Price LY Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Price LY Custom] )
+		formatString: 0.00
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 35ad3b01-7226-490f-8bd3-40ad565a50da
+
+	measure 'Nielsen P Henkel Price Change YTD' = [Nielsen P Henkel Price Share YTD] - DIVIDE ( CALCULATE ( [Nielsen P Price LY YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Price LY YTD] )
+		formatString: 0.00
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: c6e6f2ab-9b13-499a-999d-1bf12fa52c11
+
+	measure 'Nielsen P Value Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Value YTD],
+			        "MAT", [Nielsen P Value MAT],
+			        [Nielsen P Value Custom]
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P value share
+		lineageTag: 036cb3f6-b119-45f7-9679-653bd4a2c218
+
+	measure 'Nielsen P Price Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Price YTD],
+			        "MAT", [Nielsen P Price MAT],
+			        [Nielsen P Price Custom]
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: 8c4e5e1c-11a1-4295-a187-cfa262d15ec9
+
+	measure 'Nielsen P Value MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_value_000] ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] > CutoffDate ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] <= GlobalMaxDate )
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P value share
+		lineageTag: ad5f69fa-2722-47fb-9424-d3594c4665e1
+
+	measure 'Nielsen P Value LY MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_value_000] ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] > CutoffLY ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] <= AnchorLY )
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P value share
+		lineageTag: be59ea6c-1508-4c3e-b804-660be0aa56d8
+
+	measure 'Nielsen P Henkel Value MAT' = CALCULATE ( [Nielsen P Value MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 3f9fef79-5441-4f77-bf93-d5261af138cc
+
+	measure 'Nielsen P Value YTD LY' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_value_000] ),
+			        FILTER (
+			            ALL ( 'Nielsen Processed'[monthdate] ),
+			            'Nielsen Processed'[monthdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'Nielsen Processed'[monthdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P value share
+		lineageTag: 542dc8ff-6f9b-44ea-8bea-116a94e6649b
+
+	measure 'Nielsen P Value Custom LY' = CALCULATE ( [Nielsen P Value Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: Nielsen P value share
+		lineageTag: 8753d423-a287-4f84-a5c8-67c2311be7cc
+
+	measure 'Nielsen P Value MAT LY' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_value_000] ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] > CutoffLY ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] <= AnchorLY )
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P value share
+		lineageTag: 07b05d7f-3531-4bf6-9c8f-1ca30cee6c30
+
+	measure 'Nielsen P Value Share MAT' = DIVIDE ( [Nielsen P Value MAT], CALCULATE ( [Nielsen P Value MAT], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: 5193c239-5fde-45f4-b824-fb8410c11cd3
+
+	measure 'Nielsen P Value Growth MAT' =
+			VAR CurrentVal = [Nielsen P Value MAT]
+			VAR Prior = [Nielsen P Value LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: a8a63b13-8054-4608-89ac-22e1371ee3e1
+
+	measure 'Nielsen P Value share change' = [Nielsen P Value Share Dynamic] - [Nielsen P Value Share LY Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: ebae09c7-3151-4d93-98f5-450b5800371d
+
+	measure 'Nielsen P Value Change MAT' = [Nielsen P Value Share MAT] - [Nielsen P Value Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: 2e503242-f0d0-452a-835f-4ecbf16f5da6
+
+	measure 'Nielsen P Value Change dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Value Change YTD],
+			        "MAT", [Nielsen P Value Change MAT],
+			        [Nielsen P Value Change Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: c27787af-dcd4-448e-81c4-38394e8e4c67
+
+	measure 'Nielsen P Value Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Value Growth YTD],
+			        "MAT", [Nielsen P Value Growth MAT],
+			        [Nielsen P Value Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: 404efd40-591a-4e2f-b839-1fb18da67c8b
+
+	measure 'Nielsen P Value Label1' =
+			FORMAT([Nielsen P Value Dynamic] / 1000000, "#,##0.0M")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [Nielsen P Value Share Dynamic] >= 0,
+			    FORMAT(ABS([Nielsen P Value Share Dynamic]), "0.0%"),
+			    FORMAT(ABS([Nielsen P Value Share Dynamic]), "0.0%")
+			)
+		displayFolder: Nielsen P value share
+		lineageTag: 9b2dec71-eb3d-455f-bb0a-b2d37846f77a
+
+	measure 'Nielsen P Value Label2' =
+			FORMAT([Nielsen P Value Growth Dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [Nielsen P Value Change dynamic] >= 0,
+			    FORMAT(ABS([Nielsen P Value Change dynamic]), "0.0%"),
+			    FORMAT(ABS([Nielsen P Value Change dynamic]), "0.0%")
+			)
+		displayFolder: Nielsen P value share
+		lineageTag: 5d85c9ec-dfb6-4742-beb5-cedc2965a0b6
+
+	measure 'Nielsen P Henkel Value Label1' =
+			VAR _value = [Nielsen P Henkel Value Dynamic]
+			VAR _formattedValue =
+			    IF(
+			        ABS(_value) >= 1000000,
+			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
+			        IF(
+			            ABS(_value) >= 1000,
+			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
+			            FORMAT(_value, "#,##0.0")
+			        )
+			    )
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([Nielsen P Henkel Value Share Dynamic]), "0.0%")
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 18830556-367c-48fa-a06c-a51e744d5d35
+
+	measure 'Nielsen P Henkel Value Label2' =
+			FORMAT([Nielsen P Henkel Value Growth Dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& FORMAT(ABS([Nielsen P Henkel Value Change Dynamic]), "0.0%")
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: d3040f5d-e55b-4469-a7ef-44ee952b4976
+
+	measure 'Nielsen P Volume Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Volume YTD],
+			        "MAT", [Nielsen P Volume MAT],
+			        [Nielsen P Volume Custom]
+			    )
+		formatString: 0
+		displayFolder: Nielsen P volume share
+		lineageTag: f885a524-3f61-4eb8-90ba-29d35df59425
+
+	measure 'Nielsen P Volume MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR CutoffDate = EDATE ( GlobalMaxDate, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_volume_000] ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] > CutoffDate ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] <= GlobalMaxDate )
+			    )
+		formatString: 0
+		displayFolder: Nielsen P volume share
+		lineageTag: 25769371-da9e-433a-8049-2ee070023b70
+
+	measure 'Nielsen P Volume LY MAT' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_volume_000] ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] > CutoffLY ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] <= AnchorLY )
+			    )
+		formatString: 0
+		displayFolder: Nielsen P volume share
+		lineageTag: c2f508b4-de77-4c29-b4e4-b2850d6742f3
+
+	measure 'Nielsen P Henkel Volume MAT' = CALCULATE ( [Nielsen P Volume MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 5d9ed644-1a64-401c-880f-16e7a14cd7ce
+
+	measure 'Nielsen P Volume YTD LY' =
+			VAR LastDataDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_volume_000] ),
+			        FILTER (
+			            ALL ( 'Nielsen Processed'[monthdate] ),
+			            'Nielsen Processed'[monthdate] <= EDATE ( LastDataDate, -12 )
+			                && YEAR ( 'Nielsen Processed'[monthdate] ) = YEAR ( LastDataDate ) - 1
+			        )
+			    )
+		formatString: 0
+		displayFolder: Nielsen P volume share
+		lineageTag: 408f8213-d05e-40e7-9b7d-276c13e35fe5
+
+	measure 'Nielsen P Volume Custom LY' = CALCULATE ( [Nielsen P Volume Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0
+		displayFolder: Nielsen P volume share
+		lineageTag: 68305029-d6da-4494-a57d-d499110f57ef
+
+	measure 'Nielsen P Volume MAT LY' =
+			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
+			VAR AnchorLY = EDATE ( GlobalMaxDate, -12 )
+			VAR CutoffLY = EDATE ( AnchorLY, -12 )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Nielsen Processed'[sales_volume_000] ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] > CutoffLY ),
+			        KEEPFILTERS ( 'Nielsen Processed'[monthdate] <= AnchorLY )
+			    )
+		formatString: 0
+		displayFolder: Nielsen P volume share
+		lineageTag: 50ff5182-26d1-43ab-9864-001f7b21ac78
+
+	measure 'Nielsen P Volume Share MAT' = DIVIDE ( [Nielsen P Volume MAT], CALCULATE ( [Nielsen P Volume MAT], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 20f8835d-3843-4d60-b68f-50015711dc40
+
+	measure 'Nielsen P Volume Growth MAT' =
+			VAR CurrentVal = [Nielsen P Volume MAT]
+			VAR Prior = [Nielsen P Volume LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: c99ea13d-97b3-4c86-b07a-d7f12fda4e7d
+
+	measure 'Nielsen P Volume Change MAT' = [Nielsen P Volume Share MAT] - [Nielsen P Volume Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 47dcc3d3-ed62-4938-9086-fe626b6dd968
+
+	measure 'Nielsen P Volume Change dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Volume Change YTD],
+			        "MAT", [Nielsen P Volume Change MAT],
+			        [Nielsen P Volume Change Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: e733f959-2339-4b99-b514-c1f0036937dc
+
+	measure 'Nielsen P Volume Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Volume Growth YTD],
+			        "MAT", [Nielsen P Volume Growth MAT],
+			        [Nielsen P Volume Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 6aeec1e8-c5bb-4d77-b46e-3e236621f499
+
+	measure 'Nielsen P Volume share change' = [Nielsen P Volume Share Dynamic] - [Nielsen P Volume Share LY Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 54029718-e666-4704-aaff-8e385254247f
+
+	measure 'Nielsen P Volume Label1' =
+			FORMAT([Nielsen P Volume Dynamic] / 1000000, "#,##0.0M")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [Nielsen P Volume Share Dynamic] >= 0,
+			    FORMAT(ABS([Nielsen P Volume Share Dynamic]), "0.0%"),
+			    FORMAT(ABS([Nielsen P Volume Share Dynamic]), "0.0%")
+			)
+		displayFolder: Nielsen P volume share
+		lineageTag: 1588be8c-2be0-4e2a-8e3e-cc02efa7765c
+
+	measure 'Nielsen P Volume Label2' =
+			FORMAT([Nielsen P Volume Growth Dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [Nielsen P Volume Change dynamic] >= 0,
+			    FORMAT(ABS([Nielsen P Volume Change dynamic]), "0.0%"),
+			    FORMAT(ABS([Nielsen P Volume Change dynamic]), "0.0%")
+			)
+		displayFolder: Nielsen P volume share
+		lineageTag: 34f2fedb-1745-432c-9d34-40443ae2bade
+
+	measure 'Nielsen P Henkel Volume Label1' =
+			VAR _value = [Nielsen P Henkel Volume Dynamic]
+			VAR _formattedValue =
+			    IF(
+			        ABS(_value) >= 1000000,
+			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
+			        IF(
+			            ABS(_value) >= 1000,
+			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
+			            FORMAT(_value, "#,##0.0")
+			        )
+			    )
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([Nielsen P Henkel Volume Share Dynamic]), "0.0%")
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: cbff7133-7900-4f09-b1bd-3bc4c845f69e
+
+	measure 'Nielsen P Henkel Volume Label2' =
+			FORMAT([Nielsen P Henkel Volume Growth Dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& FORMAT(ABS([Nielsen P Henkel Volume Change Dynamic]), "0.0%")
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 8b17535e-78c7-499f-a1af-7aebe3c4c646
+
+	measure 'Nielsen P Price MAT' = DIVIDE ( [Nielsen P Value MAT], [Nielsen P Volume MAT] )
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: e017589a-8f92-4139-abe6-805043ddc6cd
+
+	measure 'Nielsen P Price LY MAT' = DIVIDE ( [Nielsen P Value LY MAT], [Nielsen P Volume LY MAT] )
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: 4231e86b-912a-4708-bc0d-f647bd7c2d03
+
+	measure 'Nielsen P Henkel Price MAT' = CALCULATE ( [Nielsen P Price MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 82b26b01-8bb2-4e49-a6d4-84c7119541bf
+
+	measure 'Nielsen P Price Share Custom' = DIVIDE ( [Nielsen P Price Custom], CALCULATE ( [Nielsen P Price Custom], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: c2264a0a-9ed8-4d3a-a259-6c8e5146b6da
+
+	measure 'Nielsen P Price Share YTD' = DIVIDE ( [Nielsen P Price YTD], CALCULATE ( [Nielsen P Price YTD], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: a2e64c78-78b1-49ed-a7ba-5d064e678423
+
+	measure 'Nielsen P Henkel Price Share Custom' = DIVIDE ( CALCULATE ( [Nielsen P Price Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Price Custom] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 56a5058a-25e2-4c94-a0c1-220052a737de
+
+	measure 'Nielsen P Henkel Price Share YTD' = DIVIDE ( CALCULATE ( [Nielsen P Price YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Price YTD] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 874b8864-b3a9-4c28-960c-95aec47a53d6
+
+	measure 'Nielsen P Price YTD LY' = DIVIDE ( [Nielsen P Value LY YTD], [Nielsen P Volume LY YTD] )
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: 6700cd46-e151-4efa-b44c-44a14a877490
+
+	measure 'Nielsen P Price Custom LY' = CALCULATE ( [Nielsen P Price Custom], DATEADD ( 'dates'[monthdate], -1, YEAR ) )
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: 87c297ec-3a46-43f1-ae89-8b7ddf922687
+
+	measure 'Nielsen P Price MAT LY' = DIVIDE ( [Nielsen P Value MAT LY], [Nielsen P Volume MAT LY] )
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: 0a1726d8-32c1-475c-b7c0-656fab731b08
+
+	measure 'Nielsen P Price Share MAT' = DIVIDE ( [Nielsen P Price MAT], CALCULATE ( [Nielsen P Price MAT], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: bba8ae7d-6c95-43f0-8c42-c70e0bfa8a46
+
+	measure 'Nielsen P Price Growth MAT' =
+			VAR CurrentVal = [Nielsen P Price MAT]
+			VAR Prior = [Nielsen P Price LY MAT]
+			RETURN DIVIDE ( CurrentVal - Prior, Prior )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: 7d6aea4c-6259-48d4-b3f1-2ba25ad5b662
+
+	measure 'Nielsen P Price Change MAT' = [Nielsen P Price Share MAT] - [Nielsen P Price Share LY MAT]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: e019aa32-f76a-4797-a4c2-e02b34031300
+
+	measure 'Nielsen P Price Change dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Price Change YTD],
+			        "MAT", [Nielsen P Price Change MAT],
+			        [Nielsen P Price Change Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: af92fbcd-28c4-4d31-ac47-182292ecee1b
+
+	measure 'Nielsen P Price Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Price Growth YTD],
+			        "MAT", [Nielsen P Price Growth MAT],
+			        [Nielsen P Price Growth Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: 60cddbd4-c51a-45e4-b056-23b678526bf7
+
+	measure 'Nielsen P Price share change' = [Nielsen P Price Share Dynamic] - [Nielsen P Price Share LY Dynamic]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: 142c99b6-1927-4530-a94a-bf25a5438018
+
+	measure 'Nielsen P Price Label1' =
+			FORMAT([Nielsen P Price Dynamic], "#,##0.00")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [Nielsen P Price Share Dynamic] >= 0,
+			    FORMAT(ABS([Nielsen P Price Share Dynamic]), "0.0%"),
+			    FORMAT(ABS([Nielsen P Price Share Dynamic]), "0.0%")
+			)
+		displayFolder: Nielsen P Price
+		lineageTag: 39b212e2-5202-484b-8402-c679c9733dd6
+
+	measure 'Nielsen P Price Label2' =
+			FORMAT([Nielsen P Price Growth dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& IF(
+			    [Nielsen P Price Change dynamic] >= 0,
+			    FORMAT(ABS([Nielsen P Price Change dynamic]), "0.0%"),
+			    FORMAT(ABS([Nielsen P Price Change dynamic]), "0.0%")
+			)
+		displayFolder: Nielsen P Price
+		lineageTag: bcc8bdf4-6845-4d54-893e-4418a7376920
+
+	measure 'Nielsen P Henkel Price Label1' =
+			VAR _value = [Nielsen P Henkel Price Dynamic]
+			VAR _formattedValue = FORMAT(_value, "#,##0.00")
+			RETURN
+			    _formattedValue
+			    & UNICHAR(10) & " | "
+			    & FORMAT(ABS([Nielsen P Henkel Price Share Dynamic]), "0.0%")
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 32cd67f9-fd53-4952-80c9-9df4708c717b
+
+	measure 'Nielsen P Henkel Price Label2' =
+			FORMAT([Nielsen P Henkel Price Growth Dynamic], "0.0%")
+			& UNICHAR(10) & " | "
+			& FORMAT(ABS([Nielsen P Henkel Price Change Dynamic]), "0.0%")
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 95e08c6e-8041-40e7-a126-942dc2d064f3
+
+	measure 'Nielsen P Henkel Value LY MAT' = CALCULATE ( [Nielsen P Value LY MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: d4a7d905-b17c-4e8a-9f90-89ca6ca1b36d
+
+	measure 'Nielsen P Henkel Value Share MAT' = DIVIDE ( CALCULATE ( [Nielsen P Value MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Value MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 891c09ed-01cb-4e50-929b-6dc8a643175d
+
+	measure 'Nielsen P Henkel Value Growth MAT' = DIVIDE ( [Nielsen P Henkel Value MAT] - [Nielsen P Henkel Value LY MAT], [Nielsen P Henkel Value MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 1babe5b1-7408-4061-a94d-5278a61e9c2c
+
+	measure 'Nielsen P Henkel Value Change MAT' = [Nielsen P Henkel Value Share MAT] - DIVIDE ( CALCULATE ( [Nielsen P Value LY MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Value LY MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 1a3f4f86-a04b-49aa-86ed-078ce4cd4786
+
+	measure 'Nielsen P Henkel Value Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [Nielsen P Value YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [Nielsen P Value MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [Nielsen P Value Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: f377c21b-6136-4b14-96e0-3803bfd278eb
+
+	measure 'Nielsen P Henkel Value LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [Nielsen P Value LY YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [Nielsen P Value LY MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [Nielsen P Value LY Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: bf0e8d06-aa8c-4f98-a2e0-6fb2fdbeb138
+
+	measure 'Nielsen P Henkel Value Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( CALCULATE ( [Nielsen P Value YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Value YTD] ),
+			        "MAT", DIVIDE ( CALCULATE ( [Nielsen P Value MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Value MAT] ),
+			        DIVIDE ( CALCULATE ( [Nielsen P Value Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Value Custom] )
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 12c29395-3083-43ea-9c29-9de0f3750f53
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Nielsen P Henkel Value Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( [Nielsen P Henkel Value YTD] - [Nielsen P Henkel Value LY YTD], [Nielsen P Henkel Value YTD] ),
+			        "MAT", DIVIDE ( [Nielsen P Henkel Value MAT] - [Nielsen P Henkel Value LY MAT], [Nielsen P Henkel Value MAT] ),
+			        DIVIDE ( [Nielsen P Henkel Value Custom] - [Nielsen P Henkel Value LY Custom], [Nielsen P Henkel Value Custom] )
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: 72335bec-0344-43e1-9f58-71ec5d2916b0
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Nielsen P Henkel Value Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Henkel Value Change YTD],
+			        "MAT", [Nielsen P Henkel Value Change MAT],
+			        [Nielsen P Henkel Value Change Custom]
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value Henkel share
+		lineageTag: d56471be-4a29-49e9-9a27-69210435817a
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Nielsen P Henkel Volume LY MAT' = CALCULATE ( [Nielsen P Volume LY MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 82968b02-ef98-4b69-a5ba-907afd29b5c8
+
+	measure 'Nielsen P Henkel Volume Share MAT' = DIVIDE ( CALCULATE ( [Nielsen P Volume MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Volume MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 50a8f5db-0d83-4520-9ad9-98656caf477e
+
+	measure 'Nielsen P Henkel Volume Growth MAT' = DIVIDE ( [Nielsen P Henkel Volume MAT] - [Nielsen P Henkel Volume LY MAT], [Nielsen P Henkel Volume MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: c809517d-feb7-4bf9-af49-9b7fbf7fbd38
+
+	measure 'Nielsen P Henkel Volume Change MAT' = [Nielsen P Henkel Volume Share MAT] - DIVIDE ( CALCULATE ( [Nielsen P Volume LY MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Volume LY MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 55cd741e-83b1-4fa5-9c76-ba8244ec4855
+
+	measure 'Nielsen P Henkel Volume Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [Nielsen P Volume YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [Nielsen P Volume MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [Nielsen P Volume Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 3d338714-4452-4943-b73e-2d280297e073
+
+	measure 'Nielsen P Henkel Volume LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [Nielsen P Volume LY YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [Nielsen P Volume LY MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [Nielsen P Volume LY Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 2a22a6e5-f381-4c6f-8551-5570627807e6
+
+	measure 'Nielsen P Henkel Volume Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( CALCULATE ( [Nielsen P Volume YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Volume YTD] ),
+			        "MAT", DIVIDE ( CALCULATE ( [Nielsen P Volume MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Volume MAT] ),
+			        DIVIDE ( CALCULATE ( [Nielsen P Volume Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Volume Custom] )
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: 6772c9aa-6ca0-48d6-975d-fd45663d6c0d
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Nielsen P Henkel Volume Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( [Nielsen P Henkel Volume YTD] - [Nielsen P Henkel Volume LY YTD], [Nielsen P Henkel Volume YTD] ),
+			        "MAT", DIVIDE ( [Nielsen P Henkel Volume MAT] - [Nielsen P Henkel Volume LY MAT], [Nielsen P Henkel Volume MAT] ),
+			        DIVIDE ( [Nielsen P Henkel Volume Custom] - [Nielsen P Henkel Volume LY Custom], [Nielsen P Henkel Volume Custom] )
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: da6413eb-aa35-4cdb-8449-b070450efeb1
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Nielsen P Henkel Volume Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Henkel Volume Change YTD],
+			        "MAT", [Nielsen P Henkel Volume Change MAT],
+			        [Nielsen P Henkel Volume Change Custom]
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume Henkel share
+		lineageTag: bcefaa2f-7acc-49dc-ab31-8ef91ada828c
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Nielsen P Henkel Price LY MAT' = CALCULATE ( [Nielsen P Price LY MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+		formatString: 0.00
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 70c00b29-14f3-4099-9123-99dce8a60554
+
+	measure 'Nielsen P Henkel Price Share MAT' = DIVIDE ( CALCULATE ( [Nielsen P Price MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Price MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 66d96a53-bb3e-45c0-a762-386e4b30e26d
+
+	measure 'Nielsen P Henkel Price Growth MAT' = DIVIDE ( [Nielsen P Henkel Price MAT] - [Nielsen P Henkel Price LY MAT], [Nielsen P Henkel Price MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 10d6ceb3-83cf-43f7-884b-2c881a19ad8f
+
+	measure 'Nielsen P Henkel Price Change MAT' = [Nielsen P Henkel Price Share MAT] - DIVIDE ( CALCULATE ( [Nielsen P Price LY MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Price LY MAT] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 3578003a-05a3-4db2-86bf-ab59fdc3856e
+
+	measure 'Nielsen P Henkel Price Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [Nielsen P Price YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [Nielsen P Price MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [Nielsen P Price Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 3221709b-cb87-44d6-a6a1-c5464b3d8181
+
+	measure 'Nielsen P Henkel Price LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", CALCULATE ( [Nielsen P Price LY YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        "MAT", CALCULATE ( [Nielsen P Price LY MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ),
+			        CALCULATE ( [Nielsen P Price LY Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" )
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 704746c3-1f4e-4aae-bf5c-d624bce447cc
+
+	measure 'Nielsen P Henkel Price Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( CALCULATE ( [Nielsen P Price YTD], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Price YTD] ),
+			        "MAT", DIVIDE ( CALCULATE ( [Nielsen P Price MAT], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Price MAT] ),
+			        DIVIDE ( CALCULATE ( [Nielsen P Price Custom], 'Nielsen Processed'[manufacturer] = "HENKEL" ), [Nielsen P Price Custom] )
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 8fb845c2-6c83-4cda-b2cd-a7edf62fb7cc
+
+	measure 'Nielsen P Henkel Price Growth Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", DIVIDE ( [Nielsen P Henkel Price YTD] - [Nielsen P Henkel Price LY YTD], [Nielsen P Henkel Price YTD] ),
+			        "MAT", DIVIDE ( [Nielsen P Henkel Price MAT] - [Nielsen P Henkel Price LY MAT], [Nielsen P Henkel Price MAT] ),
+			        DIVIDE ( [Nielsen P Henkel Price Custom] - [Nielsen P Henkel Price LY Custom], [Nielsen P Henkel Price Custom] )
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 6c423996-4a4e-49b0-aabd-58e07ac21590
+
+	measure 'Nielsen P Henkel Price Change Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Henkel Price Change YTD],
+			        "MAT", [Nielsen P Henkel Price Change MAT],
+			        [Nielsen P Henkel Price Change Custom]
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price Henkel
+		lineageTag: 2cbda837-6881-4d02-90e6-fd840c78b616
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Nielsen P Value Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Value Share YTD],
+			        "MAT", [Nielsen P Value Share MAT],
+			        [Nielsen P Value Share Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: 33d3480d-7039-4c42-9992-bbbda68ac567
+
+	measure 'Nielsen P Value Share LY Custom' = DIVIDE ( [Nielsen P Value LY Custom], CALCULATE ( [Nielsen P Value LY Custom], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: 2e9aee80-02c3-4900-a3ba-92d20c5f7d1d
+
+	measure 'Nielsen P Value Share LY YTD' = DIVIDE ( [Nielsen P Value LY YTD], CALCULATE ( [Nielsen P Value LY YTD], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: bb4e2b00-6fc4-4575-bb72-e4f1b7845813
+
+	measure 'Nielsen P Value Share LY MAT' = DIVIDE ( [Nielsen P Value LY MAT], CALCULATE ( [Nielsen P Value LY MAT], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: 95ef58c5-ec13-4e4b-a3d6-fd1c43382698
+
+	measure 'Nielsen P Value Share LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Value Share LY YTD],
+			        "MAT", [Nielsen P Value Share LY MAT],
+			        [Nielsen P Value Share LY Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P value share
+		lineageTag: f9b4094c-b8d2-4126-b2e8-b20e719dd702
+
+	measure 'Nielsen P Volume Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Volume Share YTD],
+			        "MAT", [Nielsen P Volume Share MAT],
+			        [Nielsen P Volume Share Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 5b410409-b6f5-4e68-a4a1-8d6746d154a0
+
+	measure 'Nielsen P Volume Share LY Custom' = DIVIDE ( [Nielsen P Volume LY Custom], CALCULATE ( [Nielsen P Volume LY Custom], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 5f9fb6af-ae7e-4c0d-9df5-ad76332302f9
+
+	measure 'Nielsen P Volume Share LY YTD' = DIVIDE ( [Nielsen P Volume LY YTD], CALCULATE ( [Nielsen P Volume LY YTD], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 7fa1954b-d570-4ea5-94ca-0c238a13cf4a
+
+	measure 'Nielsen P Volume Share LY MAT' = DIVIDE ( [Nielsen P Volume LY MAT], CALCULATE ( [Nielsen P Volume LY MAT], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: 1563c1c6-9f26-4287-a7db-4eaf26d3b3f2
+
+	measure 'Nielsen P Volume Share LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Volume Share LY YTD],
+			        "MAT", [Nielsen P Volume Share LY MAT],
+			        [Nielsen P Volume Share LY Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P volume share
+		lineageTag: d734b0dc-a767-47d5-814b-e9ee69001bc8
+
+	measure 'Nielsen P Price Share Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Price Share YTD],
+			        "MAT", [Nielsen P Price Share MAT],
+			        [Nielsen P Price Share Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: 1f6f08df-04d5-400f-84a9-c6aa0a536537
+
+	measure 'Nielsen P Price Share LY Custom' = DIVIDE ( [Nielsen P Price LY Custom], CALCULATE ( [Nielsen P Price LY Custom], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: 6280ad6f-0232-48a8-8b3f-55fa0cb446c9
+
+	measure 'Nielsen P Price Share LY YTD' = DIVIDE ( [Nielsen P Price LY YTD], CALCULATE ( [Nielsen P Price LY YTD], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: c88b16a4-8c2c-4703-90b0-6b1b437a07df
+
+	measure 'Nielsen P Price Share LY MAT' = DIVIDE ( [Nielsen P Price LY MAT], CALCULATE ( [Nielsen P Price LY MAT], ALL ( 'Nielsen Processed' ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: 5a26bdad-2e3a-468f-a982-a2f5e0b303da
+
+	measure 'Nielsen P Price Share LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Price Share LY YTD],
+			        "MAT", [Nielsen P Price Share LY MAT],
+			        [Nielsen P Price Share LY Custom]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Nielsen P Price
+		lineageTag: fccbb0bb-ea3c-45ec-9a63-f116515ac817
+
+	column BU
+		dataType: string
+		lineageTag: 0a1aa6db-436d-4160-8513-921743e4dfae
+		summarizeBy: none
+		sourceColumn: BU
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 1251617c-97a6-43b7-b07e-fb7d71928f71
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel
+		dataType: string
+		lineageTag: 2278d4be-9779-4a6b-badf-3faa7d7bd4f6
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales_Type
+		dataType: string
+		lineageTag: 83112ac9-796a-41b8-8000-72c979046c48
+		summarizeBy: none
+		sourceColumn: Sales_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand
+		dataType: string
+		lineageTag: 37fe1bd8-3fa3-44b0-8d75-a6f53ac41e46
+		summarizeBy: none
+		sourceColumn: Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column Size
+		dataType: string
+		lineageTag: a9fada68-68ae-4531-a720-be014df2aa96
+		summarizeBy: none
+		sourceColumn: Size
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Type'
+		dataType: string
+		lineageTag: aedb4f21-978d-4c6e-9b11-09b62165dddd
+		summarizeBy: none
+		sourceColumn: Product Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromoType
+		dataType: string
+		lineageTag: ab85328a-0a46-45f6-baa1-536a0d7bd89d
+		summarizeBy: none
+		sourceColumn: PromoType
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_value_000
+		dataType: double
+		lineageTag: 9cf5cb08-9993-494c-a765-3b394da57d80
+		summarizeBy: sum
+		sourceColumn: sales_value_000
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_volume_000
+		dataType: double
+		lineageTag: 7d9503fd-1baf-4e52-ae8f-3abb4f3179fe
+		summarizeBy: sum
+		sourceColumn: sales_volume_000
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_units_000
+		dataType: double
+		lineageTag: 05a57e5c-9759-4f75-9042-86afdcf1f09e
+		summarizeBy: sum
+		sourceColumn: sales_units_000
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column numeric_distribution_selling_c
+		dataType: double
+		lineageTag: 49f83d70-55c2-4514-9676-25a953e199b0
+		summarizeBy: sum
+		sourceColumn: numeric_distribution_selling_c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column weighted_distribution_reach
+		dataType: double
+		lineageTag: d769afc9-1ab3-4d3f-bbc9-69771afd465c
+		summarizeBy: sum
+		sourceColumn: weighted_distribution_reach
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column periods
+		dataType: string
+		lineageTag: dc5e90a5-3d67-422f-899b-219c6b88efc6
+		summarizeBy: none
+		sourceColumn: periods
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c636cff-0ad6-43bd-b1ef-0341a65305c0
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: string
+		lineageTag: 85b21c0d-37ba-449f-ab45-eb109dda8f70
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column yearmonth = ```
+			'Nielsen Processed'[year]*100+'Nielsen Processed'[month] 
+			```
+		lineageTag: 73754c8c-8f60-4781-a382-78865886370d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column manufacturer
+		dataType: string
+		lineageTag: 4ebfe195-b2ca-4ef9-8b64-401b7c937f35
+		summarizeBy: none
+		sourceColumn: manufacturer
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubCategory
+		dataType: string
+		lineageTag: c59445f8-a2b1-4ed7-9f56-b49546e93a8f
+		summarizeBy: none
+		sourceColumn: SubCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Format
+		dataType: string
+		lineageTag: e51190a6-1337-4373-8b80-d8bb00dfdb55
+		summarizeBy: none
+		sourceColumn: Format
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel_temp
+		dataType: string
+		lineageTag: c8a9afc3-696d-4f9e-aa8b-3fff473e1b79
+		summarizeBy: none
+		sourceColumn: Channel_temp
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subchannel
+		dataType: string
+		lineageTag: 5ef42f89-5830-42ea-8d2d-c254cdaa518b
+		summarizeBy: none
+		sourceColumn: Subchannel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel_Key =
+			
+			'Nielsen Processed'[Country]&'Nielsen Processed'[Channel]
+		lineageTag: 3c707209-4d68-4436-ac22-d01c351c0c77
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Source = ```
+			"NIELSEN" 
+			```
+		lineageTag: 87d0de30-7a14-4a8a-86f2-1315781c4fb7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column
+		type: calculated
+		lineageTag: 51a4cd7b-cdf7-4637-8e09-5845e60f118d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column BU_Client
+		dataType: string
+		lineageTag: 38856009-6f36-4596-91cd-f48adaf73c83
+		summarizeBy: none
+		sourceColumn: BU_Client
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubCategory_Client
+		dataType: string
+		lineageTag: 37f05593-9671-4565-b245-c436398bfe1a
+		summarizeBy: none
+		sourceColumn: SubCategory_Client
+
+		annotation SummarizationSetBy = Automatic
+
+	column Format_Client
+		dataType: string
+		lineageTag: 5842f1c4-1bd4-4b06-9025-eff57dcdc27e
+		summarizeBy: none
+		sourceColumn: Format_Client
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hierarchy Index.RNN'
+		dataType: int64
+		formatString: 0
+		lineageTag: 906c5d4d-eb02-477f-9c60-ad6861cc40e2
+		summarizeBy: none
+		sourceColumn: Hierarchy Index.RNN
+
+		annotation SummarizationSetBy = Automatic
+
+	column raw_item
+		dataType: string
+		lineageTag: 7365d501-9044-4bb0-9bdd-e56e348e30ac
+		summarizeBy: none
+		sourceColumn: raw_item
+
+		annotation SummarizationSetBy = Automatic
+
+	column mapping_item
+		dataType: string
+		lineageTag: 6879be83-f0c0-4f18-a561-fc564cc9fc87
+		summarizeBy: none
+		sourceColumn: mapping_item
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthdate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: dc1b6c64-2e50-4e2e-b78a-02028d1c01b0
+		summarizeBy: none
+		sourceColumn: monthdate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'Nielsen Processed' = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="henkel-clicflyer"]}[Data], "SELECT distinct * FROM `henkel-clicflyer.AnalyticsSolution.nielsen_processed_data_henkel`#(lf)WHERE BU IS NOT NULL AND SubCategory IS NOT NULL", null, [EnableFolding=true]),
+				    #"Merged Queries" = Table.NestedJoin(Source, {"BU", "SubCategory", "Format"}, #"Hierarchy Index", {"BU", "SubCategory", "Format"}, "Hierarchy Index", JoinKind.LeftOuter),
+				    #"Expanded Hierarchy Index" = Table.ExpandTableColumn(#"Merged Queries", "Hierarchy Index", {"RNN"}, {"Hierarchy Index.RNN"})
+				in
+				    #"Expanded Hierarchy Index"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

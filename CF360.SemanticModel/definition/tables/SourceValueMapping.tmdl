@@ -1,0 +1,82 @@
+table SourceValueMapping
+	lineageTag: 7a6a3393-efed-4f11-8baf-f119baae94ce
+
+	measure 'Dynamic Value' =
+			
+			VAR SelectedSource = SELECTEDVALUE(SourceValueMapping[Source])
+			VAR SelectedValue = SELECTEDVALUE(SourceValueMapping[ValueName])
+			RETURN
+			SWITCH(TRUE(),
+			    SelectedSource = "🛒 EPOS Overview" && SelectedValue = "Val",[EPOS P Value Dynamic],
+			    SelectedSource = "🛒 EPOS Overview" && SelectedValue = "Val Share", [EPOS P Value Share Dynamic],
+			    SelectedSource = "🛒 EPOS Overview" && SelectedValue = "Vol", [EPOS P Volume Dynamic],
+			    SelectedSource = "🛒 EPOS Overview" && SelectedValue = "Vol Share", [EPOS P Volume Share Dynamic],
+			    SelectedSource = "🛒 EPOS Overview" && SelectedValue = "Val Growth%", [EPOS P Value Growth dynamic],
+			    SelectedSource = "🛒 EPOS Overview" && SelectedValue = "Vol Growth%", [EPOS P Volume Growth dynamic],
+			    SelectedSource = "📊 IMS Overview" && SelectedValue = "Val", [Gross IMS P Dynamic],
+			    SelectedSource = "📊 IMS Overview" && SelectedValue = "Investment", [Investment P Dynamic],
+			    SelectedSource = "📊 IMS Overview" && SelectedValue = "NES", [ΔNES P dynamic],
+			    SelectedSource = "📊 IMS Overview" && SelectedValue = "GP1", [GP1 P Dynamic],
+			    SelectedSource = "📊 IMS Overview" && SelectedValue = "Val Growth%", [Gross IMS P Growth dynamic],
+			    SelectedSource = "📈 Nielsen Overview" && SelectedValue = "Val",[Nielsen P Value Dynamic],
+			    SelectedSource = "📈 Nielsen Overview" && SelectedValue = "Val Share", [Nielsen P Value Share Dynamic],
+			    SelectedSource = "📈 Nielsen Overview" && SelectedValue = "Vol", [Nielsen P Vol Dynamic],
+			    SelectedSource = "📈 Nielsen Overview" && SelectedValue = "Vol Share", [Nielsen P Vol Share Dynamic],
+			    SelectedSource = "📈 Nielsen Overview" && SelectedValue = "Val Growth%", [Nielsen P Value Growth dynamic],
+			    SelectedSource = "📈 Nielsen Overview" && SelectedValue = "Vol Growth%", [Nielsen P Vol Growth dynamic],
+			    BLANK()
+			)
+		lineageTag: 62e43607-c3a5-4041-a448-a68eaa55b874
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Source
+		lineageTag: b914fb51-5840-4e9a-88b1-0da1dd273b46
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Source]
+		sortByColumn: Rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column ValueName
+		lineageTag: ad57227e-bfde-40db-890f-2dbce0ec3ee0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ValueName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rank
+		lineageTag: 746c7144-d5fa-4660-992e-8006d3761abb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Rank]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SourceValueMapping = calculated
+		mode: import
+		source =
+				UNION(
+				    ROW("Rank","2","Source","🛒 EPOS Overview", "ValueName", "Val"),
+				    ROW("Rank","2","Source","🛒 EPOS Overview", "ValueName", "Val Share"),
+				    ROW("Rank","2","Source","🛒 EPOS Overview", "ValueName", "Vol"),
+				    ROW("Rank","2","Source","🛒 EPOS Overview", "ValueName", "Vol Share"),
+				    ROW("Rank","2","Source","🛒 EPOS Overview", "ValueName", "Val Growth%"),
+				    ROW("Rank","2","Source","🛒 EPOS Overview", "ValueName", "Vol Growth%"),
+				    ROW("Rank","1","Source","📊 IMS Overview", "ValueName", "Val"),
+				    ROW("Rank","1","Source","📊 IMS Overview", "ValueName", "Investment"),
+				    ROW("Rank","1","Source","📊 IMS Overview", "ValueName", "NES"),
+				    ROW("Rank","1","Source","📊 IMS Overview", "ValueName", "GP1"),
+				    ROW("Rank","1","Source","📊 IMS Overview", "ValueName", "Val Growth%"),
+				    ROW("Rank","3","Source","📈 Nielsen Overview", "ValueName", "Val"),
+				    ROW("Rank","3","Source","📈 Nielsen Overview", "ValueName", "Val Share"),
+				    ROW("Rank","3","Source","📈 Nielsen Overview", "ValueName", "Vol"),
+				    ROW("Rank","3","Source","📈 Nielsen Overview", "ValueName", "Vol Share"),
+				    ROW("Rank","3","Source","📈 Nielsen Overview", "ValueName", "Val Growth%"),
+				    ROW("Rank","3","Source","📈 Nielsen Overview", "ValueName", "Vol Growth%")
+				)
+
+	annotation PBI_Id = b1105954faad4851968114a136271092
+
