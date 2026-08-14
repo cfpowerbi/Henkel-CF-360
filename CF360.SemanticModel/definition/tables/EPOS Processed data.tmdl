@@ -260,7 +260,7 @@ table 'EPOS Processed data'
 		displayFolder: EPOS P value Henkel share
 		lineageTag: 044a800e-aadb-42d1-af8e-9854567e8af5
 
-	measure 'EPOS P Value Dynamic' =
+	measure 'EPOS P Value Dynamic' = ```
 			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
 			RETURN
 			    SWITCH (
@@ -269,9 +269,12 @@ table 'EPOS Processed data'
 			        "MAT", [EPOS P Value MAT],
 			        [EPOS P Value Custom]
 			    )
-		formatString: 0.00
+			
+			```
 		displayFolder: EPOS P value share
 		lineageTag: 8a71b430-47e3-4e77-ac78-d4ddb17c8325
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'EPOS P Value MAT' =
 			VAR GlobalMaxDate = CALCULATE ( MAX ( 'dates'[monthdate] ), ALL ( 'dates' ) )
@@ -1669,6 +1672,36 @@ table 'EPOS Processed data'
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: EPOS P Price
 		lineageTag: 461474bd-2d91-4a19-bea3-ca4c2e4c85b5
+
+	measure 'EPOS P Value Dynamic in M' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR RESULT =
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Value YTD],
+			        "MAT", [EPOS P Value MAT],
+			        [EPOS P Value Custom]
+			    )
+			RETURN
+			    DIVIDE ( RESULT, 1000000 )
+		formatString: #,##0.00"M"
+		displayFolder: EPOS P value share
+		lineageTag: ec0a1be8-0d13-4174-b420-85a635daa6e7
+
+	measure 'EPOS P Volume Dynamic in M' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR RESULT =
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [EPOS P Volume YTD],
+			        "MAT", [EPOS P Volume MAT],
+			        [EPOS P Volume Custom]
+			    )
+			RETURN
+			    DIVIDE ( RESULT, 1000000 )
+		formatString: #,##0.00"M"
+		displayFolder: EPOS P volume share
+		lineageTag: 6f8e8614-af91-432a-93df-24992e396368
 
 	column volume_sales
 		dataType: int64

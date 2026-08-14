@@ -1462,6 +1462,21 @@ table 'IMS Processed'
 		displayFolder: Matrix Placeholders (No Data)
 		lineageTag: 3c1f7a80-11d4-4e51-9a01-0b7e5a2d6106
 
+	measure 'Gross IMS P Dynamic in M' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR RESULT =
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Gross IMS P YTD],
+			        "MAT", [Gross IMS P MAT],
+			        [Gross IMS P Custom]
+			    )
+			RETURN
+			    DIVIDE ( RESULT, 1000000 )
+		formatString: #,##0.00"M"
+		displayFolder: Gross IMS P
+		lineageTag: c23aa7f4-cfc3-49a1-a3c4-4a091c534781
+
 	column BU
 		dataType: string
 		lineageTag: 1b1e2ce8-08a2-4e23-99ab-4c5d996cda11
