@@ -1237,6 +1237,36 @@ table 'Nielsen Processed'
 		displayFolder: Nielsen P Price
 		lineageTag: fccbb0bb-ea3c-45ec-9a63-f116515ac817
 
+	measure 'Nielsen P Value Dynamic in M' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR RESULT =
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Value YTD],
+			        "MAT", [Nielsen P Value MAT],
+			        [Nielsen P Value Custom]
+			    )
+			RETURN
+			    DIVIDE ( RESULT, 1000000 )
+		formatString: #,##0.00"M"
+		displayFolder: Nielsen P value share
+		lineageTag: 6f911885-2bb8-4a07-8254-cf9fa1277f2a
+
+	measure 'Nielsen P Volume Dynamic in M' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR RESULT =
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Volume YTD],
+			        "MAT", [Nielsen P Volume MAT],
+			        [Nielsen P Volume Custom]
+			    )
+			RETURN
+			    DIVIDE ( RESULT, 1000000 )
+		formatString: #,##0.00"M"
+		displayFolder: Nielsen P volume share
+		lineageTag: e570c267-e188-4aba-8c81-be1f66d763e3
+
 	column BU
 		dataType: string
 		lineageTag: 0a1aa6db-436d-4160-8513-921743e4dfae
