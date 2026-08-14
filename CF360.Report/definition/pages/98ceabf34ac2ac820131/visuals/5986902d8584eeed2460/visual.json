@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "5986902d8584eeed2460",
   "position": {
-    "x": 31,
-    "y": 294,
+    "x": 30.434782608695656,
+    "y": 327.536231884058,
     "z": 13000,
-    "height": 474,
-    "width": 1390,
+    "height": 434.78260869565219,
+    "width": 1389.8550724637682,
     "tabOrder": 13000
   },
   "visual": {
@@ -30,6 +30,22 @@
               "nativeQueryRef": "BU",
               "active": true,
               "displayName": "BU"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hierarchy Index"
+                    }
+                  },
+                  "Property": "SubCategory"
+                }
+              },
+              "queryRef": "Hierarchy Index.SubCategory",
+              "nativeQueryRef": "Sub Category",
+              "active": true,
+              "displayName": "Sub Category"
             }
           ],
           "fieldParameters": [
@@ -45,7 +61,7 @@
                 }
               },
               "index": 0,
-              "length": 1
+              "length": 2
             }
           ]
         },
@@ -63,8 +79,128 @@
                 }
               },
               "queryRef": "IMS Processed.Gross IMS P Dynamic",
-              "nativeQueryRef": "Gross IMS P Dynamic",
+              "nativeQueryRef": "Val IMS (M)",
               "displayName": "Val IMS (M)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Nielsen Processed"
+                    }
+                  },
+                  "Property": "Nielsen P Henkel Value Dynamic"
+                }
+              },
+              "queryRef": "Nielsen Processed.Nielsen P Henkel Value Dynamic",
+              "nativeQueryRef": "Val Nielsen (M)",
+              "displayName": "Val Nielsen (M)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Henkel Value Dynamic"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Henkel Value Dynamic",
+              "nativeQueryRef": "Val EPOS (M)",
+              "displayName": "Val EPOS (M)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "IMS Processed"
+                    }
+                  },
+                  "Property": "IMS P Matrix Vol NA"
+                }
+              },
+              "queryRef": "IMS Processed.IMS P Matrix Vol NA",
+              "nativeQueryRef": "Vol IMS (K)",
+              "displayName": "Vol IMS (K)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Nielsen Processed"
+                    }
+                  },
+                  "Property": "Nielsen P Henkel Volume Dynamic"
+                }
+              },
+              "queryRef": "Nielsen Processed.Nielsen P Henkel Volume Dynamic",
+              "nativeQueryRef": "Vol Nielsen (K)",
+              "displayName": "Vol Nielsen (K)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Henkel Volume Dynamic"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Henkel Volume Dynamic",
+              "nativeQueryRef": "Vol EPOS (K)",
+              "displayName": "Vol EPOS (K)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "IMS Processed"
+                    }
+                  },
+                  "Property": "IMS P Matrix Price NA"
+                }
+              },
+              "queryRef": "IMS Processed.IMS P Matrix Price NA",
+              "nativeQueryRef": "Price IMS (Avg)",
+              "displayName": "Price IMS (Avg)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Nielsen Processed"
+                    }
+                  },
+                  "Property": "Nielsen P Henkel Price Dynamic"
+                }
+              },
+              "queryRef": "Nielsen Processed.Nielsen P Henkel Price Dynamic",
+              "nativeQueryRef": "Price Nielsen (Avg)",
+              "displayName": "Price Nielsen (Avg)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Henkel Price Dynamic"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Henkel Price Dynamic",
+              "nativeQueryRef": "Price EPOS (Avg)",
+              "displayName": "Price EPOS (Avg)"
             },
             {
               "field": {
@@ -89,10 +225,10 @@
                       "Entity": "IMS Processed"
                     }
                   },
-                  "Property": "chg NES P dynamic"
+                  "Property": "Net IMS P Dynamic"
                 }
               },
-              "queryRef": "IMS Processed.chg NES P dynamic",
+              "queryRef": "IMS Processed.Net IMS P Dynamic",
               "nativeQueryRef": "NES IMS (M)",
               "displayName": "NES IMS (M)"
             },
@@ -119,192 +255,42 @@
                       "Entity": "IMS Processed"
                     }
                   },
-                  "Property": "Gross IMS P Growth Dynamic"
+                  "Property": "GP1 Pct P Dynamic"
                 }
               },
-              "queryRef": "IMS Processed.Gross IMS P Growth Dynamic",
-              "nativeQueryRef": "IMS Val Growth%",
-              "displayName": "IMS Val Growth%"
+              "queryRef": "IMS Processed.GP1 Pct P Dynamic",
+              "nativeQueryRef": "GP1% IMS",
+              "displayName": "GP1% IMS"
             },
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "EPOS Processed data"
+                      "Entity": "IMS Processed"
                     }
                   },
-                  "Property": "EPOS P Henkel Value Dynamic"
+                  "Property": "L6 Pct P Dynamic"
                 }
               },
-              "queryRef": "EPOS Processed data.EPOS P Henkel Value Dynamic",
-              "nativeQueryRef": "EPOS P Henkel Value Dynamic",
-              "displayName": "Val EPOS (M)"
+              "queryRef": "IMS Processed.L6 Pct P Dynamic",
+              "nativeQueryRef": "L6% IMS",
+              "displayName": "L6% IMS"
             },
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "EPOS Processed data"
+                      "Entity": "IMS Processed"
                     }
                   },
-                  "Property": "EPOS P Henkel Value Share Dynamic"
+                  "Property": "Gross IMS P Change Dynamic"
                 }
               },
-              "queryRef": "EPOS Processed data.EPOS P Henkel Value Share Dynamic",
-              "nativeQueryRef": "EPOS Val Share",
-              "displayName": "EPOS Val Share"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Henkel Value Change Dynamic"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Henkel Value Change Dynamic",
-              "nativeQueryRef": "EPOS Val Share Chg",
-              "displayName": "EPOS Val Share Chg"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Henkel Value Growth Dynamic"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Henkel Value Growth Dynamic",
-              "nativeQueryRef": "EPOS Val Growth%",
-              "displayName": "EPOS Val Growth%"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Henkel Volume Dynamic"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Henkel Volume Dynamic",
-              "nativeQueryRef": "EPOS Vol",
-              "displayName": "EPOS Vol"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Henkel Volume Share Dynamic"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Henkel Volume Share Dynamic",
-              "nativeQueryRef": "EPOS Vol Share ",
-              "displayName": "EPOS Vol Share "
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Henkel Volume Change Dynamic"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Henkel Volume Change Dynamic",
-              "nativeQueryRef": "EPOS Vol Share Chg ",
-              "displayName": "EPOS Vol Share Chg "
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Henkel Volume Growth Dynamic"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Henkel Volume Growth Dynamic",
-              "nativeQueryRef": "EPOS Vol Growth%",
-              "displayName": "EPOS Vol Growth%"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Henkel Price Dynamic"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Henkel Price Dynamic",
-              "nativeQueryRef": "EPOS Price",
-              "displayName": "EPOS Price"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Henkel Price Change Dynamic"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Henkel Price Change Dynamic",
-              "nativeQueryRef": "EPOS Price Chg",
-              "displayName": "EPOS Price Chg"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Nielsen Processed"
-                    }
-                  },
-                  "Property": "Nielsen P Henkel Value Dynamic"
-                }
-              },
-              "queryRef": "Nielsen Processed.Nielsen P Henkel Value Dynamic",
-              "nativeQueryRef": "Nielsen Val",
-              "displayName": "Nielsen Val"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Nielsen Processed"
-                    }
-                  },
-                  "Property": "Nielsen P Henkel Value Share Dynamic"
-                }
-              },
-              "queryRef": "Nielsen Processed.Nielsen P Henkel Value Share Dynamic",
-              "nativeQueryRef": "Nielsen Val Share",
-              "displayName": "Nielsen Val Share"
+              "queryRef": "IMS Processed.Gross IMS P Change Dynamic",
+              "nativeQueryRef": "Val Share Δ IMS (pp)",
+              "displayName": "Val Share Δ IMS (pp)"
             },
             {
               "field": {
@@ -318,53 +304,38 @@
                 }
               },
               "queryRef": "Nielsen Processed.Nielsen P Henkel Value Change Dynamic",
-              "nativeQueryRef": "Nielsen Val Share Chg",
-              "displayName": "Nielsen Val Share Chg"
+              "nativeQueryRef": "Val Share Δ Nielsen (pp)",
+              "displayName": "Val Share Δ Nielsen (pp)"
             },
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Nielsen Processed"
+                      "Entity": "EPOS Processed data"
                     }
                   },
-                  "Property": "Nielsen P Henkel Value Growth Dynamic"
+                  "Property": "EPOS P Henkel Value Change Dynamic"
                 }
               },
-              "queryRef": "Nielsen Processed.Nielsen P Henkel Value Growth Dynamic",
-              "nativeQueryRef": "Nielsen Val Growth%",
-              "displayName": "Nielsen Val Growth%"
+              "queryRef": "EPOS Processed data.EPOS P Henkel Value Change Dynamic",
+              "nativeQueryRef": "Val Share Δ EPOS (pp)",
+              "displayName": "Val Share Δ EPOS (pp)"
             },
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Nielsen Processed"
+                      "Entity": "IMS Processed"
                     }
                   },
-                  "Property": "Nielsen P Henkel Volume Dynamic"
+                  "Property": "IMS P Matrix Vol Share Chg NA"
                 }
               },
-              "queryRef": "Nielsen Processed.Nielsen P Henkel Volume Dynamic",
-              "nativeQueryRef": "Nielsen Vol",
-              "displayName": "Nielsen Vol"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Nielsen Processed"
-                    }
-                  },
-                  "Property": "Nielsen P Henkel Volume Share Dynamic"
-                }
-              },
-              "queryRef": "Nielsen Processed.Nielsen P Henkel Volume Share Dynamic",
-              "nativeQueryRef": "Nielsen Vol Share",
-              "displayName": "Nielsen Vol Share"
+              "queryRef": "IMS Processed.IMS P Matrix Vol Share Chg NA",
+              "nativeQueryRef": "Vol Share Δ IMS (pp)",
+              "displayName": "Vol Share Δ IMS (pp)"
             },
             {
               "field": {
@@ -378,38 +349,38 @@
                 }
               },
               "queryRef": "Nielsen Processed.Nielsen P Henkel Volume Change Dynamic",
-              "nativeQueryRef": "Nielsen Vol Share Chg",
-              "displayName": "Nielsen Vol Share Chg"
+              "nativeQueryRef": "Vol Share Δ Nielsen (pp)",
+              "displayName": "Vol Share Δ Nielsen (pp)"
             },
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Nielsen Processed"
+                      "Entity": "EPOS Processed data"
                     }
                   },
-                  "Property": "Nielsen P Henkel Volume Growth Dynamic"
+                  "Property": "EPOS P Henkel Volume Change Dynamic"
                 }
               },
-              "queryRef": "Nielsen Processed.Nielsen P Henkel Volume Growth Dynamic",
-              "nativeQueryRef": "Nielsen Vol Growth%",
-              "displayName": "Nielsen Vol Growth%"
+              "queryRef": "EPOS Processed data.EPOS P Henkel Volume Change Dynamic",
+              "nativeQueryRef": "Vol Share Δ EPOS (pp)",
+              "displayName": "Vol Share Δ EPOS (pp)"
             },
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Nielsen Processed"
+                      "Entity": "IMS Processed"
                     }
                   },
-                  "Property": "Nielsen P Henkel Price Dynamic"
+                  "Property": "IMS P Matrix Price Chg NA"
                 }
               },
-              "queryRef": "Nielsen Processed.Nielsen P Henkel Price Dynamic",
-              "nativeQueryRef": "Nielsen Price",
-              "displayName": "Nielsen Price"
+              "queryRef": "IMS Processed.IMS P Matrix Price Chg NA",
+              "nativeQueryRef": "Price Chg IMS (vs LY)",
+              "displayName": "Price Chg IMS (vs LY)"
             },
             {
               "field": {
@@ -423,8 +394,53 @@
                 }
               },
               "queryRef": "Nielsen Processed.Nielsen P Henkel Price Change Dynamic",
-              "nativeQueryRef": "Nielsen Price Chg",
-              "displayName": "Nielsen Price Chg"
+              "nativeQueryRef": "Price Chg Nielsen (vs LY)",
+              "displayName": "Price Chg Nielsen (vs LY)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EPOS Processed data"
+                    }
+                  },
+                  "Property": "EPOS P Henkel Price Change Dynamic"
+                }
+              },
+              "queryRef": "EPOS Processed data.EPOS P Henkel Price Change Dynamic",
+              "nativeQueryRef": "Price Chg EPOS (vs LY)",
+              "displayName": "Price Chg EPOS (vs LY)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "IMS Processed"
+                    }
+                  },
+                  "Property": "Gross IMS P Share Dynamic"
+                }
+              },
+              "queryRef": "IMS Processed.Gross IMS P Share Dynamic",
+              "nativeQueryRef": "Val Share IMS (%)",
+              "displayName": "Val Share IMS (%)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Nielsen Processed"
+                    }
+                  },
+                  "Property": "Nielsen P Henkel Value Share Dynamic"
+                }
+              },
+              "queryRef": "Nielsen Processed.Nielsen P Henkel Value Share Dynamic",
+              "nativeQueryRef": "Val Share Nielsen (%)",
+              "displayName": "Val Share Nielsen (%)"
             },
             {
               "field": {
@@ -438,8 +454,8 @@
                 }
               },
               "queryRef": "EPOS Processed data.EPOS P Henkel Value Share Dynamic",
-              "nativeQueryRef": "EPOS Val Share",
-              "displayName": "EPOS Val Share"
+              "nativeQueryRef": "Val Share EPOS (%)",
+              "displayName": "Val Share EPOS (%)"
             },
             {
               "field": {
@@ -453,8 +469,8 @@
                 }
               },
               "queryRef": "IMS Processed.Gross IMS P Growth Dynamic",
-              "nativeQueryRef": "IMS Val Growth%",
-              "displayName": "IMS Val Growth%"
+              "nativeQueryRef": "Val Chg% IMS (vs LY)",
+              "displayName": "Val Chg% IMS (vs LY)"
             },
             {
               "field": {
@@ -468,8 +484,8 @@
                 }
               },
               "queryRef": "Nielsen Processed.Nielsen P Henkel Value Growth Dynamic",
-              "nativeQueryRef": "Nielsen Val Growth%",
-              "displayName": "Nielsen Val Growth%"
+              "nativeQueryRef": "Val Chg% Nielsen (vs LY)",
+              "displayName": "Val Chg% Nielsen (vs LY)"
             },
             {
               "field": {
@@ -483,8 +499,8 @@
                 }
               },
               "queryRef": "EPOS Processed data.EPOS P Henkel Value Growth Dynamic",
-              "nativeQueryRef": "EPOS Val Growth%",
-              "displayName": "EPOS Val Growth%"
+              "nativeQueryRef": "Val Chg% EPOS (vs LY)",
+              "displayName": "Val Chg% EPOS (vs LY)"
             },
             {
               "field": {
@@ -498,7 +514,7 @@
                 }
               },
               "queryRef": "IMS Processed.IMS P Matrix Vol Share NA",
-              "nativeQueryRef": "IMS P Matrix Vol Share NA",
+              "nativeQueryRef": "Vol Share IMS (%)",
               "displayName": "Vol Share IMS (%)"
             },
             {
@@ -513,8 +529,8 @@
                 }
               },
               "queryRef": "Nielsen Processed.Nielsen P Henkel Volume Share Dynamic",
-              "nativeQueryRef": "Nielsen Vol Share",
-              "displayName": "Nielsen Vol Share"
+              "nativeQueryRef": "Vol Share Nielsen (%)",
+              "displayName": "Vol Share Nielsen (%)"
             },
             {
               "field": {
@@ -528,8 +544,8 @@
                 }
               },
               "queryRef": "EPOS Processed data.EPOS P Henkel Volume Share Dynamic",
-              "nativeQueryRef": "EPOS Vol Share ",
-              "displayName": "EPOS Vol Share "
+              "nativeQueryRef": "Vol Share EPOS (%)",
+              "displayName": "Vol Share EPOS (%)"
             },
             {
               "field": {
@@ -543,7 +559,7 @@
                 }
               },
               "queryRef": "IMS Processed.IMS P Matrix Vol Chg Pct NA",
-              "nativeQueryRef": "IMS P Matrix Vol Chg Pct NA",
+              "nativeQueryRef": "Vol Chg% IMS (vs LY)",
               "displayName": "Vol Chg% IMS (vs LY)"
             },
             {
@@ -558,8 +574,8 @@
                 }
               },
               "queryRef": "Nielsen Processed.Nielsen P Henkel Volume Growth Dynamic",
-              "nativeQueryRef": "Nielsen Vol Growth%",
-              "displayName": "Nielsen Vol Growth%"
+              "nativeQueryRef": "Vol Chg% Nielsen (vs LY)",
+              "displayName": "Vol Chg% Nielsen (vs LY)"
             },
             {
               "field": {
@@ -573,8 +589,8 @@
                 }
               },
               "queryRef": "EPOS Processed data.EPOS P Henkel Volume Growth Dynamic",
-              "nativeQueryRef": "EPOS Vol Growth%",
-              "displayName": "EPOS Vol Growth%"
+              "nativeQueryRef": "Vol Chg% EPOS (vs LY)",
+              "displayName": "Vol Chg% EPOS (vs LY)"
             }
           ],
           "fieldParameters": [
@@ -590,7 +606,7 @@
                 }
               },
               "index": 0,
-              "length": 25
+              "length": 35
             }
           ]
         }
@@ -606,6 +622,13 @@
             "queryRefs": [
               "Hierarchy Index.BU"
             ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "Hierarchy Index.SubCategory"
+            ],
+            "isCollapsed": true,
             "isPinned": true
           }
         ],
@@ -718,7 +741,7 @@
             "bold": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
@@ -762,7 +785,7 @@
             "fontFamily": {
               "expr": {
                 "Literal": {
-                  "Value": "'''Segoe UI Semibold'', wf_segoe-ui_semibold, helvetica, arial, sans-serif'"
+                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
                 }
               }
             },
@@ -774,6 +797,13 @@
                       "Value": "'#1A1F36'"
                     }
                   }
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }
@@ -1353,74 +1383,7 @@
           }
         },
         {
-          "properties": {
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Conditional": {
-                      "Cases": [
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 1,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "Nielsen Processed"
-                                    }
-                                  },
-                                  "Property": "Nielsen P Henkel Volume Share Dynamic"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#16AC4A'"
-                            }
-                          }
-                        },
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 3,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "Nielsen Processed"
-                                    }
-                                  },
-                                  "Property": "Nielsen P Henkel Volume Share Dynamic"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#DC2626'"
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
+          "properties": {},
           "selector": {
             "data": [
               {
@@ -1578,74 +1541,7 @@
           }
         },
         {
-          "properties": {
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Conditional": {
-                      "Cases": [
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 1,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "Nielsen Processed"
-                                    }
-                                  },
-                                  "Property": "Nielsen P Henkel Value Share Dynamic"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#16AC4A'"
-                            }
-                          }
-                        },
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 3,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "Nielsen Processed"
-                                    }
-                                  },
-                                  "Property": "Nielsen P Henkel Value Share Dynamic"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#DC2626'"
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
+          "properties": {},
           "selector": {
             "data": [
               {
@@ -1738,74 +1634,7 @@
           }
         },
         {
-          "properties": {
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Conditional": {
-                      "Cases": [
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 1,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "EPOS Processed data"
-                                    }
-                                  },
-                                  "Property": "EPOS P Henkel Volume Share Dynamic"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#16AC4A'"
-                            }
-                          }
-                        },
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 3,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "EPOS Processed data"
-                                    }
-                                  },
-                                  "Property": "EPOS P Henkel Volume Share Dynamic"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#DC2626'"
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
+          "properties": {},
           "selector": {
             "data": [
               {
@@ -1898,6 +1727,19 @@
           }
         },
         {
+          "properties": {},
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "EPOS Processed data.EPOS P Henkel Value Share Dynamic"
+          }
+        },
+        {
           "properties": {
             "fontColor": {
               "solid": {
@@ -1913,10 +1755,10 @@
                                 "Measure": {
                                   "Expression": {
                                     "SourceRef": {
-                                      "Entity": "EPOS Processed data"
+                                      "Entity": "IMS Processed"
                                     }
                                   },
-                                  "Property": "EPOS P Henkel Value Share Dynamic"
+                                  "Property": "Gross IMS P Change Dynamic"
                                 }
                               },
                               "Right": {
@@ -1940,10 +1782,10 @@
                                 "Measure": {
                                   "Expression": {
                                     "SourceRef": {
-                                      "Entity": "EPOS Processed data"
+                                      "Entity": "IMS Processed"
                                     }
                                   },
-                                  "Property": "EPOS P Henkel Value Share Dynamic"
+                                  "Property": "Gross IMS P Change Dynamic"
                                 }
                               },
                               "Right": {
@@ -1974,7 +1816,87 @@
                 }
               }
             ],
-            "metadata": "EPOS Processed data.EPOS P Henkel Value Share Dynamic"
+            "metadata": "IMS Processed.Gross IMS P Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Conditional": {
+                      "Cases": [
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 2,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "EPOS Processed data"
+                                    }
+                                  },
+                                  "Property": "EPOS P Henkel Price Change Dynamic"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#16AC4A'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 3,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "EPOS Processed data"
+                                    }
+                                  },
+                                  "Property": "EPOS P Henkel Price Change Dynamic"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#DC2626'"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "EPOS Processed data.EPOS P Henkel Price Change Dynamic"
           }
         }
       ],
@@ -2105,6 +2027,13 @@
                   "Value": "1D"
                 }
               }
+            },
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
             }
           }
         }
@@ -2179,58 +2108,489 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "85D"
+                  "Value": "86D"
                 }
               }
             }
           },
           "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "MetricTable"
-                          }
-                        },
-                        "Property": "Source"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'EPOS'"
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "MetricTable"
-                          }
-                        },
-                        "Property": "Metric"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Vol Chg%'"
-                      }
-                    }
-                  }
+            "metadata": "IMS Processed.Gross IMS P Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "105.69697292700305D"
                 }
               }
-            ]
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Value Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Value Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.IMS P Matrix Vol NA"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Volume Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Volume Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.IMS P Matrix Price NA"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Price Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Price Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.Investment P Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.Net IMS P Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.GP1 P Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.GP1 Pct P Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.L6 Pct P Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "83.00573946813894D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.Gross IMS P Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "104.18181505361544D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Value Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Value Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.IMS P Matrix Vol Share Chg NA"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Volume Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Volume Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.IMS P Matrix Price Chg NA"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "98.12122714312358D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Price Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Price Change Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.Gross IMS P Share Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Value Share Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Value Share Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.Gross IMS P Growth Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Value Growth Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Value Growth Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.IMS P Matrix Vol Share NA"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Volume Share Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Volume Share Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "IMS Processed.IMS P Matrix Vol Chg Pct NA"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Nielsen Processed.Nielsen P Henkel Volume Growth Dynamic"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "EPOS Processed data.EPOS P Henkel Volume Growth Dynamic"
           }
         }
       ],
@@ -2275,7 +2635,7 @@
             "labelDisplayUnits": {
               "expr": {
                 "Literal": {
-                  "Value": "1000D"
+                  "Value": "1000000D"
                 }
               }
             },
@@ -2369,6 +2729,13 @@
                   "Value": "true"
                 }
               }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1000D"
+                }
+              }
             }
           },
           "selector": {
@@ -2380,7 +2747,7 @@
             "labelDisplayUnits": {
               "expr": {
                 "Literal": {
-                  "Value": "1000000D"
+                  "Value": "1000D"
                 }
               }
             },

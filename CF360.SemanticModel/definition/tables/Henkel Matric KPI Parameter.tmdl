@@ -71,34 +71,56 @@ table 'Henkel Matric KPI Parameter'
 	partition 'Henkel Matric KPI Parameter' = calculated
 		mode: import
 		source =
-				{(
-				    "Val IMS (M)", NAMEOF('IMS Processed'[Gross IMS P Dynamic]), 1, "Val", "IMS","📊 IMS Overview","VALUE & VOLUME"),
-				    ("L6 IMS (M)", NAMEOF('IMS Processed'[Investment P Dynamic]), 2, "Inves.", "IMS","📊 IMS Overview","P&L MEETRICS"),
-				    ("NES IMS (M)", NAMEOF('IMS Processed'[chg NES P dynamic]), 3, "NES", "IMS","📊 IMS Overview","P&L MEETRICS"),
-				    ("GP1 IMS (M)", NAMEOF('IMS Processed'[GP1 P Dynamic]), 4, "GP1", "IMS","📊 IMS Overview","P&L MEETRICS"),
-				    ("IMS Val Growth%", NAMEOF('IMS Processed'[Gross IMS P Growth dynamic]), 5, "Val Growth %", "IMS","📊 IMS Overview","VALUE & VOLUME"),
+				{
+				    ("Val IMS (M)", NAMEOF('IMS Processed'[Gross IMS P Dynamic]), 1, "Val", "IMS", "📊 IMS Overview", "VALUE & VOLUME"),
+				    ("Val Nielsen (M)", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Dynamic]), 2, "Val", "Nielsen", "📈 Nielsen Overview", "VALUE & VOLUME"),
+				    ("Val EPOS (M)", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Dynamic]), 3, "Val", "EPOS", "🛒 EPOS Overview", "VALUE & VOLUME"),
 				
-				    ("Val EPOS (M)", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Dynamic]), 6, "Val", "EPOS","🛒 EPOS Overview","OTHERS"),
-				    ("EPOS Val Share", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Share Dynamic]), 7, "Val Share", "EPOS","🛒 EPOS Overview","OTHERS"),
-				    ("EPOS Val Share Chg", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Change Dynamic]), 8, "Val Share Chg", "EPOS","🛒 EPOS Overview","OTHERS"),
-				    ("EPOS Val Growth%", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Growth Dynamic]), 9, "Val Growth%", "EPOS","🛒 EPOS Overview","OTHERS"),
-				    ("EPOS Vol", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Dynamic]), 10, "Vol", "EPOS","🛒 EPOS Overview","OTHERS"),
-				    ("EPOS Vol Share ", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Share Dynamic]), 11, "Vol Share", "EPOS","🛒 EPOS Overview","OTHERS"),
-				    ("EPOS Vol Share Chg ", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Change Dynamic]), 12, "Val Share Chg", "EPOS","🛒 EPOS Overview","OTHERS"),
-				    ("EPOS Vol Growth%", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Growth Dynamic]), 13, "Vol Growth%", "EPOS","🛒 EPOS Overview","OTHERS"),
-				    ("EPOS Price", NAMEOF('EPOS Processed data'[EPOS P Henkel Price Dynamic]), 14, "Price", "EPOS","🛒 EPOS Overview","OTHERS"),
-				    ("EPOS Price Chg", NAMEOF('EPOS Processed data'[EPOS P Henkel Price Change Dynamic]), 15, "Price Chg", "EPOS","🛒 EPOS Overview","OTHERS"),
+				    ("Vol IMS (K)", NAMEOF('IMS Processed'[IMS P Matrix Vol NA]), 4, "Vol", "IMS", "📊 IMS Overview", "VALUE & VOLUME"),
+				    ("Vol Nielsen (K)", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Dynamic]), 5, "Vol", "Nielsen", "📈 Nielsen Overview", "VALUE & VOLUME"),
+				    ("Vol EPOS (K)", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Dynamic]), 6, "Vol", "EPOS", "🛒 EPOS Overview", "VALUE & VOLUME"),
 				
-				    ("Nielsen Val", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Dynamic]), 16, "Val", "Nielsen","📈 Nielsen Overview","OTHERS"),
-				    ("Nielsen Val Share", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Share Dynamic]), 17, "Val Share", "Nielsen","📈 Nielsen Overview","OTHERS"),
-				    ("Nielsen Val Share Chg", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Change Dynamic]), 18, "Val Share Chg", "Nielsen","📈 Nielsen Overview","OTHERS"),
-				    ("Nielsen Val Growth%", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Growth Dynamic]), 19, "Val Growth%", "Nielsen","📈 Nielsen Overview","OTHERS"),
-				    ("Nielsen Vol", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Dynamic]), 20, "Vol", "Nielsen","📈 Nielsen Overview","OTHERS"),
-				    ("Nielsen Vol Share", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Share Dynamic]), 21, "Vol Share", "Nielsen","📈 Nielsen Overview","OTHERS"),
-				    ("Nielsen Vol Share Chg", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Change Dynamic]), 22, "Val Share Chg", "Nielsen","📈 Nielsen Overview","OTHERS"),
-				    ("Nielsen Vol Growth%", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Growth Dynamic]), 23, "Vol Growth%", "Nielsen","📈 Nielsen Overview","OTHERS"),
-				    ("Nielsen Price", NAMEOF('Nielsen Processed'[Nielsen P Henkel Price Dynamic]), 24, "Price", "Nielsen","📈 Nielsen Overview","OTHERS"),
-				    ("Nielsen Price Chg", NAMEOF('Nielsen Processed'[Nielsen P Henkel Price Change Dynamic]), 25, "Price Chg", "Nielsen","📈 Nielsen Overview","OTHERS")
+				    ("Price IMS (Avg)", NAMEOF('IMS Processed'[IMS P Matrix Price NA]), 7, "Price", "IMS", "📊 IMS Overview", "VALUE & VOLUME"),
+				    ("Price Nielsen (Avg)", NAMEOF('Nielsen Processed'[Nielsen P Henkel Price Dynamic]), 8, "Price", "Nielsen", "📈 Nielsen Overview", "VALUE & VOLUME"),
+				    ("Price EPOS (Avg)", NAMEOF('EPOS Processed data'[EPOS P Henkel Price Dynamic]), 9, "Price", "EPOS", "🛒 EPOS Overview", "VALUE & VOLUME"),
+				
+				    ("L6 IMS (M)", NAMEOF('IMS Processed'[Investment P Dynamic]), 10, "L6", "IMS", "📊 IMS Overview", "P&L MEETRICS"),
+				
+				    ("NES IMS (M)", NAMEOF('IMS Processed'[Net IMS P Dynamic]), 11, "NES", "IMS", "📊 IMS Overview", "P&L MEETRICS"),
+				
+				    ("GP1 IMS (M)", NAMEOF('IMS Processed'[GP1 P Dynamic]), 12, "GP1", "IMS", "📊 IMS Overview", "P&L MEETRICS"),
+				
+				    ("GP1% IMS", NAMEOF('IMS Processed'[GP1 Pct P Dynamic]), 13, "GP1%", "IMS", "📊 IMS Overview", "P&L MEETRICS"),
+				
+				    ("L6% IMS", NAMEOF('IMS Processed'[L6 Pct P Dynamic]), 14, "L6%", "IMS", "📊 IMS Overview", "P&L MEETRICS"),
+				
+				    ("Val Share Δ IMS (pp)", NAMEOF('IMS Processed'[Gross IMS P Change Dynamic]), 15, "Val Share Δ", "IMS", "📊 IMS Overview", "VALUE & VOLUME"),
+				    ("Val Share Δ Nielsen (pp)", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Change Dynamic]), 16, "Val Share Δ", "Nielsen", "📈 Nielsen Overview", "VALUE & VOLUME"),
+				    ("Val Share Δ EPOS (pp)", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Change Dynamic]), 17, "Val Share Δ", "EPOS", "🛒 EPOS Overview", "VALUE & VOLUME"),
+				
+				    ("Vol Share Δ IMS (pp)", NAMEOF('IMS Processed'[IMS P Matrix Vol Share Chg NA]), 18, "Vol Share Δ", "IMS", "📊 IMS Overview", "VALUE & VOLUME"),
+				    ("Vol Share Δ Nielsen (pp)", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Change Dynamic]), 19, "Vol Share Δ", "Nielsen", "📈 Nielsen Overview", "VALUE & VOLUME"),
+				    ("Vol Share Δ EPOS (pp)", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Change Dynamic]), 20, "Vol Share Δ", "EPOS", "🛒 EPOS Overview", "VALUE & VOLUME"),
+				
+				    ("Price Chg IMS (vs LY)", NAMEOF('IMS Processed'[IMS P Matrix Price Chg NA]), 21, "Price Chg", "IMS", "📊 IMS Overview", "VALUE & VOLUME"),
+				    ("Price Chg Nielsen (vs LY)", NAMEOF('Nielsen Processed'[Nielsen P Henkel Price Change Dynamic]), 22, "Price Chg", "Nielsen", "📈 Nielsen Overview", "VALUE & VOLUME"),
+				    ("Price Chg EPOS (vs LY)", NAMEOF('EPOS Processed data'[EPOS P Henkel Price Change Dynamic]), 23, "Price Chg", "EPOS", "🛒 EPOS Overview", "VALUE & VOLUME"),
+				
+				    ("Val Share IMS (%)", NAMEOF('IMS Processed'[Gross IMS P Share Dynamic]), 24, "Val Share", "IMS", "📊 IMS Overview", "VALUE & VOLUME"),
+				    ("Val Share Nielsen (%)", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Share Dynamic]), 25, "Val Share", "Nielsen", "📈 Nielsen Overview", "VALUE & VOLUME"),
+				    ("Val Share EPOS (%)", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Share Dynamic]), 26, "Val Share", "EPOS", "🛒 EPOS Overview", "VALUE & VOLUME"),
+				
+				    ("Val Chg% IMS (vs LY)", NAMEOF('IMS Processed'[Gross IMS P Growth Dynamic]), 27, "Val Chg%", "IMS", "📊 IMS Overview", "VALUE & VOLUME"),
+				    ("Val Chg% Nielsen (vs LY)", NAMEOF('Nielsen Processed'[Nielsen P Henkel Value Growth Dynamic]), 28, "Val Chg%", "Nielsen", "📈 Nielsen Overview", "VALUE & VOLUME"),
+				    ("Val Chg% EPOS (vs LY)", NAMEOF('EPOS Processed data'[EPOS P Henkel Value Growth Dynamic]), 29, "Val Chg%", "EPOS", "🛒 EPOS Overview", "VALUE & VOLUME"),
+				
+				    ("Vol Share IMS (%)", NAMEOF('IMS Processed'[IMS P Matrix Vol Share NA]), 30, "Vol Share", "IMS", "📊 IMS Overview", "VALUE & VOLUME"),
+				    ("Vol Share Nielsen (%)", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Share Dynamic]), 31, "Vol Share", "Nielsen", "📈 Nielsen Overview", "VALUE & VOLUME"),
+				    ("Vol Share EPOS (%)", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Share Dynamic]), 32, "Vol Share", "EPOS", "🛒 EPOS Overview", "VALUE & VOLUME"),
+				
+				    ("Vol Chg% IMS (vs LY)", NAMEOF('IMS Processed'[IMS P Matrix Vol Chg Pct NA]), 33, "Vol Chg%", "IMS", "📊 IMS Overview", "VALUE & VOLUME"),
+				    ("Vol Chg% Nielsen (vs LY)", NAMEOF('Nielsen Processed'[Nielsen P Henkel Volume Growth Dynamic]), 34, "Vol Chg%", "Nielsen", "📈 Nielsen Overview", "VALUE & VOLUME"),
+				    ("Vol Chg% EPOS (vs LY)", NAMEOF('EPOS Processed data'[EPOS P Henkel Volume Growth Dynamic]), 35, "Vol Chg%", "EPOS", "🛒 EPOS Overview", "VALUE & VOLUME")
 				}
 
 	annotation PBI_Id = eaad42bd97614932b38bd9201d2befc4

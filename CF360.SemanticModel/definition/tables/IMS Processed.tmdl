@@ -1477,6 +1477,98 @@ table 'IMS Processed'
 		displayFolder: Gross IMS P
 		lineageTag: c23aa7f4-cfc3-49a1-a3c4-4a091c534781
 
+	/// Placeholder — PTT is not implemented in this model. The existing
+	/// 'IMS P Henkel PTT * Dynamic' measures are aliases of the Gross IMS value
+	/// measures, so binding them would repeat the Val block rather than show PTT.
+	/// The P&L-IMS table therefore renders the PTT columns blank by design.
+	measure 'IMS P Matrix PTT NA' = BLANK()
+		formatString: #,0.0
+		displayFolder: Matrix Placeholders (No Data)
+		lineageTag: 3c1f7a80-11d4-4e51-9a01-0b7e5a2d6107
+
+	/// Placeholder — no PTT data, so "PTT Chg %" renders blank by design.
+	measure 'IMS P Matrix PTT Chg NA' = BLANK()
+		formatString: 0.0%
+		displayFolder: Matrix Placeholders (No Data)
+		lineageTag: 3c1f7a80-11d4-4e51-9a01-0b7e5a2d6108
+
+	/// P&L-IMS display wrapper: same value as [Gross IMS P Growth Dynamic] with the
+	/// HTML's arrow baked into the format string. Base measure untouched.
+	measure 'IMS PnL Val Growth Arrow' = [Gross IMS P Growth Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: IMS PnL Arrows
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400001
+
+	/// P&L-IMS display wrapper: same value as [Gross IMS P Change Dynamic] with the
+	/// HTML's arrow baked into the format string. Base measure untouched.
+	measure 'IMS PnL Val Contrib Chg Arrow' = [Gross IMS P Change Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: IMS PnL Arrows
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400002
+
+	/// P&L-IMS display wrapper: same value as [IMS P Henkel Volume Growth Dynamic] with the
+	/// HTML's arrow baked into the format string. Base measure untouched.
+	measure 'IMS PnL Vol Growth Arrow' = [IMS P Henkel Volume Growth Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: IMS PnL Arrows
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400003
+
+	/// P&L-IMS display wrapper: same value as [IMS P Henkel Volume Change Dynamic] with the
+	/// HTML's arrow baked into the format string. Base measure untouched.
+	measure 'IMS PnL Vol Contrib Chg Arrow' = [IMS P Henkel Volume Change Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: IMS PnL Arrows
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400004
+
+	/// P&L-IMS display wrapper: same value as [IMS P Henkel PTT Growth Dynamic] with the
+	/// HTML's arrow baked into the format string. Base measure untouched.
+	measure 'IMS PnL PTT Chg Arrow' = [IMS P Henkel PTT Growth Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: IMS PnL Arrows
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400005
+
+	/// P&L-IMS display wrapper: same value as [Investment P Growth Dynamic] with the
+	/// HTML's arrow baked into the format string. Base measure untouched.
+	measure 'IMS PnL L6 Growth Arrow' = [Investment P Growth Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: IMS PnL Arrows
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400006
+
+	/// P&L-IMS display wrapper: same value as [Investment P Change Dynamic] with the
+	/// HTML's arrow baked into the format string. Base measure untouched.
+	measure 'IMS PnL L6 Contrib Chg Arrow' = [Investment P Change Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: IMS PnL Arrows
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400007
+
+	/// P&L-IMS display wrapper: same value as [Net IMS P Growth Dynamic] with the
+	/// HTML's arrow baked into the format string. Base measure untouched.
+	measure 'IMS PnL NES Growth Arrow' = [Net IMS P Growth Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: IMS PnL Arrows
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400008
+
+	/// P&L-IMS display wrapper: same value as [Net IMS P Change Dynamic] with the
+	/// HTML's arrow baked into the format string. Base measure untouched.
+	measure 'IMS PnL NES Contrib Chg Arrow' = [Net IMS P Change Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: IMS PnL Arrows
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400009
+
+	/// P&L-IMS display wrapper: same value as [GP1 P Growth Dynamic] with the
+	/// HTML's arrow baked into the format string. Base measure untouched.
+	measure 'IMS PnL GP1 Growth Arrow' = [GP1 P Growth Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: IMS PnL Arrows
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400010
+
+	/// P&L-IMS display wrapper: same value as [GP1 P Change Dynamic] with the
+	/// HTML's arrow baked into the format string. Base measure untouched.
+	measure 'IMS PnL GP1 Contrib Chg Arrow' = [GP1 P Change Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: IMS PnL Arrows
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400011
+
 	column BU
 		dataType: string
 		lineageTag: 1b1e2ce8-08a2-4e23-99ab-4c5d996cda11

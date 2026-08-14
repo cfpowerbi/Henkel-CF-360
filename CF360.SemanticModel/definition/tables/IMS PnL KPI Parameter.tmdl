@@ -1,0 +1,84 @@
+table 'IMS PnL KPI Parameter'
+	lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b409000
+
+	column 'PnL Parameter'
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b409001
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'PnL Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'PnL Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PnL Parameter Fields'
+		isHidden
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b409002
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'PnL Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PnL Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b409003
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value4
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b409004
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value5
+		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b409005
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value5]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'IMS PnL KPI Parameter' = calculated
+		mode: import
+		source =
+				{
+				    ("Val", NAMEOF('IMS Processed'[Gross IMS P Dynamic]), 1, "Val", "Value & Volume"),
+				    ("Val Contrib.", NAMEOF('IMS Processed'[Gross IMS P Share Dynamic]), 2, "Val", "Value & Volume"),
+				    ("Val Growth %", NAMEOF('IMS Processed'[IMS PnL Val Growth Arrow]), 3, "Val", "Value & Volume"),
+				    ("Val Contrib. Chg%", NAMEOF('IMS Processed'[IMS PnL Val Contrib Chg Arrow]), 4, "Val", "Value & Volume"),
+				    ("Vol", NAMEOF('IMS Processed'[IMS P Henkel Volume Dynamic]), 5, "Vol", "Value & Volume"),
+				    ("Vol Contrib.", NAMEOF('IMS Processed'[IMS P Henkel Volume Share Dynamic]), 6, "Vol", "Value & Volume"),
+				    ("Vol Growth %", NAMEOF('IMS Processed'[IMS PnL Vol Growth Arrow]), 7, "Vol", "Value & Volume"),
+				    ("Vol Contrib. Chg%", NAMEOF('IMS Processed'[IMS PnL Vol Contrib Chg Arrow]), 8, "Vol", "Value & Volume"),
+				    ("PTT", NAMEOF('IMS Processed'[IMS P Henkel PTT Dynamic]), 9, "PTT", "P&L Metrics"),
+				    ("PTT Chg %", NAMEOF('IMS Processed'[IMS PnL PTT Chg Arrow]), 10, "PTT", "P&L Metrics"),
+				    ("L6", NAMEOF('IMS Processed'[Investment P Dynamic]), 11, "L6", "P&L Metrics"),
+				    ("L6 Contrib.", NAMEOF('IMS Processed'[Investment P Share Dynamic]), 12, "L6", "P&L Metrics"),
+				    ("L6 Growth %", NAMEOF('IMS Processed'[IMS PnL L6 Growth Arrow]), 13, "L6", "P&L Metrics"),
+				    ("L6 Contrib. Chg%", NAMEOF('IMS Processed'[IMS PnL L6 Contrib Chg Arrow]), 14, "L6", "P&L Metrics"),
+				    ("NES", NAMEOF('IMS Processed'[Net IMS P Dynamic]), 15, "NES", "P&L Metrics"),
+				    ("NES Contrib.", NAMEOF('IMS Processed'[Net IMS P Share Dynamic]), 16, "NES", "P&L Metrics"),
+				    ("NES Growth %", NAMEOF('IMS Processed'[IMS PnL NES Growth Arrow]), 17, "NES", "P&L Metrics"),
+				    ("NES Contrib. Chg%", NAMEOF('IMS Processed'[IMS PnL NES Contrib Chg Arrow]), 18, "NES", "P&L Metrics"),
+				    ("GP1", NAMEOF('IMS Processed'[GP1 P Dynamic]), 19, "GP1", "P&L Metrics"),
+				    ("GP1 Contrib.", NAMEOF('IMS Processed'[GP1 P Share Dynamic]), 20, "GP1", "P&L Metrics"),
+				    ("GP1 Growth %", NAMEOF('IMS Processed'[IMS PnL GP1 Growth Arrow]), 21, "GP1", "P&L Metrics"),
+				    ("GP1 Contrib. Chg%", NAMEOF('IMS Processed'[IMS PnL GP1 Contrib Chg Arrow]), 22, "GP1", "P&L Metrics")
+				}
+
+	annotation PBI_Id = 5e7a91c03b424d189f607a1c2b409fff
+

@@ -1267,6 +1267,384 @@ table 'Nielsen Processed'
 		displayFolder: Nielsen P volume share
 		lineageTag: e570c267-e188-4aba-8c81-be1f66d763e3
 
+	/// Online/Offline split for the "Online/Offline Split" page donuts.
+	/// Wraps the existing period-aware [Nielsen P Value Dynamic] so the PeriodMode
+	/// (YTD/MAT/Custom) switch keeps working; the base measure is not modified.
+	measure 'Nielsen P Value Online Dynamic' =
+			CALCULATE (
+			    [Nielsen P Value Dynamic],
+			    'Nielsen Processed'[Sales_Type] = "Online"
+			)
+		formatString: 0.00
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840001
+
+	/// Offline counterpart of [Nielsen P Value Online Dynamic].
+	measure 'Nielsen P Value Offline Dynamic' =
+			CALCULATE (
+			    [Nielsen P Value Dynamic],
+			    'Nielsen Processed'[Sales_Type] = "Offline"
+			)
+		formatString: 0.00
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840002
+
+	/// Online volume. Wraps the existing [Nielsen P Volume Dynamic] — note the
+	/// correct base name is "Volume", not "Vol"; no 'Nielsen P Vol Dynamic' exists.
+	measure 'Nielsen P Volume Online Dynamic' =
+			CALCULATE (
+			    [Nielsen P Volume Dynamic],
+			    'Nielsen Processed'[Sales_Type] = "Online"
+			)
+		formatString: 0
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840003
+
+	/// Offline counterpart of [Nielsen P Volume Online Dynamic].
+	measure 'Nielsen P Volume Offline Dynamic' =
+			CALCULATE (
+			    [Nielsen P Volume Dynamic],
+			    'Nielsen Processed'[Sales_Type] = "Offline"
+			)
+		formatString: 0
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840004
+
+	/// Centre-of-donut card label, mirroring the HTML donut centre (c1, e.g. "SAR 150M").
+	/// sales_value_000 is in thousands, so >= 1000 is divided to millions and suffixed
+	/// "M", below that it stays thousands and is suffixed "K" — the same magnitude
+	/// switch the HTML formatters do. Returns text, so it is display-only.
+	measure 'Nielsen P Value Online Card' =
+			VAR v = [Nielsen P Value Online Dynamic]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			             IF (
+			                ABS ( v ) >= 1000,
+			                FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			                FORMAT ( v, "#,0.0" ) & "K"
+			            )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840011
+
+	/// Offline counterpart of [Nielsen P Value Online Card].
+	measure 'Nielsen P Value Offline Card' =
+			VAR v = [Nielsen P Value Offline Dynamic]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        "SAR "
+			            & IF (
+			                ABS ( v ) >= 1000,
+			                FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			                FORMAT ( v, "#,0.0" ) & "K"
+			            )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840012
+
+	/// Centre-of-donut card label for volume — same magnitude switch, no currency prefix.
+	measure 'Nielsen P Volume Online Card' =
+			VAR v = [Nielsen P Volume Online Dynamic]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840013
+
+	/// Offline counterpart of [Nielsen P Volume Online Card].
+	measure 'Nielsen P Volume Offline Card' =
+			VAR v = [Nielsen P Volume Offline Dynamic]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840014
+
+	/// Country label for the multi-country analysis, scoped to the countries Nielsen
+	/// actually carries (2 today: KSA, UAE) so it grows automatically as more load.
+	measure 'Selected Nielsen Country' =
+			IF (
+			    HASONEVALUE ( 'Nielsen Processed'[Country] ),
+			    SELECTEDVALUE ( 'Nielsen Processed'[Country] ),
+			    "GCC Total"
+			)
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910004
+
+	/// Panel headers for the "Selected Country" row — mirrors the HTML
+	/// "<KSA> · Online" / "<KSA> · Offline" titles.
+	measure 'Selected Nielsen Country Online Heading' = [Selected Nielsen Country] & " · Online"
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910005
+
+	/// Offline counterpart of [Selected Nielsen Country Online Heading].
+	measure 'Selected Nielsen Country Offline Heading' = [Selected Nielsen Country] & " · Offline"
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910006
+
+	/// GCC Total (all countries). Wraps the Online/Offline split measure and strips
+	/// any country filter -- page slicer or global -- so the GCC row always shows the
+	/// full market, matching the HTML note on the Country Level Analysis header.
+	measure 'Nielsen P Value Online GCC' =
+			CALCULATE (
+			    [Nielsen P Value Online Dynamic],
+			    REMOVEFILTERS ( 'All channel'[Country] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			)
+		formatString: 0.00
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910021
+
+	measure 'Nielsen P Value Offline GCC' =
+			CALCULATE (
+			    [Nielsen P Value Offline Dynamic],
+			    REMOVEFILTERS ( 'All channel'[Country] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			)
+		formatString: 0.00
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910022
+
+	measure 'Nielsen P Volume Online GCC' =
+			CALCULATE (
+			    [Nielsen P Volume Online Dynamic],
+			    REMOVEFILTERS ( 'All channel'[Country] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			)
+		formatString: 0
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910023
+
+	measure 'Nielsen P Volume Offline GCC' =
+			CALCULATE (
+			    [Nielsen P Volume Offline Dynamic],
+			    REMOVEFILTERS ( 'All channel'[Country] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			)
+		formatString: 0
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910024
+
+	/// Centre-of-donut card labels for the GCC row -- same magnitude switch as the
+	/// country-level *Card measures. Text, display only.
+	measure 'Nielsen P Value Online GCC Card' =
+			VAR v = [Nielsen P Value Online GCC]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        "SAR "
+			            & IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910031
+
+	measure 'Nielsen P Value Offline GCC Card' =
+			VAR v = [Nielsen P Value Offline GCC]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        "SAR "
+			            & IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910032
+
+	measure 'Nielsen P Volume Online GCC Card' =
+			VAR v = [Nielsen P Volume Online GCC]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910033
+
+	measure 'Nielsen P Volume Offline GCC Card' =
+			VAR v = [Nielsen P Volume Offline GCC]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910034
+
+	/// Row-2 label for the Format Level Analysis page, scoped to Nielsen's own
+	/// Format values. Mirrors [Selected Nielsen Country].
+	measure 'Selected Nielsen Format' =
+			IF (
+			    HASONEVALUE ( 'Hierarchy Index'[Format] ),
+			    SELECTEDVALUE ( 'Hierarchy Index'[Format] ),
+			    "All Formats"
+			)
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910061
+
+	/// Panel header for the "Selected Format" row - mirrors the HTML
+	/// "<Shampoo> · Online" title.
+	measure 'Selected Nielsen Format Online Heading' = [Selected Nielsen Format] & " · Online"
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910062
+
+	/// Panel header for the "Selected Format" row - mirrors the HTML
+	/// "<Shampoo> · Offline" title.
+	measure 'Selected Nielsen Format Offline Heading' = [Selected Nielsen Format] & " · Offline"
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910063
+
+	/// GCC Total - All Formats. Strips Format and Country so row 1 always shows the
+	/// whole market, matching the pbc8 note "Global Format filter will not effect
+	/// the view". Wraps the existing Online/Offline split measures unchanged.
+	measure 'Nielsen P Value Online AllFmt' =
+			CALCULATE (
+			    [Nielsen P Value Online Dynamic],
+			    REMOVEFILTERS ( 'Hierarchy Index'[Format] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Format] ),
+			    REMOVEFILTERS ( 'All channel'[Country] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			)
+		formatString: 0.00
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910041
+
+	measure 'Nielsen P Value Offline AllFmt' =
+			CALCULATE (
+			    [Nielsen P Value Offline Dynamic],
+			    REMOVEFILTERS ( 'Hierarchy Index'[Format] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Format] ),
+			    REMOVEFILTERS ( 'All channel'[Country] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			)
+		formatString: 0.00
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910042
+
+	measure 'Nielsen P Volume Online AllFmt' =
+			CALCULATE (
+			    [Nielsen P Volume Online Dynamic],
+			    REMOVEFILTERS ( 'Hierarchy Index'[Format] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Format] ),
+			    REMOVEFILTERS ( 'All channel'[Country] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			)
+		formatString: 0
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910043
+
+	measure 'Nielsen P Volume Offline AllFmt' =
+			CALCULATE (
+			    [Nielsen P Volume Offline Dynamic],
+			    REMOVEFILTERS ( 'Hierarchy Index'[Format] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Format] ),
+			    REMOVEFILTERS ( 'All channel'[Country] ),
+			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			)
+		formatString: 0
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910044
+
+	/// Centre-of-donut card labels for the All-Formats row - same magnitude switch
+	/// as the other *Card measures. Text, display only.
+	measure 'Nielsen P Value Online AllFmt Card' =
+			VAR v = [Nielsen P Value Online AllFmt]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        "SAR "
+			            & IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910051
+
+	measure 'Nielsen P Value Offline AllFmt Card' =
+			VAR v = [Nielsen P Value Offline AllFmt]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        "SAR "
+			            & IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910052
+
+	measure 'Nielsen P Volume Online AllFmt Card' =
+			VAR v = [Nielsen P Volume Online AllFmt]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910053
+
+	measure 'Nielsen P Volume Offline AllFmt Card' =
+			VAR v = [Nielsen P Volume Offline AllFmt]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Online Offline Split
+		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910054
+
 	column BU
 		dataType: string
 		lineageTag: 0a1aa6db-436d-4160-8513-921743e4dfae
