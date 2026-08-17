@@ -33,6 +33,34 @@ table 'All channel'
 			) & " . " & SELECTEDVALUE('Nielsen Processed'[Sales_Type]) & " . Manufacturer"
 		lineageTag: c743f722-174e-470b-8cab-8aa6217f84b9
 
+	/// Row-1 heading for the Online / Offline split pages. Reads "GCC Total" when
+	/// every country is in scope, otherwise the selected country name(s).
+	measure 'Selected Country Online Heading' =
+			VAR _sel = VALUES ( 'All channel'[Country] )
+			VAR _n = COUNTROWS ( _sel )
+			VAR _tot = COUNTROWS ( ALL ( 'All channel'[Country] ) )
+			RETURN
+			    IF (
+			        _n = _tot,
+			        "GCC Total",
+			        CONCATENATEX ( _sel, 'All channel'[Country], ", " )
+			    ) & " · Online"
+		lineageTag: 3f8b21a6-47c0-4d19-9b5e-6a10c7d48801
+
+	/// Row-1 heading for the Online / Offline split pages. Reads "GCC Total" when
+	/// every country is in scope, otherwise the selected country name(s).
+	measure 'Selected Country Offline Heading' =
+			VAR _sel = VALUES ( 'All channel'[Country] )
+			VAR _n = COUNTROWS ( _sel )
+			VAR _tot = COUNTROWS ( ALL ( 'All channel'[Country] ) )
+			RETURN
+			    IF (
+			        _n = _tot,
+			        "GCC Total",
+			        CONCATENATEX ( _sel, 'All channel'[Country], ", " )
+			    ) & " · Offline"
+		lineageTag: 3f8b21a6-47c0-4d19-9b5e-6a10c7d48802
+
 	column Channel
 		dataType: string
 		lineageTag: f79b7aca-51e9-49e4-b67a-b3cca3332965

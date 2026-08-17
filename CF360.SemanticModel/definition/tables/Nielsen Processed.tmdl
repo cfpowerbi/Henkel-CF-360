@@ -1237,36 +1237,6 @@ table 'Nielsen Processed'
 		displayFolder: Nielsen P Price
 		lineageTag: fccbb0bb-ea3c-45ec-9a63-f116515ac817
 
-	measure 'Nielsen P Value Dynamic in M' =
-			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
-			VAR RESULT =
-			    SWITCH (
-			        SelectedMode,
-			        "YTD", [Nielsen P Value YTD],
-			        "MAT", [Nielsen P Value MAT],
-			        [Nielsen P Value Custom]
-			    )
-			RETURN
-			    DIVIDE ( RESULT, 1000000 )
-		formatString: #,##0.00"M"
-		displayFolder: Nielsen P value share
-		lineageTag: 6f911885-2bb8-4a07-8254-cf9fa1277f2a
-
-	measure 'Nielsen P Volume Dynamic in M' =
-			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
-			VAR RESULT =
-			    SWITCH (
-			        SelectedMode,
-			        "YTD", [Nielsen P Volume YTD],
-			        "MAT", [Nielsen P Volume MAT],
-			        [Nielsen P Volume Custom]
-			    )
-			RETURN
-			    DIVIDE ( RESULT, 1000000 )
-		formatString: #,##0.00"M"
-		displayFolder: Nielsen P volume share
-		lineageTag: e570c267-e188-4aba-8c81-be1f66d763e3
-
 	/// Online/Offline split for the "Online/Offline Split" page donuts.
 	/// Wraps the existing period-aware [Nielsen P Value Dynamic] so the PeriodMode
 	/// (YTD/MAT/Custom) switch keeps working; the base measure is not modified.
@@ -1336,8 +1306,7 @@ table 'Nielsen Processed'
 			    IF (
 			        ISBLANK ( v ),
 			        BLANK (),
-			        "SAR "
-			            & IF (
+			         IF (
 			                ABS ( v ) >= 1000,
 			                FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
 			                FORMAT ( v, "#,0.0" ) & "K"
@@ -1405,9 +1374,7 @@ table 'Nielsen Processed'
 	/// full market, matching the HTML note on the Country Level Analysis header.
 	measure 'Nielsen P Value Online GCC' =
 			CALCULATE (
-			    [Nielsen P Value Online Dynamic],
-			    REMOVEFILTERS ( 'All channel'[Country] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			    [Nielsen P Value Online Dynamic]
 			)
 		formatString: 0.00
 		displayFolder: Nielsen P Online Offline Split
@@ -1415,9 +1382,7 @@ table 'Nielsen Processed'
 
 	measure 'Nielsen P Value Offline GCC' =
 			CALCULATE (
-			    [Nielsen P Value Offline Dynamic],
-			    REMOVEFILTERS ( 'All channel'[Country] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			    [Nielsen P Value Offline Dynamic]
 			)
 		formatString: 0.00
 		displayFolder: Nielsen P Online Offline Split
@@ -1425,9 +1390,7 @@ table 'Nielsen Processed'
 
 	measure 'Nielsen P Volume Online GCC' =
 			CALCULATE (
-			    [Nielsen P Volume Online Dynamic],
-			    REMOVEFILTERS ( 'All channel'[Country] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			    [Nielsen P Volume Online Dynamic]
 			)
 		formatString: 0
 		displayFolder: Nielsen P Online Offline Split
@@ -1435,9 +1398,7 @@ table 'Nielsen Processed'
 
 	measure 'Nielsen P Volume Offline GCC' =
 			CALCULATE (
-			    [Nielsen P Volume Offline Dynamic],
-			    REMOVEFILTERS ( 'All channel'[Country] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			    [Nielsen P Volume Offline Dynamic]
 			)
 		formatString: 0
 		displayFolder: Nielsen P Online Offline Split
@@ -1451,8 +1412,7 @@ table 'Nielsen Processed'
 			    IF (
 			        ISBLANK ( v ),
 			        BLANK (),
-			        "SAR "
-			            & IF (
+			        IF (
 			            ABS ( v ) >= 1000,
 			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
 			            FORMAT ( v, "#,0.0" ) & "K"
@@ -1467,8 +1427,7 @@ table 'Nielsen Processed'
 			    IF (
 			        ISBLANK ( v ),
 			        BLANK (),
-			        "SAR "
-			            & IF (
+			         IF (
 			            ABS ( v ) >= 1000,
 			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
 			            FORMAT ( v, "#,0.0" ) & "K"
@@ -1535,11 +1494,7 @@ table 'Nielsen Processed'
 	/// the view". Wraps the existing Online/Offline split measures unchanged.
 	measure 'Nielsen P Value Online AllFmt' =
 			CALCULATE (
-			    [Nielsen P Value Online Dynamic],
-			    REMOVEFILTERS ( 'Hierarchy Index'[Format] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Format] ),
-			    REMOVEFILTERS ( 'All channel'[Country] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			    [Nielsen P Value Online Dynamic]
 			)
 		formatString: 0.00
 		displayFolder: Nielsen P Online Offline Split
@@ -1547,11 +1502,7 @@ table 'Nielsen Processed'
 
 	measure 'Nielsen P Value Offline AllFmt' =
 			CALCULATE (
-			    [Nielsen P Value Offline Dynamic],
-			    REMOVEFILTERS ( 'Hierarchy Index'[Format] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Format] ),
-			    REMOVEFILTERS ( 'All channel'[Country] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			    [Nielsen P Value Offline Dynamic]
 			)
 		formatString: 0.00
 		displayFolder: Nielsen P Online Offline Split
@@ -1559,11 +1510,7 @@ table 'Nielsen Processed'
 
 	measure 'Nielsen P Volume Online AllFmt' =
 			CALCULATE (
-			    [Nielsen P Volume Online Dynamic],
-			    REMOVEFILTERS ( 'Hierarchy Index'[Format] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Format] ),
-			    REMOVEFILTERS ( 'All channel'[Country] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			    [Nielsen P Volume Online Dynamic]
 			)
 		formatString: 0
 		displayFolder: Nielsen P Online Offline Split
@@ -1571,11 +1518,7 @@ table 'Nielsen Processed'
 
 	measure 'Nielsen P Volume Offline AllFmt' =
 			CALCULATE (
-			    [Nielsen P Volume Offline Dynamic],
-			    REMOVEFILTERS ( 'Hierarchy Index'[Format] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Format] ),
-			    REMOVEFILTERS ( 'All channel'[Country] ),
-			    REMOVEFILTERS ( 'Nielsen Processed'[Country] )
+			    [Nielsen P Volume Offline Dynamic]
 			)
 		formatString: 0
 		displayFolder: Nielsen P Online Offline Split
@@ -1589,8 +1532,7 @@ table 'Nielsen Processed'
 			    IF (
 			        ISBLANK ( v ),
 			        BLANK (),
-			        "SAR "
-			            & IF (
+			        IF (
 			            ABS ( v ) >= 1000,
 			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
 			            FORMAT ( v, "#,0.0" ) & "K"
@@ -1605,8 +1547,7 @@ table 'Nielsen Processed'
 			    IF (
 			        ISBLANK ( v ),
 			        BLANK (),
-			        "SAR "
-			            & IF (
+			        IF (
 			            ABS ( v ) >= 1000,
 			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
 			            FORMAT ( v, "#,0.0" ) & "K"
@@ -1645,6 +1586,36 @@ table 'Nielsen Processed'
 		displayFolder: Nielsen P Online Offline Split
 		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910054
 
+	measure 'Nielsen P Value Dynamic in M' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR RESULT =
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Value YTD],
+			        "MAT", [Nielsen P Value MAT],
+			        [Nielsen P Value Custom]
+			    )
+			RETURN
+			    DIVIDE ( RESULT, 1000000 )
+		formatString: #,##0.00"M"
+		displayFolder: Nielsen P value share
+		lineageTag: 6f911885-2bb8-4a07-8254-cf9fa1277f2a
+
+	measure 'Nielsen P Volume Dynamic in M' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR RESULT =
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Volume YTD],
+			        "MAT", [Nielsen P Volume MAT],
+			        [Nielsen P Volume Custom]
+			    )
+			RETURN
+			    DIVIDE ( RESULT, 1000000 )
+		formatString: #,##0.00"M"
+		displayFolder: Nielsen P volume share
+		lineageTag: e570c267-e188-4aba-8c81-be1f66d763e3
+
 	measure 'Nielsen P Price PY Dynamic' =
 			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
 			RETURN
@@ -1658,6 +1629,19 @@ table 'Nielsen Processed'
 		lineageTag: 1ddaf115-05e3-4f3a-90a6-042f0b92f4c2
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Nielsen P Price LY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Price LY YTD],
+			        "MAT", [Nielsen P Price LY MAT],
+			        [Nielsen P Price LY Custom]
+			    )
+		formatString: 0.00
+		displayFolder: Nielsen P Price
+		lineageTag: 4f1c8b62-9d05-4a7e-b3c1-7e2a6d904f18
 
 	column BU
 		dataType: string

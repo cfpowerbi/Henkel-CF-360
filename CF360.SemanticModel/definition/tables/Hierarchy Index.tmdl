@@ -4,11 +4,16 @@ table 'Hierarchy Index'
 	/// Dynamic BU label for the Country Level Analysis header, mirroring the HTML's
 	/// bunav_pbc7_label. Follows the same shape as 'All channel'[Selected Country Heading].
 	measure 'Selected BU Heading' =
-			IF (
-			    HASONEVALUE ( 'Hierarchy Index'[BU] ),
-			    SELECTEDVALUE ( 'Hierarchy Index'[BU] ),
-			    "All BUs"
-			)
+			VAR _sel = VALUES ( 'Hierarchy Index'[BU] )
+			VAR _n = COUNTROWS ( _sel )
+			VAR _tot = COUNTROWS ( ALL ( 'Hierarchy Index'[BU] ) )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        _n = 1, CONCATENATEX ( _sel, 'Hierarchy Index'[BU] ),
+			        _n = _tot, "All BUs",
+			        CONCATENATEX ( _sel, 'Hierarchy Index'[BU], ", " )
+			    )
 		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910001
 
 	column BU
