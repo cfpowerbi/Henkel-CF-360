@@ -1462,21 +1462,6 @@ table 'IMS Processed'
 		displayFolder: Matrix Placeholders (No Data)
 		lineageTag: 3c1f7a80-11d4-4e51-9a01-0b7e5a2d6106
 
-	measure 'Gross IMS P Dynamic in M' =
-			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
-			VAR RESULT =
-			    SWITCH (
-			        SelectedMode,
-			        "YTD", [Gross IMS P YTD],
-			        "MAT", [Gross IMS P MAT],
-			        [Gross IMS P Custom]
-			    )
-			RETURN
-			    DIVIDE ( RESULT, 1000000 )
-		formatString: #,##0.00"M"
-		displayFolder: Gross IMS P
-		lineageTag: c23aa7f4-cfc3-49a1-a3c4-4a091c534781
-
 	/// Placeholder — PTT is not implemented in this model. The existing
 	/// 'IMS P Henkel PTT * Dynamic' measures are aliases of the Gross IMS value
 	/// measures, so binding them would repeat the Val block rather than show PTT.
@@ -1568,6 +1553,21 @@ table 'IMS Processed'
 		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
 		displayFolder: IMS PnL Arrows
 		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400011
+
+	measure 'Gross IMS P Dynamic in M' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			VAR RESULT =
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Gross IMS P YTD],
+			        "MAT", [Gross IMS P MAT],
+			        [Gross IMS P Custom]
+			    )
+			RETURN
+			    DIVIDE ( RESULT, 1000000 )
+		formatString: #,##0.00"M"
+		displayFolder: Gross IMS P
+		lineageTag: c23aa7f4-cfc3-49a1-a3c4-4a091c534781
 
 	column BU
 		dataType: string

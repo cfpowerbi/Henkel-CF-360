@@ -34,6 +34,25 @@ table 'Donut Parameter (Nielsen)'
 			SELECTEDVALUE('Donut Parameter (Nielsen)'[Value4])
 		lineageTag: 7d5ae072-5bc7-40da-bbdb-30a2487a6b1a
 
+	/// Section heading for the Online / Offline split pages. Follows the
+	/// Manufacturer / Brand View By toggle.
+	measure 'Online Offline Analysis Heading' =
+			
+			VAR _view =
+			    SWITCH (
+			        SELECTEDVALUE ( 'Donut Parameter (Nielsen)'[Value4], "Manufacturer" ),
+			        "Manufacturer", "Manufacturer",
+			        "Brand", "Brand",
+			        "Manufacturer"
+			    )
+			RETURN
+			    "Online vs Offline "
+			        & UNICHAR ( 183 )
+			        & " "
+			        & _view
+			        & " Analysis"
+		lineageTag: 3f8b21a6-47c0-4d19-9b5e-6a10c7d48803
+
 	column Parameter
 		lineageTag: 056a3b06-0676-47c1-b119-41d4bfa7c31d
 		summarizeBy: none
