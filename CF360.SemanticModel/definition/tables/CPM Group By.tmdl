@@ -1,0 +1,63 @@
+table 'CPM Group By'
+	lineageTag: 7c41d0b8-52a9-4e6d-9f31-8b02c5a17000
+
+	/// Group-By field parameter for the Country Performance Matrix page. Every level
+	/// resolves to a column on 'IMS Processed' itself, so the matrix never has to join
+	/// two dimension tables and cannot raise "Can't determine relationships".
+	column 'Group By'
+		lineageTag: 7c41d0b8-52a9-4e6d-9f31-8b02c5a17001
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Group By Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Group By Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group By Fields'
+		isHidden
+		lineageTag: 7c41d0b8-52a9-4e6d-9f31-8b02c5a17002
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Group By Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group By Order'
+		isHidden
+		formatString: 0
+		lineageTag: 7c41d0b8-52a9-4e6d-9f31-8b02c5a17003
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'CPM Group By' = calculated
+		mode: import
+		source =
+				{
+				    ("Brand Strategy", NAMEOF('IMS Processed'[Brand Strategy]), 0),
+				    ("Sub Category", NAMEOF('IMS Processed'[SubCategory]), 1),
+				    ("Format", NAMEOF('IMS Processed'[Format]), 2),
+				    ("Brand", NAMEOF('IMS Processed'[Brand]), 3),
+				    ("Price Brand", NAMEOF('IMS Processed'[Price_Brand]), 4),
+				    ("Size", NAMEOF('IMS Processed'[Size]), 5),
+				    ("Promo Type", NAMEOF('IMS Processed'[PromoType]), 6),
+				    ("Channel", NAMEOF('IMS Processed'[Channel]), 7),
+				    ("Sub Channel", NAMEOF('IMS Processed'[Subchannel]), 8),
+				    ("Customer Group", NAMEOF('IMS Processed'[Customer_Group]), 9),
+				    ("Sales Type", NAMEOF('IMS Processed'[Sales_Type]), 10),
+				    ("Month", NAMEOF('IMS Processed'[Date]), 11),
+				    ("BU", NAMEOF('IMS Processed'[BU]), 12),
+				    ("Distributor", NAMEOF('IMS Processed'[Distributor]), 13)
+				}
+
+	annotation PBI_Id = 7c41d0b852a94e6d9f318b02c5a17fff
+
