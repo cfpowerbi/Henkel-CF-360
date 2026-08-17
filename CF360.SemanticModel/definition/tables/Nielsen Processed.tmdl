@@ -1645,6 +1645,20 @@ table 'Nielsen Processed'
 		displayFolder: Nielsen P Online Offline Split
 		lineageTag: 9a2c4f10-6d71-4e83-b5a2-2c7e4b910054
 
+	measure 'Nielsen P Price PY Dynamic' =
+			VAR SelectedMode = SELECTEDVALUE ( 'PeriodMode'[Mode], "YTD" )
+			RETURN
+			    SWITCH (
+			        SelectedMode,
+			        "YTD", [Nielsen P Price YTD LY],
+			        "MAT", [Nielsen P Price MAT LY],
+			        [Nielsen P Price Custom LY]
+			    )
+		displayFolder: Nielsen P Price
+		lineageTag: 1ddaf115-05e3-4f3a-90a6-042f0b92f4c2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column BU
 		dataType: string
 		lineageTag: 0a1aa6db-436d-4160-8513-921743e4dfae

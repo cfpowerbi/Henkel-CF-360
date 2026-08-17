@@ -30,6 +30,12 @@ table dates
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	column 'MonthYear Name' = UPPER(FORMAT('dates'[monthdate], "mmm yyyy"))
+		lineageTag: eb7b5ef9-6d29-403a-92e6-a30c40d8793f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dates = m
 		mode: import
 		source =

@@ -1,9 +1,9 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "79a4a8702b86bb220856",
   "position": {
-    "x": 41.666666666666671,
-    "y": 337.5,
+    "x": 347,
+    "y": 20,
     "z": 11000,
     "height": 292.5,
     "width": 596.66666666666674,
@@ -13,7 +13,7 @@
     "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Rows": {
+        "Columns": {
           "projections": [
             {
               "field": {
@@ -60,12 +60,121 @@
                       "Hierarchy": "Date Hierarchy"
                     }
                   },
+                  "Level": "Quarter"
+                }
+              },
+              "queryRef": "dates.monthdate.Variation.Date Hierarchy.Quarter",
+              "nativeQueryRef": "monthdate Quarter",
+              "active": false
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "dates"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "monthdate"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
                   "Level": "Month"
                 }
               },
               "queryRef": "dates.monthdate.Variation.Date Hierarchy.Month",
-              "nativeQueryRef": "First Date Hierarchy Month",
+              "nativeQueryRef": "monthdate Month",
+              "active": false
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "dates"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "monthdate"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Day"
+                }
+              },
+              "queryRef": "dates.monthdate.Variation.Date Hierarchy.Day",
+              "nativeQueryRef": "monthdate Day",
+              "active": false
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hierarchy Index"
+                    }
+                  },
+                  "Property": "BU"
+                }
+              },
+              "queryRef": "Hierarchy Index.BU",
+              "nativeQueryRef": "BU",
               "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hierarchy Index"
+                    }
+                  },
+                  "Property": "Format"
+                }
+              },
+              "queryRef": "Hierarchy Index.Format",
+              "nativeQueryRef": "Format",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EPOS Processed data"
+                        }
+                      },
+                      "Property": "sales_val"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(EPOS Processed data.sales_val)",
+              "nativeQueryRef": "Sum of sales_val"
             }
           ]
         }
@@ -79,13 +188,13 @@
         "levels": [
           {
             "queryRefs": [
-              "dates.monthdate.Variation.Date Hierarchy.Year"
+              "Hierarchy Index.BU"
             ],
             "isPinned": true
           },
           {
             "queryRefs": [
-              "dates.monthdate.Variation.Date Hierarchy.Month"
+              "Hierarchy Index.Format"
             ],
             "isCollapsed": true,
             "isPinned": true

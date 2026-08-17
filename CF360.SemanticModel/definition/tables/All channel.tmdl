@@ -3,11 +3,16 @@ table 'All channel'
 
 	measure 'Selected Country Heading' =
 			
-			IF(
-			    HASONEVALUE('All channel'[Country]),
-			    SELECTEDVALUE('All channel'[Country]),
-			    "GCC Total"
-			)
+			VAR CountryPart =
+			    IF(
+			        HASONEVALUE('All channel'[Country]),
+			        SELECTEDVALUE('All channel'[Country]),
+			        "GCC Total"
+			    )
+			VAR FormatPart =
+			    SELECTEDVALUE('Main Parameter'[Value4], "Format")
+			RETURN
+			    CountryPart & UNICHAR(10) & FormatPart
 		lineageTag: 3b9bd25c-5f1c-4a71-9639-353ce87b5fca
 
 	measure 'Selected HEADING MULTI COUNTRY' =

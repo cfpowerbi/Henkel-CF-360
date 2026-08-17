@@ -1,0 +1,5487 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "MAT",
+  "name": "6e2a06ed0e5f20b420d5",
+  "options": {
+    "applyOnlyToTargetVisuals": true,
+    "targetVisualNames": [
+      "a901a05cee55513ec34e",
+      "98f16e75931e09377e6b"
+    ]
+  },
+  "explorationState": {
+    "version": "1.11",
+    "activeSection": "83f11cbc80abd7517a43",
+    "sections": {
+      "83f11cbc80abd7517a43": {
+        "filters": {
+          "byExpr": [
+            {
+              "name": "37e0647607f106ca1b20",
+              "type": "Categorical",
+              "expression": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Nielsen Processed"
+                    }
+                  },
+                  "Property": "Nielsen P Value Dynamic"
+                }
+              },
+              "howCreated": 5
+            },
+            {
+              "name": "391246fdff990bf7cdaa",
+              "type": "Categorical",
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "h",
+                    "Entity": "Hierarchy Index",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "Not": {
+                        "Expression": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "h"
+                                    }
+                                  },
+                                  "Property": "BU"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "null"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hierarchy Index"
+                    }
+                  },
+                  "Property": "BU"
+                }
+              },
+              "howCreated": 1
+            }
+          ]
+        },
+        "visualContainers": {
+          "078d8a977f26f84755f1": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "49c7d26cd839f81b6cca",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "0e824bc28c45aa417e19": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "28034e61aa372ef59e80",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "72f933ce69293a50d6d0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "88a064987c2d6002c16c",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Country"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'KSA'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "donutChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "11eb68999631acaecd04": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "188d0280205975b21060",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "130737ae3656e9b7089b": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "13b168e0812789146d90": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "14d67d364378e558576a": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "4c9fce510eeb4a74849d",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Subchannel"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Subchannel"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "14d953f685b6daeb6aca": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "1f21fdf1cf6f9f9d5119": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "4bd3cfaf3f469720cf28",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "SubCategory"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "SubCategory"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "22de5defedfe791e8b9e": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "22f8b84415c28a33e221": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "620d6f5f5df0d74fb573",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "PromoType"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "PromoType"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "24e9f3920dabb6528f48": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "bf02c321ce1dacdbda0a",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "66688904ea0d31942da3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "241750c8b09562e3b916",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Sales_Type"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Online'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "35547bddb70060535968",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price LY Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "4da19f2d35be07b0823b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "45f13318a6c5a68ec0d6",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Value Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "bb08e5bddb8144310224",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Volume Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "d22bec2ed55590589470",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "BU"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f0f15dd3976181431fa6",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "SubCategory"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "58f2217aaef293e8ea29",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Channel"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "dbb65b695db19d2d0ff4",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Customer_Group"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "7ab71fc00987ec9483c4",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Brand Strategy"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "6bec79fa3739bbb3ba8f",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "PromoType"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a9f86fc79f801faa5029",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "bb9038b9a03360091d4f",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Price_Brand"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "d8c5f608aeda1bdf4ce5",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Brand"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "58f9c9b8249729421ef5",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Size"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3cb82240fb286c9dd63d",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Product Type"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4f3e09b5d5ebe4968df3",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "44cb297492bb2015e13b",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Manufacturer"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "6771a77abca4696bd190",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Subchannel"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "eb4f394f69dbf864bc77",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dates"
+                        }
+                      },
+                      "Property": "monthdate"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "706e470c5a3202c8562a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b27c728a9a740fa8a2ab",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price PY Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "dee4e5a13cbc85f89b5e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4c00632f585d1e4dc264",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f36c06e3fa5ca52a092c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Columns": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Manufacturer"
+                    }
+                  }
+                ]
+              },
+              "projections": {
+                "Columns": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "BU"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "SubCategory"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Channel"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Customer_Group"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Brand Strategy"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "PromoType"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Price_Brand"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Brand"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Size"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Product Type"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Manufacturer"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Subchannel"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Customer_Group"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dates"
+                        }
+                      },
+                      "Property": "monthdate"
+                    }
+                  }
+                ],
+                "Values": [
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price Dynamic"
+                    }
+                  },
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price PY Dynamic"
+                    }
+                  },
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price Growth Dynamic"
+                    }
+                  },
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Growth Dynamic"
+                    }
+                  },
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Growth Dynamic"
+                    }
+                  }
+                ]
+              },
+              "parameters": {
+                "Columns": [
+                  {
+                    "expr": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Main Parameter"
+                          }
+                        },
+                        "Property": "Parameter"
+                      }
+                    },
+                    "index": 0,
+                    "length": 17
+                  }
+                ]
+              }
+            }
+          },
+          "281a8449dcd66dc7c4c7": {
+            "singleVisual": {
+              "visualType": "bookmarkNavigator",
+              "objects": {}
+            }
+          },
+          "3114f4bb11344894a21a": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "b2cec7f9c81c61ef07fd",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "9331fd98744276029571",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "01e13b24d8bc9c9af6ec",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Country"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'KSA'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "donutChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "33dd7e9ecf0f93747e2e": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "60673125f2c6693292ed",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f3c353d1c20433921b28",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "feef09b949741dca47d5",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Country"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'UAE'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "donutChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "39d527330835d4a8578e": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "2cc419f0d9140fe013dd",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "3c72e5164b39db5a4368": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "fa2c6f29480d2f9d6c83",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Offline Card"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {}
+            }
+          },
+          "3d2880b6492596cacf59": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "4f995af54c496f418c74": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "7fccd7378526090df287",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "733194c98347befa8608",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Country"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'KSA'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "509d2bcb033dfdd646b8": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "1016cfcf3f0fe9ca67f1",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "587a63e0b2f0648b6013": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "bf02c321ce1dacdbda0a",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "66688904ea0d31942da3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "241750c8b09562e3b916",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Sales_Type"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Online'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "35547bddb70060535968",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price LY Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "4da19f2d35be07b0823b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "45f13318a6c5a68ec0d6",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Value Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "bb08e5bddb8144310224",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Volume Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "0960320406e9cd1ff0dc",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4c89ad8014149199d527",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price PY Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4506118c3dbe38271b60",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "7159185d63d2e617a66a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "5360ba5fd0a74bba78b7",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a0e4725a9a7a3947be9a",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Country"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'UAE'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Columns": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "5e88ef84010e59e9b255": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "037f83e426eb510f4c82",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "e53c00a813bbc77e1dd5",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "709666e28fc6f000476f",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Country"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'UAE'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "donutChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "5f8d8261d162492f462e": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "64451e27f0c517970f38": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "5920bcb853d6ff6deeb2",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "BU"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "1cdfaa8a7fca9e21ab79",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "SubCategory"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b7072b4e16a050a2a642",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "108e843cd8db90877a88",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Channel"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "5e1d775f378c6b6eb5b0",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Customer_Group"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "56035fc24f4410e63a10",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Brand Strategy"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "323c565f9639f1630892",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "PromoType"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "df80702619392d31b62e",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4a88533d64acb66f3b9f",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Price_Brand"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "88740aa57cb93bd21426",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Brand"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "07fcdd14d62a618b7796",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Size"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "9c29e93000d63723c29e",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Product Type"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "799bd52ed96f69e94f3d",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "77fa24001899929d6576",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Manufacturer"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b1d5f6800a8e8bbc984d",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Subchannel"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "04fe9017e49dbdc1982f",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dates"
+                        }
+                      },
+                      "Property": "monthdate"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "7a39cd93ae562f0ef02e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Offline Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "donutChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Manufacturer"
+                    }
+                  }
+                ]
+              },
+              "projections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "BU"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "SubCategory"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Channel"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Customer_Group"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Brand Strategy"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "PromoType"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Price_Brand"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Brand"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Size"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Product Type"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Manufacturer"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Subchannel"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Customer_Group"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dates"
+                        }
+                      },
+                      "Property": "monthdate"
+                    }
+                  }
+                ],
+                "Y": [
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Offline Dynamic"
+                    }
+                  }
+                ]
+              },
+              "parameters": {
+                "Category": [
+                  {
+                    "expr": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Main Parameter"
+                          }
+                        },
+                        "Property": "Parameter"
+                      }
+                    },
+                    "index": 0,
+                    "length": 17
+                  }
+                ]
+              }
+            }
+          },
+          "6711ba3693374eb0b818": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "67cc2108ef5deb42db1d": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "6a63cb2b9781a2309ee9": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "6b7800816575cc5cb94b": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "201314a914596fec760b",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Price_Brand"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Price_Brand"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "6f9e1e4e43c33e6942ce": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "6fd45c3638fc3864949f": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "59ba98400d47a44bf02e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "350dfcb36ce10064670d",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Country"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'KSA'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "77ad3fc4733970c65573": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "fe88792c3bcb11177da9",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Channel"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Channel"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "7add60054028c7c14aba": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "6fd2fd6ff519eef43ae8",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Price_Brand"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Price_Brand"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "7f9490fb7a96dca05feb": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "80786c68aee4a4ec6122": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "494ac887967ef56083aa",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Distributor"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Distributor"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "84d8c807764929c00983": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "867dbca6867fbcc73814": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "89068a50651e0cdf552c": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "8d22e1362b0ce6bec200",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Brand"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Brand"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "8a240e4caa8bb41cfcbc": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "8ab8dbb7ffb5017df36d": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "8ce52f9239bb7f53d1d8": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "bf02c321ce1dacdbda0a",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "66688904ea0d31942da3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "241750c8b09562e3b916",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Sales_Type"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Online'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "35547bddb70060535968",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price LY Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "4da19f2d35be07b0823b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "45f13318a6c5a68ec0d6",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Value Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "bb08e5bddb8144310224",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Volume Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "3f5089d0539eb19c790c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "80f17421cf65cb3f3d2f",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price PY Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "08b4fee2d8d5b19fb39f",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "bd9977037e11960f36eb",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "09bff17679bba028bbe3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Columns": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "8f20c5207d99bcfbeed5": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "92b079c1779f0b74124e": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "98f16e75931e09377e6b": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "af007cc00caa30c362fe",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dates"
+                        }
+                      },
+                      "Property": "monthdate"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "d",
+                                "Entity": "dates",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "And": {
+                                    "Left": {
+                                      "Comparison": {
+                                        "ComparisonKind": 2,
+                                        "Left": {
+                                          "Column": {
+                                            "Expression": {
+                                              "SourceRef": {
+                                                "Source": "d"
+                                              }
+                                            },
+                                            "Property": "monthdate"
+                                          }
+                                        },
+                                        "Right": {
+                                          "Literal": {
+                                            "Value": "datetime'2025-01-01T00:00:00'"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Right": {
+                                      "Comparison": {
+                                        "ComparisonKind": 3,
+                                        "Left": {
+                                          "Column": {
+                                            "Expression": {
+                                              "SourceRef": {
+                                                "Source": "d"
+                                              }
+                                            },
+                                            "Property": "monthdate"
+                                          }
+                                        },
+                                        "Right": {
+                                          "Literal": {
+                                            "Value": "datetime'2026-01-24T00:00:00'"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "startDate": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "datetime'2025-01-01T00:00:00'"
+                            }
+                          }
+                        },
+                        "endDate": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "datetime'2026-01-23T00:00:00'"
+                            }
+                          }
+                        },
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Between'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dates"
+                        }
+                      },
+                      "Property": "monthdate"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dates"
+                        }
+                      },
+                      "Property": "monthdate"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "9b9fc3bc4e36fc1934b8": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "71ba8db3c8829d1dbe56",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "d4949350e7cd6cc16ab4",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Country"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'UAE'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "a080d25567223e7c4b77": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "a692749196adb1f472b2": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "65a3423c556198fe95fc",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Brand Strategy"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        },
+                        "isInvertedSelectionMode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Brand Strategy"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "a901a05cee55513ec34e": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "643cd0367666cef52239",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "PeriodMode"
+                        }
+                      },
+                      "Property": "Mode"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "advancedSlicerVisual",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "p",
+                                "Entity": "PeriodMode",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "p"
+                                            }
+                                          },
+                                          "Property": "Mode"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'MAT'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "aa318e48f1067044b91f": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "b0c3e872158c31068362": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "b1e3cf97185e23ce0e17": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "5c08792457efc5beb526",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "b618efb707662f997194": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "06a52531a30b4677b948",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "BU"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "h",
+                                "Entity": "Hierarchy Index",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "h"
+                                            }
+                                          },
+                                          "Property": "BU"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'Laundry Care'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "BU"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "b675269ec7b48f1ba72f": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "b92386e91abf430c9243",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "BU"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "89838c2de6ffa083defa",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "SubCategory"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "cd86f6e8b100f9c2a3cc",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "6cc0e240bd529b8aec7e",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Channel"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "e942bd355d5d481b6fd5",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Customer_Group"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "fd658547489b43b2fb1b",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Brand Strategy"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "92abc70e3eba94e92aac",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "PromoType"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f69a4b5140dd2271eff5",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "68f96ffa3a9c94b03df3",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Price_Brand"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "effeeb768f761078719c",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Brand"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "2a72b44bcf69a34ad411",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Size"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "d5ff6f63b84185a0e5bf",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Product Type"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "eea0b66e6acfe19b0ea8",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a709891705305e57b153",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Manufacturer"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3d32e8962037ff708a29",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Subchannel"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f5df7379684e1fe9f971",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dates"
+                        }
+                      },
+                      "Property": "monthdate"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "107de9bb3d69dbdefb4c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Offline Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "donutChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Manufacturer"
+                    }
+                  }
+                ]
+              },
+              "projections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "BU"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "SubCategory"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Channel"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Customer_Group"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Brand Strategy"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "PromoType"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Price_Brand"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Brand"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Size"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Product Type"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Combined_Product_Table"
+                        }
+                      },
+                      "Property": "Manufacturer"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Subchannel"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Customer_Group"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dates"
+                        }
+                      },
+                      "Property": "monthdate"
+                    }
+                  }
+                ],
+                "Y": [
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Offline Dynamic"
+                    }
+                  }
+                ]
+              },
+              "parameters": {
+                "Category": [
+                  {
+                    "expr": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Main Parameter"
+                          }
+                        },
+                        "Property": "Parameter"
+                      }
+                    },
+                    "index": 0,
+                    "length": 17
+                  }
+                ]
+              }
+            }
+          },
+          "bd707537116de3c806ab": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "bd9c42c4fe2cfd3c6e0e": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "c306eb65c12a022fcf62": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "fb49524f743f6cc85f5a",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "a",
+                                "Entity": "All channel",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "a"
+                                            }
+                                          },
+                                          "Property": "Country"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'UAE'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All channel"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "c5c9e1f898ae9821e40d": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "1365205a85626beaa0e3",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        },
+                        "isInvertedSelectionMode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "cc085dd1873401c27277": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "cc18ade29c23176ed476": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "fc59c81c47c0063166ce",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Customer_Group"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "IMS Processed"
+                        }
+                      },
+                      "Property": "Customer_Group"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "d312b1ed3a04e682df3b": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "bf02c321ce1dacdbda0a",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "66688904ea0d31942da3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "241750c8b09562e3b916",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Sales_Type"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Online'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Sales_Type"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "35547bddb70060535968",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price LY Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "4da19f2d35be07b0823b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Price Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "45f13318a6c5a68ec0d6",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Value Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "bb08e5bddb8144310224",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Henkel Volume Change Dynamic"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "c6da8afea23a567c7032",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3ec0c8aec4418d7c6323",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price PY Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "2ba7c04b6a5cfd895f90",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Price Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f939b5c51bf94c3ac451",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ff0a8aef829269b3af3f",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Growth Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "e46eacbd860784a20b49",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Country"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'KSA'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Columns": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "d7e0c164aecd4f8ffcd3": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "da815dc6691d886242a9": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "09d2837c2bbd3ffcde49",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Size"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Size"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "daa09e8f6ffe878eb909": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "bfacf9561cf276b49b28",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3fa1b31ee468504580c1",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "donutChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "dc5959b6a0b6488f6ce4": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "23a98c532bb405f85078",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a03b145ac978319aacd9",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "n",
+                        "Entity": "Nielsen Processed",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "n"
+                                    }
+                                  },
+                                  "Property": "Country"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'UAE'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Value Dynamic"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "e3eac49d262d1c5038cc": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "f231ab8879aceb93c3bb": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "92d5ee9f9daa12f330bc",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b1dbee4883a24fde09b6",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "donutChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Nielsen Processed"
+                        }
+                      },
+                      "Property": "Nielsen P Volume Dynamic"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "f4be72555ab7bb2dfeff": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "f6c047ae9c0102607e33": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "67aba30a2850ab23f5ac",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Format"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "fb64fe4020453596689c": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "d40c49ce659f0677a758": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "ec1aa78b3b28d8a741d6",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hierarchy Index"
+                        }
+                      },
+                      "Property": "Selected BU Heading"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {}
+            }
+          }
+        },
+        "visualContainerGroups": {
+          "7ebd9d10c35a40c1c360": {
+            "isHidden": true
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
