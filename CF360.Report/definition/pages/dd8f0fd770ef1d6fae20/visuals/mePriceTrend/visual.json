@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "mePriceTrend",
   "position": {
-    "x": 32,
-    "y": 710,
-    "z": 25004,
-    "height": 220,
-    "width": 914,
+    "x": 40,
+    "y": 1073,
+    "z": 28000,
+    "height": 269,
+    "width": 908,
     "tabOrder": 25004
   },
   "visual": {
@@ -76,35 +76,17 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "EPOS Processed data"
+                      "Entity": "Monthly evolution Parameter"
                     }
                   },
-                  "Property": "EPOS P Price Dynamic"
+                  "Property": "Monthly evolution Parameter Price"
                 }
               },
-              "queryRef": "EPOS Processed data.EPOS P Price Dynamic",
-              "nativeQueryRef": "EPOS P Price Dynamic"
+              "queryRef": "Monthly evolution Parameter.Monthly evolution Parameter Price",
+              "nativeQueryRef": "Monthly evolution Parameter Price"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "EPOS Processed data"
-                  }
-                },
-                "Property": "EPOS P Price Dynamic"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "objects": {
@@ -239,6 +221,32 @@
             }
           }
         }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "showMarker": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -248,7 +256,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -279,7 +287,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -378,5 +386,51 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "ef0a72ae455036607513",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dates"
+              }
+            },
+            "Property": "MonthYear Name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "906d9dd4c63e9138dfd9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "EPOS Processed data"
+              }
+            },
+            "Property": "Brand"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "a0448f2d95c6991b11cb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Monthly evolution Parameter"
+              }
+            },
+            "Property": "Monthly evolution Parameter Price"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

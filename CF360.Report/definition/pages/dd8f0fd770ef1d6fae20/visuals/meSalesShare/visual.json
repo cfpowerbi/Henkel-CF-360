@@ -2,15 +2,15 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "meSalesShare",
   "position": {
-    "x": 32,
-    "y": 271,
-    "z": 25003,
-    "height": 220,
-    "width": 914,
+    "x": 40,
+    "y": 290,
+    "z": 27000,
+    "height": 212,
+    "width": 903,
     "tabOrder": 25003
   },
   "visual": {
-    "visualType": "lineStackedColumnComboChart",
+    "visualType": "lineChart",
     "query": {
       "queryState": {
         "Category": {
@@ -32,25 +32,7 @@
             }
           ]
         },
-        "ColumnY": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "EPOS Processed data"
-                    }
-                  },
-                  "Property": "EPOS P Value Dynamic"
-                }
-              },
-              "queryRef": "EPOS Processed data.EPOS P Value Dynamic",
-              "nativeQueryRef": "EPOS P Value Dynamic"
-            }
-          ]
-        },
-        "Legend": {
+        "Series": {
           "projections": [
             {
               "field": {
@@ -64,26 +46,25 @@
                 }
               },
               "queryRef": "EPOS Processed data.Brand",
-              "nativeQueryRef": "Brand",
-              "active": true
+              "nativeQueryRef": "Brand"
             }
           ]
         },
-        "LineY": {
+        "Y": {
           "projections": [
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "EPOS Processed data"
+                      "Entity": "Monthly evolution Parameter"
                     }
                   },
-                  "Property": "EPOS P Value Share Dynamic"
+                  "Property": "Monthly evolution Parameter SHARE"
                 }
               },
-              "queryRef": "EPOS Processed data.EPOS P Value Share Dynamic",
-              "nativeQueryRef": "EPOS P Value Share Dynamic"
+              "queryRef": "Monthly evolution Parameter.Monthly evolution Parameter SHARE",
+              "nativeQueryRef": "Monthly evolution Parameter SHARE"
             }
           ]
         }
@@ -96,14 +77,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
             "position": {
               "expr": {
                 "Literal": {
-                  "Value": "'Top'"
+                  "Value": "'TopRight'"
                 }
               }
             },
@@ -122,6 +103,13 @@
                       "Value": "'#5F6973'"
                     }
                   }
+                }
+              }
+            },
+            "legendMarkerRendering": {
+              "expr": {
+                "Literal": {
+                  "Value": "'lineOnly'"
                 }
               }
             }
@@ -149,8 +137,9 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#5F6973'"
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
                     }
                   }
                 }
@@ -186,7 +175,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "9D"
                 }
               }
             },
@@ -194,8 +183,9 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#5F6973'"
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
                     }
                   }
                 }
@@ -204,7 +194,7 @@
             "gridlineShow": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -221,6 +211,32 @@
             }
           }
         }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "showMarker": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -230,7 +246,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -261,7 +277,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -292,7 +308,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Sales and Share'"
+                  "Value": "'  Sales and Share'"
                 }
               }
             },
@@ -360,5 +376,51 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "79391bc71fea0487d274",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dates"
+              }
+            },
+            "Property": "MonthYear Name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "146bcc64d2824e276c04",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "EPOS Processed data"
+              }
+            },
+            "Property": "Brand"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "5d6390241f420d6b7267",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Monthly evolution Parameter"
+              }
+            },
+            "Property": "Monthly evolution Parameter SHARE"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

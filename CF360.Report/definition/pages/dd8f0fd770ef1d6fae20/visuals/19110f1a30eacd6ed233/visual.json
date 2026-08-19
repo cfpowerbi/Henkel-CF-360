@@ -2,15 +2,15 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "19110f1a30eacd6ed233",
   "position": {
-    "x": 33,
-    "y": 491,
-    "z": 25002,
-    "height": 220,
-    "width": 914.44444444444446,
+    "x": 40,
+    "y": 743,
+    "z": 26000,
+    "height": 311,
+    "width": 908,
     "tabOrder": 27002
   },
   "visual": {
-    "visualType": "columnChart",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -57,35 +57,17 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "EPOS Processed data"
+                      "Entity": "Monthly evolution Parameter"
                     }
                   },
-                  "Property": "EPOS P Value Growth Dynamic"
+                  "Property": "Monthly evolution Parameter Growth"
                 }
               },
-              "queryRef": "EPOS Processed data.EPOS P Value Growth Dynamic",
-              "nativeQueryRef": "EPOS P Value Growth Dynamic"
+              "queryRef": "Monthly evolution Parameter.Monthly evolution Parameter Growth",
+              "nativeQueryRef": "Monthly evolution Parameter Growth"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "dates"
-                  }
-                },
-                "Property": "MonthYear Name"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "objects": {
@@ -95,7 +77,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -121,6 +103,13 @@
                       "Value": "'#5F6973'"
                     }
                   }
+                }
+              }
+            },
+            "showGradientLegend": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -203,7 +192,7 @@
             "gridlineShow": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -215,6 +204,40 @@
                       "Value": "'#F0F2F7'"
                     }
                   }
+                }
+              }
+            },
+            "roundRange": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "end": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "start": {
+              "expr": {
+                "Literal": {
+                  "Value": "-1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }
@@ -229,7 +252,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -260,7 +283,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -359,5 +382,51 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "2196dd0864651bb440d3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dates"
+              }
+            },
+            "Property": "MonthYear Name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "41b61c16d1224e9c33f0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Monthly evolution Parameter"
+              }
+            },
+            "Property": "Monthly evolution Parameter Growth"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b6f85559808acd8445fc",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "EPOS Processed data"
+              }
+            },
+            "Property": "Brand"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

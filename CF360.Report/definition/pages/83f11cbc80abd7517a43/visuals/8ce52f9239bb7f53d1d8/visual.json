@@ -87,10 +87,10 @@
                       "Entity": "Nielsen Processed"
                     }
                   },
-                  "Property": "Nielsen P Value Growth Dynamic"
+                  "Property": "Nielsen P Value share change"
                 }
               },
-              "queryRef": "Nielsen Processed.Nielsen P Value Growth Dynamic",
+              "queryRef": "Nielsen Processed.Nielsen P Value share change",
               "nativeQueryRef": "Val Share Chg %",
               "displayName": "Val Share Chg %"
             },
@@ -102,11 +102,11 @@
                       "Entity": "Nielsen Processed"
                     }
                   },
-                  "Property": "Nielsen P Volume Growth Dynamic"
+                  "Property": "Nielsen P Volume share change"
                 }
               },
-              "queryRef": "Nielsen Processed.Nielsen P Volume Growth Dynamic",
-              "nativeQueryRef": "Vol Share Chg %",
+              "queryRef": "Nielsen Processed.Nielsen P Volume share change",
+              "nativeQueryRef": "Vol Share Chg %1",
               "displayName": "Vol Share Chg %"
             }
           ]
@@ -274,8 +274,50 @@
                       "Cases": [
                         {
                           "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 3,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "Nielsen Processed"
+                                    }
+                                  },
+                                  "Property": "Nielsen P Value share change"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
                             "Literal": {
-                              "Value": "true"
+                              "Value": "'#E1000F'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 1,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "Nielsen Processed"
+                                    }
+                                  },
+                                  "Property": "Nielsen P Value share change"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
                             }
                           },
                           "Value": {
@@ -299,7 +341,7 @@
                 }
               }
             ],
-            "metadata": "Nielsen Processed.Nielsen P Value Growth Dynamic"
+            "metadata": "Nielsen Processed.Nielsen P Value share change"
           }
         },
         {
@@ -312,13 +354,55 @@
                       "Cases": [
                         {
                           "Condition": {
-                            "Literal": {
-                              "Value": "true"
+                            "Comparison": {
+                              "ComparisonKind": 1,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "Nielsen Processed"
+                                    }
+                                  },
+                                  "Property": "Nielsen P Volume share change"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
                             }
                           },
                           "Value": {
                             "Literal": {
                               "Value": "'#16A34A'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 3,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "Nielsen Processed"
+                                    }
+                                  },
+                                  "Property": "Nielsen P Volume share change"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#E1000F'"
                             }
                           }
                         }
@@ -337,7 +421,7 @@
                 }
               }
             ],
-            "metadata": "Nielsen Processed.Nielsen P Volume Growth Dynamic"
+            "metadata": "Nielsen Processed.Nielsen P Volume share change"
           }
         }
       ],
@@ -783,7 +867,7 @@
             }
           },
           "selector": {
-            "metadata": "Nielsen Processed.Nielsen P Value Growth Dynamic"
+            "metadata": "Nielsen Processed.Nielsen P Value share change"
           }
         },
         {
@@ -811,7 +895,7 @@
             }
           },
           "selector": {
-            "metadata": "Nielsen Processed.Nielsen P Volume Growth Dynamic"
+            "metadata": "Nielsen Processed.Nielsen P Volume share change"
           }
         }
       ],
@@ -1261,7 +1345,8 @@
             "Property": "Nielsen P Value Growth Dynamic"
           }
         },
-        "type": "Advanced"
+        "type": "Advanced",
+        "howCreated": "User"
       },
       {
         "name": "09bff17679bba028bbe3",
@@ -1274,6 +1359,35 @@
               }
             },
             "Property": "Nielsen P Volume Growth Dynamic"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "4a9cad7b6b2be82d2e27",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Nielsen Processed"
+              }
+            },
+            "Property": "Nielsen P Value share change"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d1092a954fd12877380e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Nielsen Processed"
+              }
+            },
+            "Property": "Nielsen P Volume share change"
           }
         },
         "type": "Advanced"

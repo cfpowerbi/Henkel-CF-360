@@ -1,0 +1,132 @@
+table 'Monthly evolution Parameter'
+	lineageTag: da9fe3ba-ccda-4ab1-a11a-914dc24d47a8
+
+	/// Returns the monthly YoY growth measure matching the Value5 (EPOS/Nielsen) and Value4 (Val/Vol) slicer selections. Points at the *Growth Monthly* measures so it plots correctly across a MonthYear axis.
+	measure 'Monthly evolution Parameter Growth' =
+			VAR SelValue5 = SELECTEDVALUE ( 'Monthly evolution Parameter'[Value5] )
+			VAR SelValue4 = SELECTEDVALUE ( 'Monthly evolution Parameter'[Value4] )
+			RETURN
+			    SWITCH (
+			        TRUE(),
+			        SelValue5 = "EPOS"    && SelValue4 = "Val", [EPOS P Value Growth Monthly],
+			        SelValue5 = "EPOS"    && SelValue4 = "Vol", [EPOS P Volume Growth Monthly],
+			        SelValue5 = "Nielsen" && SelValue4 = "Val", [Nielsen P Value Growth Monthly],
+			        SelValue5 = "Nielsen" && SelValue4 = "Vol", [Nielsen P Volume Growth Monthly]
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: e31b364f-a448-4a17-9e2f-744d73f03910
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Monthly evolution Parameter SHARE' =
+			VAR SelValue5 = SELECTEDVALUE ( 'Monthly evolution Parameter'[Value5] )
+			VAR SelValue4 = SELECTEDVALUE ( 'Monthly evolution Parameter'[Value4] )
+			RETURN
+			    SWITCH (
+			        TRUE(),
+			        SelValue5 = "EPOS"    && SelValue4 = "Val", [EPOS P Value Share Dynamic],
+			        SelValue5 = "EPOS"    && SelValue4 = "Vol", [EPOS P Volume Share Dynamic],
+			        SelValue5 = "Nielsen" && SelValue4 = "Val", [Nielsen P Value Share Dynamic],
+			        SelValue5 = "Nielsen" && SelValue4 = "Vol", [Nielsen P Volume Share Dynamic]
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a32d78b8-f4e3-4aa1-bded-88dfd3038046
+
+	measure 'Monthly evolution Parameter Price' =
+			VAR SelValue5 = SELECTEDVALUE ( 'Monthly evolution Parameter'[Value5] )
+			
+			RETURN
+			    SWITCH (
+			        TRUE(),
+			        SelValue5 = "EPOS"    ,[EPOS P Price Dynamic],
+			        SelValue5 = "Nielsen" , [Nielsen P Price Dynamic]
+			    )
+		lineageTag: d5aa3521-7b52-4aa8-9352-ff95caf86dd0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Parameter
+		lineageTag: c2a422c3-b83e-4bc4-b72e-9da0a18fd6b6
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: c5ec4609-c019-48bc-857c-af082ce6cd14
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 8bdf6818-e56b-45d8-9eff-21c70bf1b711
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value4
+		lineageTag: 5ce14a67-60ee-4bfd-a5b0-b5a6c785a5f4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value5
+		lineageTag: 4fa9abb4-2497-436a-a392-92d966bcca5c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value5]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Monthly evolution Parameter' = calculated
+		mode: import
+		source =
+				{("EPOS Val", NAMEOF('EPOS Processed data'[EPOS P Value Dynamic]), 1, "Val","EPOS")
+				,
+				("EPOS Val Share", NAMEOF('EPOS Processed data'[EPOS P Value Share Dynamic]), 2, "Val","EPOS")
+				,
+				("EPOS Val Growth", NAMEOF('EPOS Processed data'[EPOS P Value Growth Monthly]), 3, "Val","EPOS")
+				,
+				("EPOS Vol", NAMEOF('EPOS Processed data'[EPOS P Volume Dynamic]), 4, "Vol","EPOS")
+				,
+				("EPOS Vol Share", NAMEOF('EPOS Processed data'[EPOS P Volume Share Dynamic]), 5, "Vol","EPOS")
+				,
+				("EPOS Vol Growth", NAMEOF('EPOS Processed data'[EPOS P Volume Growth Monthly]), 6, "Vol","EPOS")
+				,
+				("Nielsen Val", NAMEOF('Nielsen Processed'[Nielsen P Value Dynamic]), 7, "Val","Nielsen")
+				,
+				("Nielsen Val Share", NAMEOF('Nielsen Processed'[Nielsen P Value Share Dynamic]), 8, "Val","Nielsen")
+				,
+				("Nielsen Val Growth", NAMEOF('Nielsen Processed'[Nielsen P Value Growth Monthly]), 9, "Val","Nielsen")
+				,
+				("Nielsen Vol", NAMEOF('Nielsen Processed'[Nielsen P Volume Dynamic]), 10, "Vol","Nielsen")
+				,
+				("Nielsen Vol Share", NAMEOF('Nielsen Processed'[Nielsen P Volume Share Dynamic]), 11, "Vol","Nielsen")
+				,
+				("Nielsen Vol Growth", NAMEOF('Nielsen Processed'[Nielsen P Volume Growth Monthly]), 12, "Vol","Nielsen")
+				,
+				("EPOS PRICE", NAMEOF('EPOS Processed data'[EPOS P Price Dynamic]), 13, "Val","EPOS")
+				,
+				("Nielsen PRICE", NAMEOF('Nielsen Processed'[Nielsen P Price Dynamic]), 14, "Val","Nielsen")
+				}
+
+	annotation PBI_Id = 6928959e863f48cd8651786966b8789c
+
