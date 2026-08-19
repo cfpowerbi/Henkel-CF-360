@@ -30,6 +30,56 @@ table dates
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	column 'MonthYear Name' = UPPER(FORMAT('dates'[monthdate], "mmm yyyy"))
+		lineageTag: eb7b5ef9-6d29-403a-92e6-a30c40d8793f
+		summarizeBy: none
+		sortByColumn: 'MonthYear Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sort-by key for [MonthYear Name] so a chart axis orders months chronologically.
+	column 'MonthYear Sort' = YEAR ( 'dates'[monthdate] ) * 100 + MONTH ( 'dates'[monthdate] )
+		dataType: int64
+		isHidden
+		lineageTag: 22e4cb65-2099-4422-9a06-a665d9745823
+		summarizeBy: none
+
+	column 'Year Label' =
+			
+			VAR MaxYear  = YEAR ( MAXX ( ALL ( 'dates' ), 'dates'[monthdate] ) )
+			VAR PrevYear = MaxYear - 1
+			VAR ThisRow  = YEAR ( 'dates'[monthdate] )
+			RETURN
+			    SWITCH (
+			        ThisRow,
+			        MaxYear,  "FY(" & FORMAT ( MaxYear,  "0000" ) & ")",
+			        PrevYear, "LY(" & FORMAT ( PrevYear, "0000" ) & ")",
+			        "NA"
+			    )
+		lineageTag: 7f508222-9b29-448d-9229-67e3b36b49e1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// YTD(maxYear) / LYTD(maxYear-1) for like-for-like months up to the latest data month; blank otherwise.
+	column 'YTD Label' =
+			VAR AnchorDate  = MAXX ( ALL ( 'dates' ), 'dates'[monthdate] )
+			VAR MaxYear     = YEAR ( AnchorDate )
+			VAR PrevYear    = MaxYear - 1
+			VAR AnchorMonth = MONTH ( AnchorDate )
+			VAR ThisYear    = YEAR ( 'dates'[monthdate] )
+			VAR ThisMonth   = MONTH ( 'dates'[monthdate] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ThisYear = MaxYear  && ThisMonth <= AnchorMonth, "YTD("  & FORMAT ( MaxYear,  "0000" ) & ")",
+			        ThisYear = PrevYear && ThisMonth <= AnchorMonth, "LYTD(" & FORMAT ( PrevYear, "0000" ) & ")",
+			        BLANK ()
+			    )
+		dataType: string
+		lineageTag: eb35d0e8-ccaf-4c2b-9745-f9ba118c21e4
+		summarizeBy: none
+
 	partition dates = m
 		mode: import
 		source =

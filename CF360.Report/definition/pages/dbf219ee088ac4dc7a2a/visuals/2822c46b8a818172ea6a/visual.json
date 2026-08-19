@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "2822c46b8a818172ea6a",
   "position": {
     "x": 725,
@@ -56,15 +56,15 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Nielsen Processed"
+                      "Entity": "EPOS Processed data"
                     }
                   },
-                  "Property": "Nielsen P Value Dynamic"
+                  "Property": "EPOS P Value Dynamic"
                 }
               },
-              "queryRef": "Nielsen Processed.Nielsen P Value Dynamic",
-              "nativeQueryRef": "Nielsen Val",
-              "displayName": "Nielsen Val"
+              "queryRef": "EPOS Processed data.EPOS P Value Dynamic",
+              "nativeQueryRef": "EPOS Val",
+              "displayName": "EPOS Val"
             }
           ],
           "fieldParameters": [
@@ -92,10 +92,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Nielsen Processed"
+                    "Entity": "EPOS Processed data"
                   }
                 },
-                "Property": "Nielsen P Value Dynamic"
+                "Property": "EPOS P Value Dynamic"
               }
             },
             "direction": "Descending"
@@ -553,7 +553,7 @@
                     [
                       {
                         "Literal": {
-                          "Value": "'''Nielsen Processed''[Nielsen P Value Dynamic]'"
+                          "Value": "'''EPOS Processed data''[EPOS P Value Dynamic]'"
                         }
                       }
                     ]
@@ -581,7 +581,7 @@
                           "0": [
                             {
                               "Literal": {
-                                "Value": "'''Nielsen Processed''[Nielsen P Value Dynamic]'"
+                                "Value": "'''EPOS Processed data''[EPOS P Value Dynamic]'"
                               }
                             }
                           ]
@@ -605,7 +605,7 @@
                   },
                   "valueMap": [
                     {
-                      "0": "Nielsen Val"
+                      "0": "EPOS Val"
                     }
                   ]
                 }
@@ -614,6 +614,34 @@
           ]
         },
         "howCreated": "User"
+      },
+      {
+        "name": "da0b47df55f16f9c6d55",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "All channel"
+              }
+            },
+            "Property": "Country"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "500a7f5e178aae653d72",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "EPOS Processed data"
+              }
+            },
+            "Property": "EPOS P Value Dynamic"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

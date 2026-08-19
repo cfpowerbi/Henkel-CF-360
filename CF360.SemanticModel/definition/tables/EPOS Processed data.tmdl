@@ -1703,6 +1703,80 @@ table 'EPOS Processed data'
 		displayFolder: EPOS P volume share
 		lineageTag: 6f8e8614-af91-432a-93df-24992e396368
 
+	/// Monthly YoY growth (this month vs same month last year). Bridges a Brand selection coming from 'Nielsen Processed'[Brand] onto EPOS by brand name, so the measure varies brand-wise even when the visual uses the Nielsen Brand column.
+	measure 'EPOS P Value Growth Monthly' =
+			VAR VisibleMonths = VALUES ( 'dates'[monthdate] )
+			VAR PYMonths =
+			    SELECTCOLUMNS ( VisibleMonths, "@monthdate", EDATE ( 'dates'[monthdate], -12 ) )
+			VAR NeedBridge =
+			    ISCROSSFILTERED ( 'Nielsen Processed'[Brand] )
+			        && NOT ISCROSSFILTERED ( 'EPOS Processed data'[Brand] )
+			VAR XBrands =
+			    TREATAS ( VALUES ( 'Nielsen Processed'[Brand] ), 'EPOS Processed data'[Brand] )
+			VAR CurVal =
+			    IF (
+			        NeedBridge,
+			        CALCULATE ( [EPOS P Value Custom], XBrands ),
+			        [EPOS P Value Custom]
+			    )
+			VAR PYVal =
+			    IF (
+			        NeedBridge,
+			        CALCULATE (
+			            [EPOS P Value Custom],
+			            REMOVEFILTERS ( 'dates' ),
+			            TREATAS ( PYMonths, 'dates'[monthdate] ),
+			            XBrands
+			        ),
+			        CALCULATE (
+			            [EPOS P Value Custom],
+			            REMOVEFILTERS ( 'dates' ),
+			            TREATAS ( PYMonths, 'dates'[monthdate] )
+			        )
+			    )
+			RETURN
+			    IF ( NOT ISBLANK ( CurVal ) && NOT ISBLANK ( PYVal ), DIVIDE ( CurVal - PYVal, PYVal ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P value share
+		lineageTag: cb2013e7-e063-4c08-b645-9ad132b6501e
+
+	/// Monthly YoY growth (this month vs same month last year). Bridges a Brand selection coming from 'Nielsen Processed'[Brand] onto EPOS by brand name, so the measure varies brand-wise even when the visual uses the Nielsen Brand column.
+	measure 'EPOS P Volume Growth Monthly' =
+			VAR VisibleMonths = VALUES ( 'dates'[monthdate] )
+			VAR PYMonths =
+			    SELECTCOLUMNS ( VisibleMonths, "@monthdate", EDATE ( 'dates'[monthdate], -12 ) )
+			VAR NeedBridge =
+			    ISCROSSFILTERED ( 'Nielsen Processed'[Brand] )
+			        && NOT ISCROSSFILTERED ( 'EPOS Processed data'[Brand] )
+			VAR XBrands =
+			    TREATAS ( VALUES ( 'Nielsen Processed'[Brand] ), 'EPOS Processed data'[Brand] )
+			VAR CurVal =
+			    IF (
+			        NeedBridge,
+			        CALCULATE ( [EPOS P Volume Custom], XBrands ),
+			        [EPOS P Volume Custom]
+			    )
+			VAR PYVal =
+			    IF (
+			        NeedBridge,
+			        CALCULATE (
+			            [EPOS P Volume Custom],
+			            REMOVEFILTERS ( 'dates' ),
+			            TREATAS ( PYMonths, 'dates'[monthdate] ),
+			            XBrands
+			        ),
+			        CALCULATE (
+			            [EPOS P Volume Custom],
+			            REMOVEFILTERS ( 'dates' ),
+			            TREATAS ( PYMonths, 'dates'[monthdate] )
+			        )
+			    )
+			RETURN
+			    IF ( NOT ISBLANK ( CurVal ) && NOT ISBLANK ( PYVal ), DIVIDE ( CurVal - PYVal, PYVal ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: EPOS P volume share
+		lineageTag: 27c659a2-af67-48f8-bb36-93016f2d415b
+
 	column volume_sales
 		dataType: int64
 		formatString: 0

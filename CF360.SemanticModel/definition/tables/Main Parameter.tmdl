@@ -70,27 +70,35 @@ table 'Main Parameter'
 
 		annotation SummarizationSetBy = Automatic
 
+	column Value4
+		lineageTag: cb7cb725-9e69-4780-b04b-13b67ec4bebc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Main Parameter' = calculated
 		mode: import
 		source = ```
 				{
-				    ("BU", NAMEOF('Hierarchy Index'[BU]), 0),
-				    ("Sub Category", NAMEOF('Hierarchy Index'[SubCategory]), 1),
-				    ("Format", NAMEOF('Hierarchy Index'[Format]), 2),
-				    ("Channel", NAMEOF('All channel'[Channel]), 3),
-				    ("Price Tier", NAMEOF('IMS Processed'[Customer_Group]), 4),
-				    ("Brand Strategy", NAMEOF('IMS Processed'[Brand Strategy]), 5),
-				    ("Promo Type", NAMEOF('Combined_Product_Table'[PromoType]), 6),
-				    ("Sales Type", NAMEOF('Combined_Product_Table'[Sales_Type]), 7),
-				    ("Price Brand", NAMEOF('IMS Processed'[Price_Brand]), 8) ,  
-				    ("Brand", NAMEOF('Combined_Product_Table'[Brand]), 9),
-				    ("Size", NAMEOF('Combined_Product_Table'[Size]), 10),
-				    ("Product Type", NAMEOF('Combined_Product_Table'[Product Type]), 11),
-				    ("Country", NAMEOF('All channel'[Country]), 12),
-				    ("Manufacturer", NAMEOF('Combined_Product_Table'[Manufacturer]), 13),
-				    ("Sub Channel", NAMEOF('IMS Processed'[Subchannel]), 14),
-				    ("Customer Group", NAMEOF('IMS Processed'[Customer_Group]), 15),
-				    ("Month", NAMEOF('dates'[monthdate]), 16)
+				    ("BU", NAMEOF('Hierarchy Index'[BU]), 0,"BU"),
+				    ("Sub Category", NAMEOF('Hierarchy Index'[SubCategory]), 1,"Sub Category"),
+				    ("Format", NAMEOF('Hierarchy Index'[Format]), 2,"Format"),
+				    ("Channel", NAMEOF('All channel'[Channel]), 3,"Channel"),
+				    ("Price Tier", NAMEOF('IMS Processed'[Customer_Group]), 4,"Price Tier"),
+				    ("Brand Strategy", NAMEOF('IMS Processed'[Brand Strategy]), 5,"Brand Strategy"),
+				    ("Promo Type", NAMEOF('Combined_Product_Table'[PromoType]), 6,"Promo Type"),
+				    ("Sales Type", NAMEOF('Combined_Product_Table'[Sales_Type]), 7,"Sales Type"),
+				    ("Price Brand", NAMEOF('IMS Processed'[Price_Brand]), 8,"Price Brand") ,  
+				    ("Brand", NAMEOF('Combined_Product_Table'[Brand]), 9,"Brand"),
+				    ("Size", NAMEOF('Combined_Product_Table'[Size]), 10,"Size"),
+				    ("Product Type", NAMEOF('Combined_Product_Table'[Product Type]), 11,"Product Type"),
+				    ("Country", NAMEOF('All channel'[Country]), 12,"Country"),
+				    ("Manufacturer", NAMEOF('Combined_Product_Table'[Manufacturer]), 13,"Manufacturer"),
+				    ("Sub Channel", NAMEOF('IMS Processed'[Subchannel]), 14,"Sub Channel"),
+				    ("Customer Group", NAMEOF('IMS Processed'[Customer_Group]), 15,"Customer Group"),
+				    ("Month", NAMEOF('dates'[monthdate]), 16,"Month")
 				}
 				```
 
