@@ -53,6 +53,18 @@ table 'Donut Parameter (Nielsen)'
 			        & " Analysis"
 		lineageTag: 3f8b21a6-47c0-4d19-9b5e-6a10c7d48803
 
+	/// GCC vs Country page: left-panel heading, e.g. "GCC Total · Manufacturer".
+	measure 'GCC View Heading' =
+			"GCC Total " & UNICHAR ( 183 ) & " "
+			    & SELECTEDVALUE ( 'Donut Parameter (Nielsen)'[Value4], "Manufacturer" )
+		lineageTag: 3f8b21a6-47c0-4d19-9b5e-6a10c7d48804
+
+	/// GCC vs Country page: right-panel heading, e.g. "KSA · Manufacturer".
+	measure 'Country View Heading' =
+			[Selected Country Heading] & " " & UNICHAR ( 183 ) & " "
+			    & SELECTEDVALUE ( 'Donut Parameter (Nielsen)'[Value4], "Manufacturer" )
+		lineageTag: 3f8b21a6-47c0-4d19-9b5e-6a10c7d48805
+
 	column Parameter
 		lineageTag: 056a3b06-0676-47c1-b119-41d4bfa7c31d
 		summarizeBy: none

@@ -825,20 +825,14 @@ table 'EPOS Processed data'
 		displayFolder: EPOS P Price
 		lineageTag: 6ba6ec62-4124-49cf-8511-494ac8dfd1ab
 
-	measure 'EPOS P Henkel Price Label1' =
-			VAR _value = [EPOS P Henkel Price Dynamic]
-			VAR _formattedValue = FORMAT(_value, "#,##0.00")
-			RETURN
-			    _formattedValue
-			    & UNICHAR(10) & " | "
-			    & FORMAT(ABS([EPOS P Henkel Price Share Dynamic]), "0.0%")
+	/// HTML pfPriceStackLabelPlugin: price segments show the absolute price only —
+	/// "share of total" is meaningless for a rate, so no share term here.
+	measure 'EPOS P Henkel Price Label1' = FORMAT ( [EPOS P Henkel Price Dynamic], "#,##0.00" )
 		displayFolder: EPOS P Price Henkel
 		lineageTag: 9a325980-7f5e-4d0a-8f6c-807d4232318b
 
-	measure 'EPOS P Henkel Price Label2' =
-			FORMAT([EPOS P Henkel Price Growth Dynamic], "0.0%")
-			& UNICHAR(10) & " | "
-			& FORMAT(ABS([EPOS P Henkel Price Change Dynamic]), "0.0%")
+	/// Second label row for the price column: change % vs year ago only (HTML chgTxt).
+	measure 'EPOS P Henkel Price Label2' = FORMAT ( [EPOS P Henkel Price Growth Dynamic], "+0.0%;-0.0%;0.0%" )
 		displayFolder: EPOS P Price Henkel
 		lineageTag: 4fac0969-f21c-44c0-9fc8-615be3057bd8
 

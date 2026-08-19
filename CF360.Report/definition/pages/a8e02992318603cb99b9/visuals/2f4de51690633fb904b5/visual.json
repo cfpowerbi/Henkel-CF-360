@@ -4,7 +4,7 @@
   "position": {
     "x": 965.66666562998921,
     "y": 194.00000061173841,
-    "z": 2500,
+    "z": 5000,
     "height": 36,
     "width": 224,
     "tabOrder": 13000
@@ -23,12 +23,12 @@
                       "Entity": "IMS PnL KPI Parameter"
                     }
                   },
-                  "Property": "Value4"
+                  "Property": "Value5"
                 }
               },
-              "queryRef": "IMS PnL KPI Parameter.Value4",
-              "nativeQueryRef": "Value4",
-              "active": false
+              "queryRef": "IMS PnL KPI Parameter.Value5",
+              "nativeQueryRef": "Value5",
+              "active": true
             },
             {
               "field": {
@@ -38,11 +38,11 @@
                       "Entity": "IMS PnL KPI Parameter"
                     }
                   },
-                  "Property": "PnL Parameter"
+                  "Property": "Value4"
                 }
               },
-              "queryRef": "IMS PnL KPI Parameter.PnL Parameter",
-              "nativeQueryRef": "PnL Parameter",
+              "queryRef": "IMS PnL KPI Parameter.Value4",
+              "nativeQueryRef": "Value4",
               "active": true
             }
           ]
@@ -76,9 +76,21 @@
           },
           {
             "queryRefs": [
-              "IMS PnL KPI Parameter.Value4"
+              "IMS PnL KPI Parameter.Value5"
             ],
             "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "IMS PnL KPI Parameter"
+                    }
+                  },
+                  "Property": "Value5"
+                }
+              }
+            ],
             "isPinned": true
           }
         ],
@@ -89,16 +101,6 @@
                 {
                   "Literal": {
                     "Value": "'P&L Metrics'"
-                  }
-                }
-              ],
-              "isToggled": true
-            },
-            {
-              "identityValues": [
-                {
-                  "Literal": {
-                    "Value": "'Value & Volume'"
                   }
                 }
               ],
