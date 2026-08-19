@@ -828,20 +828,14 @@ table 'Nielsen Processed'
 		displayFolder: Nielsen P Price
 		lineageTag: bcc8bdf4-6845-4d54-893e-4418a7376920
 
-	measure 'Nielsen P Henkel Price Label1' =
-			VAR _value = [Nielsen P Henkel Price Dynamic]
-			VAR _formattedValue = FORMAT(_value, "#,##0.00")
-			RETURN
-			    _formattedValue
-			    & UNICHAR(10) & " | "
-			    & FORMAT(ABS([Nielsen P Henkel Price Share Dynamic]), "0.0%")
+	/// HTML pfPriceStackLabelPlugin: price segments show the absolute price only —
+	/// "share of total" is meaningless for a rate, so no share term here.
+	measure 'Nielsen P Henkel Price Label1' = FORMAT ( [Nielsen P Henkel Price Dynamic], "#,##0.00" )
 		displayFolder: Nielsen P Price Henkel
 		lineageTag: 32cd67f9-fd53-4952-80c9-9df4708c717b
 
-	measure 'Nielsen P Henkel Price Label2' =
-			FORMAT([Nielsen P Henkel Price Growth Dynamic], "0.0%")
-			& UNICHAR(10) & " | "
-			& FORMAT(ABS([Nielsen P Henkel Price Change Dynamic]), "0.0%")
+	/// Second label row for the price column: change % vs year ago only (HTML chgTxt).
+	measure 'Nielsen P Henkel Price Label2' = FORMAT ( [Nielsen P Henkel Price Growth Dynamic], "+0.0%;-0.0%;0.0%" )
 		displayFolder: Nielsen P Price Henkel
 		lineageTag: 95e08c6e-8041-40e7-a126-942dc2d064f3
 
@@ -1717,6 +1711,55 @@ table 'Nielsen Processed'
 		displayFolder: Nielsen P volume share
 		lineageTag: e968a70b-ab84-4617-b233-19315b044bb7
 
+	/// Centre-of-donut card label for total value (global, no channel split).
+	measure 'Nielsen P Value Card' =
+			VAR v = [Nielsen P Value Dynamic]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Cards
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840021
+
+	/// Centre-of-donut card label for total volume (global, no channel split).
+	measure 'Nielsen P Volume Card' =
+			VAR v = [Nielsen P Volume Dynamic]
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        IF (
+			            ABS ( v ) >= 1000,
+			            FORMAT ( DIVIDE ( v, 1000 ), "#,0.0" ) & "M",
+			            FORMAT ( v, "#,0.0" ) & "K"
+			        )
+			    )
+		displayFolder: Nielsen P Cards
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840022
+
+	/// Arrow-glyph display variants of the price / share change measures, mirroring the
+	/// HTML price table. Numeric, so conditional colour + sorting still work.
+	measure 'Nielsen P Price Growth Arrow' = [Nielsen P Price Growth Dynamic]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: Nielsen P Cards
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840023
+
+	measure 'Nielsen P Value Share Chg Arrow' = [Nielsen P Value share change]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: Nielsen P Cards
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840024
+
+	measure 'Nielsen P Volume Share Chg Arrow' = [Nielsen P Volume share change]
+		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
+		displayFolder: Nielsen P Cards
+		lineageTag: 7b4e1d20-5c83-4a71-9e02-1f6d3a840025
+
 	column BU
 		dataType: string
 		lineageTag: 0a1aa6db-436d-4160-8513-921743e4dfae
@@ -1988,6 +2031,14 @@ table 'Nielsen Processed'
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
+
+	/// Concatenated Format · Size for the GCC vs Country page's single Format·Size slicer.
+	column 'Format · Size' = 'Nielsen Processed'[Format] & " · " & 'Nielsen Processed'[Size]
+		dataType: string
+		lineageTag: 6b93af21-70c4-4d58-8e2b-1c40a9f5b201
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
 
 	partition 'Nielsen Processed' = m
 		mode: import

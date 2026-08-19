@@ -1185,12 +1185,24 @@ table 'IMS Processed'
 		displayFolder: IMS P Volume Henkel (placeholder)
 		lineageTag: 204d8d47-f45c-5566-b32f-bf9f996f6810
 
-	/// IMS Henkel PTT set - PLACEHOLDER.
-	/// PTT should be a per-unit trade price, which needs volume. Value-based until that column exists.
-	/// Deliberately NOT defined as value/volume: with both on [grossims] that would return 1.00 everywhere.
-	measure 'IMS P Henkel PTT Dynamic' = [Gross IMS P Dynamic]
+	/// IMS Henkel PTT = Price to Trade, per ton (HTML: "Price per Ton (PTT)").
+	/// 'IMS Processed' still has no volume column, so the tonnage denominator is taken from
+	/// Nielsen (Henkel-scoped). Both tables join the same 'Hierarchy Index', 'dates' and
+	/// 'All channel' dimensions, so BU / SubCategory / Format / Country / Channel / month
+	/// filter context propagates to both sides. Sales_Type is a native column on each table
+	/// and is NOT shared, so it is transferred explicitly with TREATAS - without that the
+	/// Online and Offline segments would divide by the same tonnage.
+	measure 'IMS P Henkel PTT Dynamic' =
+			VAR _gross = [Gross IMS P Henkel Dynamic]
+			VAR _tons =
+			    CALCULATE (
+			        [Nielsen P Henkel Volume Dynamic],
+			        TREATAS ( VALUES ( 'IMS Processed'[Sales_Type] ), 'Nielsen Processed'[Sales_Type] )
+			    )
+			RETURN
+			    DIVIDE ( _gross, _tons )
 		formatString: 0.00
-		displayFolder: IMS P PTT Henkel (placeholder)
+		displayFolder: IMS P PTT Henkel
 		lineageTag: 0b632fcc-167c-5f20-a29b-7e0b227e39aa
 
 	measure 'IMS P Henkel PTT Share Dynamic' = [Gross IMS P Share Dynamic]
@@ -1198,9 +1210,14 @@ table 'IMS Processed'
 		displayFolder: IMS P PTT Henkel (placeholder)
 		lineageTag: af1097e4-8ae0-5d17-801c-a14990c88bc7
 
-	measure 'IMS P Henkel PTT Growth Dynamic' = [Gross IMS P Growth Dynamic]
+	/// Rate-on-rate change, not the gross-value growth it used to alias.
+	measure 'IMS P Henkel PTT Growth Dynamic' =
+			DIVIDE (
+			    [IMS P Henkel PTT Dynamic] - [IMS P Henkel PTT LY Dynamic],
+			    [IMS P Henkel PTT LY Dynamic]
+			)
 		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: IMS P PTT Henkel (placeholder)
+		displayFolder: IMS P PTT Henkel
 		lineageTag: 9e22c848-c44c-5785-aeec-874737187c6e
 
 	measure 'IMS P Henkel PTT Change Dynamic' = [Gross IMS P Change Dynamic]
@@ -1208,30 +1225,14 @@ table 'IMS Processed'
 		displayFolder: IMS P PTT Henkel (placeholder)
 		lineageTag: 1cbe242a-1866-569d-af46-912a46e09d79
 
-	measure 'IMS P Henkel PTT Label1' =
-			VAR _value = [IMS P Henkel PTT Dynamic]
-			VAR _formattedValue =
-			    IF(
-			        ABS(_value) >= 1000000,
-			        FORMAT(DIVIDE(_value, 1000000), "#,##0.0") & "M",
-			        IF(
-			            ABS(_value) >= 1000,
-			            FORMAT(DIVIDE(_value, 1000), "#,##0.0") & "K",
-			            FORMAT(_value, "#,##0.0")
-			        )
-			    )
-			RETURN
-			    _formattedValue
-			    & UNICHAR(10) & " | "
-			    & FORMAT(ABS([IMS P Henkel PTT Share Dynamic]), "0.0%")
-		displayFolder: IMS P PTT Henkel (placeholder)
-		lineageTag: 30160009-aeb1-5dee-9fcb-efd9d612885f
+	/// HTML pfPriceStackLabelPlugin: absolute PTT only, no magnitude switch, no share.
+	measure 'IMS P Henkel PTT Label1' = FORMAT ( [IMS P Henkel PTT Dynamic], "#,##0.00" )
+		displayFolder: IMS P PTT Henkel
+		lineageTag: 8f0c2d31-4b57-4e19-9c22-6a1f5e77aa01
 
-	measure 'IMS P Henkel PTT Label2' =
-			FORMAT([IMS P Henkel PTT Growth Dynamic], "0.0%")
-			    & UNICHAR(10) & " | "
-			    & FORMAT(ABS([IMS P Henkel PTT Change Dynamic]), "0.0%")
-		displayFolder: IMS P PTT Henkel (placeholder)
+	/// Second label row for the PTT column: change % vs year ago only (HTML chgTxt).
+	measure 'IMS P Henkel PTT Label2' = FORMAT ( [IMS P Henkel PTT Growth Dynamic], "+0.0%;-0.0%;0.0%" )
+		displayFolder: IMS P PTT Henkel
 		lineageTag: 7f82755b-921b-5279-8ace-79da30402e87
 
 	measure 'Net IMS P Henkel Label1' =
@@ -1568,6 +1569,20 @@ table 'IMS Processed'
 		formatString: "▲ +"0.0%;"▼ -"0.0%;0.0%
 		displayFolder: IMS PnL Arrows
 		lineageTag: 5e7a91c0-3b42-4d18-9f60-7a1c2b400011
+
+	/// Prior-year PTT on the same basis, so the growth label is a like-for-like rate change.
+	measure 'IMS P Henkel PTT LY Dynamic' =
+			VAR _grossLY = [Gross IMS P LY Dynamic]
+			VAR _tonsLY =
+			    CALCULATE (
+			        [Nielsen P Henkel Volume LY Dynamic],
+			        TREATAS ( VALUES ( 'IMS Processed'[Sales_Type] ), 'Nielsen Processed'[Sales_Type] )
+			    )
+			RETURN
+			    DIVIDE ( _grossLY, _tonsLY )
+		formatString: 0.00
+		displayFolder: IMS P PTT Henkel
+		lineageTag: 0b632fcc-167c-5f20-a29b-7e0b227e39ab
 
 	column BU
 		dataType: string
